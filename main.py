@@ -80,7 +80,43 @@ reserved = {
 tokens = (
     'ENTERO',
     'FLOTANTE',
-  
+    ### Karla Castro 
+    'BOOLEANO',
+    'STRING',
+    'SIGNO_DOLAR',
+    'SALTO_LINEA',
+    'TABULACION',
+    'LLAVE_IZQ',
+    'LLAVE_DER',
+    'CORCH_IZQ',
+    'CORCH_DER',
+    'PAREN_IZQ',
+    'PAREN_DER',
+    'ASIGNACION',
+    'ASIG_CONCA',
+    'ASIG_REFER',
+    'IGUAL',
+    'IDENTICO',
+    'DIFERENTE',
+    'SUMA',
+    'RESTA',
+    'MULTIPL',
+    'DIVISION',
+    'POTENCIA',
+    'MODULO',
+    'INCREMENTO',
+    'DECREMENTO',
+    'MAYOR_QUE',
+    'MAYOR_IGUAL',
+    'MENOR_QUE',
+    'MENOR_IGUAL',
+    'AND',
+    'OR',
+    'PUNTO',
+    'PUNTO_COMA',
+    'INTERROG_AB',
+    'INTERROG_CE'
+    ###
 ) + tuple( reserved.values() )
 
 #ER para tokens definidos
@@ -94,4 +130,5 @@ def t_FLOTANTE(t):
     r'(-?[1-9]\d*\.\d+)|0.0'
     t.value = float(t.value)
     return t
+
 
