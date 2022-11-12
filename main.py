@@ -3,16 +3,16 @@ import ply.lex as lex
 # Lista de palabras reservadas
 #Elaborado por Carlos Gómez
 reserved = {
-"__halt_compiler()":"_HALT_COMPILER()", 	
+
 "break":"BREAK",    
 "clone":"CLONE",
-"die()":"DIE()",
-"empty()":"EMPYT()",
+
+
 "endswitch":"ENDSWITCH",
 "final":"FINAL",
 "function":"FUNCTION",
 "include":"INCLUDE",
-"isset()":"ISSET()",
+
 "or": "OR",
 "requiere":"REQUIERE",
 "throw":"THROW",
@@ -25,32 +25,32 @@ reserved = {
 "endwhile":"ENDWHILE",
 "finally":"FINALLY",
 "global":"GLOBAL",
-"include_once":"INCLUDE_ONCE",
-"list()":"LIST()",
+
+
 "print":"PRINT",
-"requie_once":"REQUIE_ONCE",
+
 "trait":"TRAIT",
 "while":"WHILE",
 "and":"AND",
 "case":"CASE",
 "continue":"CONTINUE",
 "echo":"ECHO",
-"endfor":"ENDFOR",
-"eval()":"EVAL()",
+
+
 "fn":"FN",
-"goto":"GOTO",
+
 "instanceof":"INTANCEOF",
 "match":"MACHT",
 "private":"PRIVATE",
 "return":"RETURN",
 "try":"TRY",
 "xor":"XOR",
-"array()":"ARRAY()",
+
 "cath":"CATH",
 "declare":"DECLARE",
 "else":"ELSE",
-"endeforeach":"ENDFOREACH",
-"exit()":"EXIT()",
+
+
 "for":"FOR",
 "if": "IF",
 "for": "FOR",
@@ -58,8 +58,8 @@ reserved = {
 "namespace":"NAMESPACE",
 "protected":"PROTECTED",
 "static":"STATIC",
-"unset()":"UNSET()",
-"yeild":"YEILD",
+
+
 "as":"AS",
 "class":"CLASS",
 "default":"DEFAULT",
@@ -73,7 +73,7 @@ reserved = {
 "public":"PUBLIC",
 "switch":"SWITCH",
 "use":"USE",
-"yeild_from":"YEILD_FROM"
+
 }
 #Elaborado Carlos Gomez
 #Definicion de tokens
@@ -132,3 +132,28 @@ def t_FLOTANTE(t):
     return t
 
 
+#Carlos Gomez - Karla Castro - Emily Cordero
+
+#Construya el lexer
+lexer = lex.lex()
+
+###  Lea el archivo source.txt y retorne los tokens
+
+
+# Método para analizar cada línea
+def analizar(data):
+  lexer.input(data)
+  while True:
+    tok = lexer.token()
+    if not tok:
+      break
+    print(tok)
+
+
+# Leer archivos
+archivo = open("algoritmos.txt")
+for linea in archivo:
+  print(">>" + linea)
+  analizar(linea)
+  if len(linea) == 0:
+    break
