@@ -83,6 +83,7 @@ tokens = (
     ### Karla Castro 
     'BOOLEANO',
     'STRING',
+    'VARIABLE',
     'SIGNO_DOLAR',
     'SALTO_LINEA',
     'TABULACION',
@@ -137,7 +138,7 @@ def t_FLOTANTE(t):
 #Construya el lexer
 lexer = lex.lex()
 
-###  Lea el archivo source.txt y retorne los tokens
+###  Lea el archivo algoritmos.txt y retorne los tokens
 
 
 # Método para analizar cada línea
