@@ -3,85 +3,71 @@ import ply.lex as lex
 # Lista de palabras reservadas
 #Elaborado por Carlos Gómez
 reserved = {
+    "break": "BREAK",
+    "clone": "CLONE",
+    "endswitch": "ENDSWITCH",
+    "final": "FINAL",
+    "function": "FUNCTION",
+    "include": "INCLUDE",
 
-"break":"BREAK",    
-"clone":"CLONE",
-
-
-"endswitch":"ENDSWITCH",
-"final":"FINAL",
-"function":"FUNCTION",
-"include":"INCLUDE",
-
-"or": "OR",
-"requiere":"REQUIERE",
-"throw":"THROW",
-"var":"VAR",
-"abstract":"ABSTRACT",
-"callable":"CALLABLE",
-"const":"CONST",
-"do":"DO",
-"endddeclare":"ENDDECLARE",
-"endwhile":"ENDWHILE",
-"finally":"FINALLY",
-"global":"GLOBAL",
-
-
-"print":"PRINT",
-
-"trait":"TRAIT",
-"while":"WHILE",
-"and":"AND",
-"case":"CASE",
-"continue":"CONTINUE",
-"echo":"ECHO",
-
-
-"fn":"FN",
-
-"instanceof":"INTANCEOF",
-"match":"MACHT",
-"private":"PRIVATE",
-"return":"RETURN",
-"try":"TRY",
-"xor":"XOR",
-
-"cath":"CATH",
-"declare":"DECLARE",
-"else":"ELSE",
-
-
-"for":"FOR",
-"if": "IF",
-"for": "FOR",
-"inteadof":"INTEADOF",
-"namespace":"NAMESPACE",
-"protected":"PROTECTED",
-"static":"STATIC",
-
-
-"as":"AS",
-"class":"CLASS",
-"default":"DEFAULT",
-"elseif":"ELSEIF",
-"endif":"ENDIF",
-"extends":"EXTENDS",
-"foreach":"FOREACH",
-"implements":"IMPLEMENTS",
-"interface":"INTERFACE",
-"new":"NEW",
-"public":"PUBLIC",
-"switch":"SWITCH",
-"use":"USE",
-
+    #"or": "OR",
+    "requiere": "REQUIERE",
+    "throw": "THROW",
+    "var": "VAR",
+    "abstract": "ABSTRACT",
+    "callable": "CALLABLE",
+    "const": "CONST",
+    "do": "DO",
+    "endddeclare": "ENDDECLARE",
+    "endwhile": "ENDWHILE",
+    "finally": "FINALLY",
+    "global": "GLOBAL",
+    "print": "PRINT",
+    "trait": "TRAIT",
+    "while": "WHILE",
+    #"and":"AND",
+    "case": "CASE",
+    "continue": "CONTINUE",
+    "echo": "ECHO",
+    "fn": "FN",
+    "instanceof": "INTANCEOF",
+    "match": "MACHT",
+    "private": "PRIVATE",
+    "return": "RETURN",
+    "try": "TRY",
+    "xor": "XOR",
+    "cath": "CATH",
+    "declare": "DECLARE",
+    "else": "ELSE",
+    "for": "FOR",
+    "if": "IF",
+    "for": "FOR",
+    "inteadof": "INTEADOF",
+    "namespace": "NAMESPACE",
+    "protected": "PROTECTED",
+    "static": "STATIC",
+    "as": "AS",
+    "class": "CLASS",
+    "default": "DEFAULT",
+    "elseif": "ELSEIF",
+    "endif": "ENDIF",
+    "extends": "EXTENDS",
+    "foreach": "FOREACH",
+    "implements": "IMPLEMENTS",
+    "interface": "INTERFACE",
+    "new": "NEW",
+    "public": "PUBLIC",
+    "switch": "SWITCH",
+    "use": "USE",
 }
 #Elaborado Carlos Gomez
 #Definicion de tokens
 tokens = (
     'ENTERO',
     'FLOTANTE',
-    ### Karla Castro 
+    ### Karla Castro
     'BOOLEANO',
+    'COMENTARIO',
     'STRING',
     'VARIABLE',
     'SIGNO_DOLAR',
@@ -115,22 +101,76 @@ tokens = (
     'OR',
     'PUNTO',
     'PUNTO_COMA',
-    'INTERROG_AB',
     'INTERROG_CE'
     ###
-) + tuple( reserved.values() )
+) + tuple(reserved.values())
+#Emily Cordero
+# Regular expression rules for simple tokens
+#t_SIGNO_DOLAR  = r'\$'
+t_SALTO_LINEA = r'\n'
+t_TABULACION = r'\t'
+t_LLAVE_IZQ = r'\{'
+t_LLAVE_DER = r'\}'
+t_CORCH_IZQ = r'\['
+t_CORCH_DER = r'\]'
+t_PAREN_IZQ = r'\('
+t_PAREN_DER = r'\)'
+t_ASIGNACION = r'\$'
+t_ASIG_CONCA = r'.='
+#t_ASIG_REFER = r'=&$'
+t_IGUAL = r'='
+t_IDENTICO = r'=='
+t_DIFERENTE = r'!='
+t_SUMA = r'\+'
+t_RESTA = r'-'
+t_MULTIPL = r'\*'
+t_DIVISION = r'/'
+t_POTENCIA = r'\*{2}'
+t_MODULO = r'\%'
+t_INCREMENTO = r'\+{2}'
+t_DECREMENTO = r'\-{2}'
+t_MAYOR_QUE = r'>'
+t_MAYOR_IGUAL = r'>='
+t_MENOR_QUE = r'<'
+t_MENOR_IGUAL = r'<='
+t_AND = r'\&{2}'
+t_OR = r'\|{2}'
+t_PUNTO = r'\.'
+t_PUNTO_COMA = r';'
+t_INTERROG_CE = r'\?'
 
 #ER para tokens definidos
+
 
 def t_ENTERO(t):
     r'(-?[1-9]\d*)|0'
     t.value = int(t.value)
     return t
 
+
 def t_FLOTANTE(t):
     r'(-?[1-9]\d*\.\d+)|0.0'
     t.value = float(t.value)
     return t
+
+
+#Emily Cordero
+def t_STRING(t):
+    r'("[^"]*"|\`[^\']*\`)'
+    t.type = reserved.get(t.value, "CADENA")
+    return t
+
+
+def t_BOOLEAN0(t):
+    r'(true|false)'
+    print('hola2')
+    t.type = reserved.get(t.value, "BOOLEANO")
+    return t
+
+
+def t_COMENTARIO(t):
+    r'//.*'
+    pass
 
 
 #Carlos Gomez - Karla Castro - Emily Cordero
