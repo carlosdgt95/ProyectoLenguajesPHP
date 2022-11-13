@@ -44,9 +44,33 @@
     # Karla Castro
 
 
-
+    #Carlos Gomez
     
+    function esPar($_num){
+        if($_num%2==0) }
+        return True;}
+        else{
+        return False;}     
+    }  
+     function binario($_num){
+        $numStr="";
+        while($_num!=0){
+        $residuo=$_num%2;
+        $_num=$_num//2;
+        num+=str($residuo);
+        }
+        return strrev($numStr);
+
+    }  
+
+    $num=5;
+    esPar($num); 
+    binario($num);
+#Carlos Gomezs
+
+ 
     ?> 
+   
     </body>
 </html>
 
