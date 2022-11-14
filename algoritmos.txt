@@ -68,6 +68,23 @@
     binario($num);
 #Carlos Gomezs
 
+#Emily Cordero
+
+$descuento=25;
+$totalCompra = 100;
+$minValorDscto = 60;
+function calcularDescuento($_dscto,$_total,$_minV){
+  if($_total>$_minV){
+    echo "Usted aplica al descuento \n";
+    $dsctoCalcular = $_total-$_total*($_dscto/100);
+    echo "Total a pagar: $dsctoCalcular";
+  }else{
+    echo "Usted no aplica al descuento \n";
+  }
+}
+calcularDescuento($descuento,$totalCompra,$minValorDscto);
+
+#Emily Cordero
  
     ?> 
    
