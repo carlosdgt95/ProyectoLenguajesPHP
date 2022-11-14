@@ -101,12 +101,16 @@ tokens = (
     'OR',
     'PUNTO',
     'PUNTO_COMA',
-    'INTERROG_CE'
+    'INTERROG_CE',
+    'CADENA',
+    'ID'
+
     ###
 ) + tuple(reserved.values())
 #Emily Cordero
 # Regular expression rules for simple tokens
 #t_SIGNO_DOLAR  = r'\$'
+
 t_SALTO_LINEA = r'\n'
 t_TABULACION = r'\t'
 t_LLAVE_IZQ = r'\{'
@@ -138,42 +142,48 @@ t_OR = r'\|{2}'
 t_PUNTO = r'\.'
 t_PUNTO_COMA = r';'
 t_INTERROG_CE = r'\?'
-
-#ER para tokens definidos
-
-
 def t_ENTERO(t):
     r'(-?[1-9]\d*)|0'
     t.value = int(t.value)
     return t
-
 
 def t_FLOTANTE(t):
     r'(-?[1-9]\d*\.\d+)|0.0'
     t.value = float(t.value)
     return t
 
+def t_ID(t):
 
-#Emily Cordero
-def t_STRING(t):
-    r'("[^"]*"|\`[^\']*\`)'
-    t.type = reserved.get(t.value, "CADENA")
+    r'[A-z_]\w*'
+    t.type = reserved.get(t.value, 'ID')
+
     return t
 
 
-def t_BOOLEAN0(t):
-    r'(true|false)'
-    print('hola2')
-    t.type = reserved.get(t.value, "BOOLEANO")
-    return t
+def t_error(t):
+
+    print("No es reconocido '%s'" %t.value[0])
+    t.lexer.skip(1)
 
 
-def t_COMENTARIO(t):
+def t_newline(t):
+     r'\n+'
+     t.lexer.lineno += len(t.value)
+
+def t_COMENT(t):
+  
     r'//.*'
+    
+   
+    pass
+def t_COMENT2(t):
+  
+    r'\#.*'
+    
+   
     pass
 
-
-#Carlos Gomez - Karla Castro - Emily Cordero
+t_ignore = ' \t'
 
 #Construya el lexer
 lexer = lex.lex()
