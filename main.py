@@ -6,21 +6,46 @@ from lexicophp import tokens
 # '''cuerpo: salida
 #  | variable'''
 
+	
+def p_sentencias(p):
+  '''sentencias : valor
+                  | estructuras_control 
+                  | tipoFunciones '''
+def p_estructuras_control(p):
+	'''estructuras_control : SWITCH1
+                          | cola'''
+def p_funciones(p):
+  '''tipoFunciones : sinRetorno'''
+
+def p_sinretorno(p):
+  '''sinRetorno : FUNCTION CADENA PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ salida1 LLAVE_DER'''
+def p_cola(p):
+  '''cola : SIGNO_DOLAR CADENA IGUAL NEW QUEUE PAREN_IZQ PAREN_DER'''
+def p_switch1(p):
+   '''SWITCH1 : SWITCH PAREN_IZQ  SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ CASE ENTERO PUNTODOBLE  BREAK LLAVE_DER'''
+
+def p_valor(p):
+  ''' valor :  STRING
+   '''
+
+
 
 def p_salida_forma1(p):
-  "salida : ECHO STRING PUNTO_COMA"
+  '''salida1 : ECHO CADENA PUNTO_COMA'''
 
 
 def p_salida_forma2(p):
-  "salida : PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMA"
+  '''salida : PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMA'''
 
 
 def p_salida_forma3(p):
-  "salida : PRINT STRING PUNTO_COMA"
+  '''salida : PRINT STRING PUNTO_COMA'''
 
 
 def p_variable_ps(p):
-  "variable : SIGNO_DOLAR CADENA IGUAL STRING PUNTO_COMA"
+  '''variable : SIGNO_DOLAR CADENA IGUAL STRING PUNTO_COMA'''
+
+
 
 
 def p_error(p):
