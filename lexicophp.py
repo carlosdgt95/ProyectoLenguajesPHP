@@ -9,24 +9,19 @@ reserved = {
   "final": "FINAL",
   "function": "FUNCTION",
   "include": "INCLUDE",
-
-  #"or": "OR",
+  "or": "OR",
   "requiere": "REQUIERE",
   "throw": "THROW",
-  #"var": "VAR",
+  "var": "VAR",
   "abstract": "ABSTRACT",
   "callable": "CALLABLE",
   "const": "CONST",
-  "do": "DO",
   "endddeclare": "ENDDECLARE",
-  "endwhile": "ENDWHILE",
   "finally": "FINALLY",
   "global": "GLOBAL",
   "print": "PRINT",
   "trait": "TRAIT",
-  "while": "WHILE",
-  #"and":"AND",
-  "case": "CASE",
+  "and":"AND",
   "continue": "CONTINUE",
   "echo": "ECHO",
   "fn": "FN",
@@ -35,13 +30,8 @@ reserved = {
   "private": "PRIVATE",
   "return": "RETURN",
   "try": "TRY",
-  "xor": "XOR",
   "cath": "CATH",
   "declare": "DECLARE",
-  "else": "ELSE",
-  "for": "FOR",
-  "if": "IF",
-  "for": "FOR",
   "inteadof": "INTEADOF",
   "namespace": "NAMESPACE",
   "protected": "PROTECTED",
@@ -49,18 +39,30 @@ reserved = {
   "as": "AS",
   "class": "CLASS",
   "default": "DEFAULT",
-  "elseif": "ELSEIF",
-  "endif": "ENDIF",
   "extends": "EXTENDS",
-  "foreach": "FOREACH",
   "implements": "IMPLEMENTS",
   "interface": "INTERFACE",
   "new": "NEW",
   "public": "PUBLIC",
-  "switch": "SWITCH",
   "use": "USE",
-  "true":"TRUE",
-  "false":"FALSE"
+  "count": "COUNT",
+  "strrev" : "STRREV",
+  #Estructuras de Control
+  "if": "IF",
+  "elseif": "ELSEIF",
+  "else": "ELSE",
+  "endif": "ENDIF",
+  "for": "FOR",
+  "foreach": "FOREACH",
+  "do": "DO",
+  "while": "WHILE",
+  "endwhile": "ENDWHILE",
+  "switch": "SWITCH",
+  "case": "CASE",
+  #Estructuras de datos
+  "array" : "ARRAY",
+  "SplStack" : "STACK",
+  "SplQueue" : "QUEUE",
 }
 #Elaborado Carlos Gomez
 #Definicion de tokens
@@ -68,9 +70,9 @@ tokens = (
   'ENTERO',
   'FLOTANTE',
   ### Karla Castro
+  'BOOLEANO',
   'COMENTARIO',
   'STRING',
-  'VARIABLE',
   'SIGNO_DOLAR',
   'SALTO_LINEA',
   'TABULACION',
@@ -80,7 +82,6 @@ tokens = (
   'CORCH_DER',
   'PAREN_IZQ',
   'PAREN_DER',
-  'ASIGNACION',
   'ASIG_CONCA',
   'ASIG_REFER',
   'IGUAL',
@@ -90,6 +91,7 @@ tokens = (
   'RESTA',
   'MULTIPL',
   'DIVISION',
+  'DIVISION_ENT',
   'POTENCIA',
   'MODULO',
   'INCREMENTO',
@@ -98,31 +100,29 @@ tokens = (
   'MAYOR_IGUAL',
   'MENOR_QUE',
   'MENOR_IGUAL',
-  'AND',
-  'OR',
+  'AND_SYMB',
+  'OR_SYMB',
   'PUNTO',
   'PUNTO_COMA',
   'INTERROG_CE',
   'CADENA',
-  'ID',
   'COMA'
 
   ###
 ) + tuple(reserved.values())
 #Emily Cordero
 # Regular expression rules for simple tokens
-#t_SIGNO_DOLAR  = r'\$'
 
-t_SALTO_LINEA = r'\n'
-t_TABULACION = r'\t'
+t_SIGNO_DOLAR  = r'\$'
+t_SALTO_LINEA = r'\\n'
+t_TABULACION = r'\\t'
 t_LLAVE_IZQ = r'\{'
 t_LLAVE_DER = r'\}'
 t_CORCH_IZQ = r'\['
 t_CORCH_DER = r'\]'
 t_PAREN_IZQ = r'\('
 t_PAREN_DER = r'\)'
-t_ASIGNACION = r'\$'
-t_ASIG_CONCA = r'.='
+t_ASIG_CONCA = r'\.='
 t_IGUAL = r'='
 t_IDENTICO = r'=='
 t_DIFERENTE = r'!='
@@ -130,6 +130,7 @@ t_SUMA = r'\+'
 t_RESTA = r'-'
 t_MULTIPL = r'\*'
 t_DIVISION = r'/'
+t_DIVISION_ENT = r'//'
 t_POTENCIA = r'\*{2}'
 t_MODULO = r'\%'
 t_INCREMENTO = r'\+{2}'
@@ -138,8 +139,8 @@ t_MAYOR_QUE = r'>'
 t_MAYOR_IGUAL = r'>='
 t_MENOR_QUE = r'<'
 t_MENOR_IGUAL = r'<='
-t_AND = r'\&{2}'
-t_OR = r'\|{2}'
+t_AND_SYMB = r'\&{2}'
+t_OR_SYMB = r'\|{2}'
 t_PUNTO = r'\.'
 t_PUNTO_COMA = r';'
 t_INTERROG_CE = r'\?'
@@ -158,9 +159,15 @@ def t_FLOTANTE(t):
   return t
 
 
-def t_ID(t):
+def t_BOOLEANO(t):
+  r'(true|True|TRUE|false|False|FALSE)'
+  t.type = reserved.get(t.value, "BOOLEANO")
+  return t
+
+
+def t_CADENA(t):
   r'([a-zA-Z0-9_]?[a-zA-Z0-9_]+)'
-  t.type = reserved.get(t.value, 'ID')
+  t.type = reserved.get(t.value, 'CADENA')
   return t
 
 
@@ -171,7 +178,6 @@ def t_STRING(t):
 
 
 def t_error(t):
-
   print("No es reconocido '%s'" % t.value[0])
   t.lexer.skip(1)
 
@@ -181,12 +187,7 @@ def t_newline(t):
   t.lexer.lineno += len(t.value)
 
 
-def t_COMENT(t):
-  r'//.*'
-  pass
-
-
-def t_COMENT2(t):
+def t_COMENTARIO(t):
   r'\#.*'
   pass
 
@@ -197,6 +198,7 @@ t_ignore = ' \t'
 lexer = lex.lex()
 
 ###  Lea el archivo algoritmos.txt y retorne los tokens
+
 '''
 # Método para analizar cada línea
 def analizar(data):
