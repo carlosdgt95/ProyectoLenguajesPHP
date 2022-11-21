@@ -1,0 +1,316 @@
+11/21/2022, 00:45:05	$libros = array("Don Quijote de la Mancha", "El principito", "El señor de los anillos",  "El Alquimista", "Narnia", "After",  "Romeo y Julieta");
+
+11/21/2022, 00:45:05	$autores = array("Miguel De Cervantes", "Antoine de Saint-Exupery", "J. R. R. Tolkien",  "Paulo Coello", "C. S. Lewis", "Anna Todd",  "Wiliam Shakespeare");
+
+11/21/2022, 00:45:05	function crear_diccionario($arreglo_clave, $arreglo_valor){
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: COMA, Línea: 3, Col: 41
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 3, Col: 43
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 3, Col: 44
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	  $diccionario = array();
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: PAREN_DER, Línea: 4, Col: 23
+11/21/2022, 00:45:05	Error de sintaxis - Token: PUNTO_COMA, Línea: 4, Col: 24
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	  $_longitud = count($arreglo_clave);
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: COUNT, Línea: 5, Col: 15
+11/21/2022, 00:45:05	Error de sintaxis - Token: PAREN_IZQ, Línea: 5, Col: 20
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 5, Col: 21
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 5, Col: 22
+11/21/2022, 00:45:05	Error de sintaxis - Token: PAREN_DER, Línea: 5, Col: 35
+11/21/2022, 00:45:05	Error de sintaxis - Token: PUNTO_COMA, Línea: 5, Col: 36
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	  for ($i = 0; $i < $_longitud; $i++)
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: FOR, Línea: 6, Col: 2
+11/21/2022, 00:45:05	Error de sintaxis - Token: PAREN_IZQ, Línea: 6, Col: 6
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 6, Col: 15
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 6, Col: 16
+11/21/2022, 00:45:05	Error de sintaxis - Token: MENOR_QUE, Línea: 6, Col: 18
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 6, Col: 20
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 6, Col: 21
+11/21/2022, 00:45:05	Error de sintaxis - Token: PUNTO_COMA, Línea: 6, Col: 30
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 6, Col: 32
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 6, Col: 33
+11/21/2022, 00:45:05	Error de sintaxis - Token: INCREMENTO, Línea: 6, Col: 34
+11/21/2022, 00:45:05	Error de sintaxis - Token: PAREN_DER, Línea: 6, Col: 36
+11/21/2022, 00:45:05	  {
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: LLAVE_IZQ, Línea: 7, Col: 2
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	    $clave_autor = $arreglo_clave[$i];
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 8, Col: 19
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 8, Col: 20
+11/21/2022, 00:45:05	Error de sintaxis - Token: CORCH_IZQ, Línea: 8, Col: 33
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 8, Col: 34
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 8, Col: 35
+11/21/2022, 00:45:05	Error de sintaxis - Token: CORCH_DER, Línea: 8, Col: 36
+11/21/2022, 00:45:05	Error de sintaxis - Token: PUNTO_COMA, Línea: 8, Col: 37
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	    $valor_libro = $arreglo_valor[$i];
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 9, Col: 19
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 9, Col: 20
+11/21/2022, 00:45:05	Error de sintaxis - Token: CORCH_IZQ, Línea: 9, Col: 33
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 9, Col: 34
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 9, Col: 35
+11/21/2022, 00:45:05	Error de sintaxis - Token: CORCH_DER, Línea: 9, Col: 36
+11/21/2022, 00:45:05	Error de sintaxis - Token: PUNTO_COMA, Línea: 9, Col: 37
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	    $diccionario[$clave_autor] = $valor_libro ;
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: CORCH_IZQ, Línea: 10, Col: 16
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 10, Col: 17
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 10, Col: 18
+11/21/2022, 00:45:05	Error de sintaxis - Token: CORCH_DER, Línea: 10, Col: 29
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 10, Col: 33
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 10, Col: 34
+11/21/2022, 00:45:05	Error de sintaxis - Token: PUNTO_COMA, Línea: 10, Col: 46
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	  }
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: LLAVE_DER, Línea: 11, Col: 2
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	  return $diccionario;
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: RETURN, Línea: 12, Col: 2
+11/21/2022, 00:45:05	Error de sintaxis - Token: PUNTO_COMA, Línea: 12, Col: 21
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	}
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: LLAVE_DER, Línea: 13, Col: 0
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	function mostrar_diccionario($_dicc){
+
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	  echo "Datos literarios \n";
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: STRING, Línea: 15, Col: 7
+11/21/2022, 00:45:05	Error de sintaxis - Token: PUNTO_COMA, Línea: 15, Col: 28
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	  foreach ($_dicc as $clave => $valor) {
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: FOREACH, Línea: 16, Col: 2
+11/21/2022, 00:45:05	Error de sintaxis - Token: PAREN_IZQ, Línea: 16, Col: 10
+11/21/2022, 00:45:05	Error de sintaxis - Token: AS, Línea: 16, Col: 18
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 16, Col: 21
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 16, Col: 22
+11/21/2022, 00:45:05	Error de sintaxis - Token: FLECHA, Línea: 16, Col: 28
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 16, Col: 31
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 16, Col: 32
+11/21/2022, 00:45:05	Error de sintaxis - Token: PAREN_DER, Línea: 16, Col: 37
+11/21/2022, 00:45:05	Error de sintaxis - Token: LLAVE_IZQ, Línea: 16, Col: 39
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	    echo "Autor: {$clave}"."\t";
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: STRING, Línea: 17, Col: 9
+11/21/2022, 00:45:05	Error de sintaxis - Token: PUNTO, Línea: 17, Col: 26
+11/21/2022, 00:45:05	Error de sintaxis - Token: STRING, Línea: 17, Col: 27
+11/21/2022, 00:45:05	Error de sintaxis - Token: PUNTO_COMA, Línea: 17, Col: 31
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	    echo "Obra: {$valor} \n";
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: STRING, Línea: 18, Col: 9
+11/21/2022, 00:45:05	Error de sintaxis - Token: PUNTO_COMA, Línea: 18, Col: 28
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	  }
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: LLAVE_DER, Línea: 19, Col: 2
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	}
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: LLAVE_DER, Línea: 20, Col: 0
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	$dicc_completo = crear_diccionario($autores, $libros);
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 21, Col: 17
+11/21/2022, 00:45:05	Error de sintaxis - Token: PAREN_IZQ, Línea: 21, Col: 34
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 21, Col: 35
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 21, Col: 36
+11/21/2022, 00:45:05	Error de sintaxis - Token: COMA, Línea: 21, Col: 43
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 21, Col: 45
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 21, Col: 46
+11/21/2022, 00:45:05	Error de sintaxis - Token: PAREN_DER, Línea: 21, Col: 52
+11/21/2022, 00:45:05	Error de sintaxis - Token: PUNTO_COMA, Línea: 21, Col: 53
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	mostrar_diccionario($dicc_completo);
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 22, Col: 0
+11/21/2022, 00:45:05	Error de sintaxis - Token: PAREN_IZQ, Línea: 22, Col: 19
+11/21/2022, 00:45:05	Error de sintaxis - Token: PAREN_DER, Línea: 22, Col: 34
+11/21/2022, 00:45:05	Error de sintaxis - Token: PUNTO_COMA, Línea: 22, Col: 35
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	function esPar($_num){
+
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	  if($_num%2==0){
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 24, Col: 5
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 24, Col: 6
+11/21/2022, 00:45:05	Error de sintaxis - Token: MODULO, Línea: 24, Col: 10
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	  return True;
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: RETURN, Línea: 25, Col: 2
+11/21/2022, 00:45:05	Error de sintaxis - Token: PUNTO_COMA, Línea: 25, Col: 13
+11/21/2022, 00:45:05	  }else{
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: LLAVE_DER, Línea: 26, Col: 2
+11/21/2022, 00:45:05	Error de sintaxis - Token: ELSE, Línea: 26, Col: 3
+11/21/2022, 00:45:05	Error de sintaxis - Token: LLAVE_IZQ, Línea: 26, Col: 7
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	  return False;
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: RETURN, Línea: 27, Col: 2
+11/21/2022, 00:45:05	Error de sintaxis - Token: PUNTO_COMA, Línea: 27, Col: 14
+11/21/2022, 00:45:05	  }     
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: LLAVE_DER, Línea: 28, Col: 2
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	}  
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: LLAVE_DER, Línea: 29, Col: 0
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	function binario($_num){
+
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	  $numStr="";
+
+11/21/2022, 00:45:05	  while($_num!=0){
+
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	  $residuo=$_num%2;
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 33, Col: 11
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 33, Col: 12
+11/21/2022, 00:45:05	Error de sintaxis - Token: MODULO, Línea: 33, Col: 16
+11/21/2022, 00:45:05	  $_num=$_num//2;
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 34, Col: 8
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 34, Col: 9
+11/21/2022, 00:45:05	Error de sintaxis - Token: DIVISION_ENT, Línea: 34, Col: 13
+11/21/2022, 00:45:05	  num+=str($residuo);
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 35, Col: 2
+11/21/2022, 00:45:05	Error de sintaxis - Token: SUMA, Línea: 35, Col: 5
+11/21/2022, 00:45:05	Error de sintaxis - Token: IGUAL, Línea: 35, Col: 6
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 35, Col: 7
+11/21/2022, 00:45:05	Error de sintaxis - Token: PAREN_IZQ, Línea: 35, Col: 10
+11/21/2022, 00:45:05	Error de sintaxis - Token: PAREN_DER, Línea: 35, Col: 19
+11/21/2022, 00:45:05	Error de sintaxis - Token: PUNTO_COMA, Línea: 35, Col: 20
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	  }
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: LLAVE_DER, Línea: 36, Col: 2
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	  return strrev($numStr);
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: RETURN, Línea: 37, Col: 2
+11/21/2022, 00:45:05	Error de sintaxis - Token: STRREV, Línea: 37, Col: 9
+11/21/2022, 00:45:05	Error de sintaxis - Token: PAREN_IZQ, Línea: 37, Col: 15
+11/21/2022, 00:45:05	Error de sintaxis - Token: PAREN_DER, Línea: 37, Col: 23
+11/21/2022, 00:45:05	Error de sintaxis - Token: PUNTO_COMA, Línea: 37, Col: 24
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	}  
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: LLAVE_DER, Línea: 38, Col: 0
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	$num=5;
+
+11/21/2022, 00:45:05	esPar($num); 
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 40, Col: 0
+11/21/2022, 00:45:05	Error de sintaxis - Token: PAREN_IZQ, Línea: 40, Col: 5
+11/21/2022, 00:45:05	Error de sintaxis - Token: PAREN_DER, Línea: 40, Col: 10
+11/21/2022, 00:45:05	Error de sintaxis - Token: PUNTO_COMA, Línea: 40, Col: 11
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	binario($num);
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 41, Col: 0
+11/21/2022, 00:45:05	Error de sintaxis - Token: PAREN_IZQ, Línea: 41, Col: 7
+11/21/2022, 00:45:05	Error de sintaxis - Token: PAREN_DER, Línea: 41, Col: 12
+11/21/2022, 00:45:05	Error de sintaxis - Token: PUNTO_COMA, Línea: 41, Col: 13
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	$descuento=25;
+
+11/21/2022, 00:45:05	$totalCompra = 100;
+
+11/21/2022, 00:45:05	$minValorDscto = 60;
+
+11/21/2022, 00:45:05	function calcularDescuento($_dscto,$_total,$_minV){
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: COMA, Línea: 45, Col: 34
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 45, Col: 35
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 45, Col: 36
+11/21/2022, 00:45:05	Error de sintaxis - Token: COMA, Línea: 45, Col: 42
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 45, Col: 43
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 45, Col: 44
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	  if($_total>$_minV){
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 46, Col: 5
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 46, Col: 6
+11/21/2022, 00:45:05	Error de sintaxis - Token: MAYOR_QUE, Línea: 46, Col: 12
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 46, Col: 13
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 46, Col: 14
+11/21/2022, 00:45:05	Error de sintaxis - Token: PAREN_DER, Línea: 46, Col: 19
+11/21/2022, 00:45:05	Error de sintaxis - Token: LLAVE_IZQ, Línea: 46, Col: 20
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	    echo "Usted aplica al descuento \n";
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: STRING, Línea: 47, Col: 9
+11/21/2022, 00:45:05	Error de sintaxis - Token: PUNTO_COMA, Línea: 47, Col: 39
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	    $dsctoCalcular = $_total-$_total*($_dscto/100);
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 48, Col: 21
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 48, Col: 22
+11/21/2022, 00:45:05	Error de sintaxis - Token: RESTA, Línea: 48, Col: 28
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 48, Col: 29
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 48, Col: 30
+11/21/2022, 00:45:05	Error de sintaxis - Token: MULTIPL, Línea: 48, Col: 36
+11/21/2022, 00:45:05	Error de sintaxis - Token: PAREN_IZQ, Línea: 48, Col: 37
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 48, Col: 38
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 48, Col: 39
+11/21/2022, 00:45:05	Error de sintaxis - Token: DIVISION, Línea: 48, Col: 45
+11/21/2022, 00:45:05	Error de sintaxis - Token: PAREN_DER, Línea: 48, Col: 49
+11/21/2022, 00:45:05	    echo "Total a pagar: $dsctoCalcular";
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: STRING, Línea: 49, Col: 9
+11/21/2022, 00:45:05	Error de sintaxis - Token: PUNTO_COMA, Línea: 49, Col: 40
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	  }else{
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: LLAVE_DER, Línea: 50, Col: 2
+11/21/2022, 00:45:05	Error de sintaxis - Token: ELSE, Línea: 50, Col: 3
+11/21/2022, 00:45:05	Error de sintaxis - Token: LLAVE_IZQ, Línea: 50, Col: 7
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	    echo "Usted no aplica al descuento \n";
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: STRING, Línea: 51, Col: 9
+11/21/2022, 00:45:05	Error de sintaxis - Token: PUNTO_COMA, Línea: 51, Col: 42
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	  }
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: LLAVE_DER, Línea: 52, Col: 2
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	}
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: LLAVE_DER, Línea: 53, Col: 0
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
+11/21/2022, 00:45:05	calcularDescuento($descuento,$totalCompra,$minValorDscto);
+
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 54, Col: 0
+11/21/2022, 00:45:05	Error de sintaxis - Token: PAREN_IZQ, Línea: 54, Col: 17
+11/21/2022, 00:45:05	Error de sintaxis - Token: COMA, Línea: 54, Col: 28
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 54, Col: 29
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 54, Col: 30
+11/21/2022, 00:45:05	Error de sintaxis - Token: COMA, Línea: 54, Col: 41
+11/21/2022, 00:45:05	Error de sintaxis - Token: SIGNO_DOLAR, Línea: 54, Col: 42
+11/21/2022, 00:45:05	Error de sintaxis - Token: CADENA, Línea: 54, Col: 43
+11/21/2022, 00:45:05	Error de sintaxis - Token: PAREN_DER, Línea: 54, Col: 56
+11/21/2022, 00:45:05	Error de sintaxis - Token: PUNTO_COMA, Línea: 54, Col: 57
+11/21/2022, 00:45:05	Error de sintaxis Fin de Linea
