@@ -1,0 +1,8 @@
+11/20/2022, 23:31:52	$variable = true;
+11/20/2022, 23:32:07	$_pila = new splStack();
+11/20/2022, 23:31:46	Error de sintaxis - Token: CADENA, Línea: 1, Col: 13
+11/20/2022, 23:31:46	Error de sintaxis - Token: PAREN_IZQ, Línea: 1, Col: 21
+11/20/2022, 23:31:46	Error de sintaxis - Token: PAREN_DER, Línea: 1, Col: 22
+11/20/2022, 23:31:46	Error de sintaxis - Token: PUNTO_COMA, Línea: 1, Col: 23
+11/20/2022, 23:31:46	Error de sintaxis Fin de Linea
+11/20/2022, 23:32:37	$_pila = new SplStack();

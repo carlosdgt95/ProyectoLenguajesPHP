@@ -1,6 +1,9 @@
 import ply.yacc as yacc
 from lexicophp import tokens
 
+from datetime import datetime
+
+today = datetime.now()
 
 #### Todas las instrucciones disponibles ###
 def p_instrucciones(p):  
@@ -216,12 +219,12 @@ def p_sinretorno(p):
   
 def p_error(p):
     if p:
-        print(
-            f"Error de sintaxis - Token: {p.type}, Línea: {p.lineno}, Col: {p.lexpos}"
-        )
+        #print(f"Error de sintaxis - Token: {p.type}, Línea: {p.lineno}, Col: {p.lexpos}")
         parser.errok()
+        logs_file.write(today.strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +"Error de sintaxis - Token: "+ str(p.type) +", Línea: "+ str(p.lineno) +", Col: "+ str(p.lexpos) +"\n")
     else:
-        print("Error de sintaxis Fin de Linea")
+        #print("Error de sintaxis Fin de Linea")
+        logs_file.write(today.strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +"Error de sintaxis Fin de Linea"+"\n")
 
 
 parser = yacc.yacc()
@@ -229,13 +232,17 @@ parser = yacc.yacc()
 
 def validaRegla(s):
     result = parser.parse(s)
-    print(result)
+    #print(result)
 
 
 while True:
   try:
+    #Crear archivo para logs
+    logs_file = open ('logs.txt','a')
     s = input('calc > ')
+
   except EOFError:
     break
   if not s: continue
+  logs_file.write(datetime.now().strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +s+"\n")
   validaRegla(s)
