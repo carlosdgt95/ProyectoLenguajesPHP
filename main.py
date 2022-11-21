@@ -8,17 +8,25 @@ from lexicophp import tokens
 
 def p_instrucciones(p):  #todas las disponibles
   '''instrucciones : valor
+                    | datos
                     | asignacion
                     | salida 
-                    | estructuras_control  
+                    | estructuras_control
+                    | estructuras_datos  
                     | op_logica
+                    | op_pila
   '''
-#tipos de datos
-def p_valor(p):
-  '''valor : ENTERO
+#tipos de datos primitivos
+def p_datos(p):
+  '''datos : ENTERO
           | FLOTANTE
           | STRING 
           | BOOLEANO 
+  '''
+
+def p_valor(p):
+  '''valor : datos 
+          | pila
   '''
 
 def p_asignacion(p):
@@ -76,6 +84,23 @@ def p_operad_log(p):
                 | MENOR_IGUAL
   '''
 
+# PILA - KarlaCastro
+def p_estructuras_datos(p):
+  " estructuras_datos : pila "
+
+def p_pila(p):
+  " pila :  NEW STACK PAREN_IZQ PAREN_DER"
+
+def p_op_pila(p):
+  " op_pila : SIGNO_DOLAR CADENA RESTA MAYOR_QUE operad_pila"
+
+# push:añade, pop:elimina, count:cuenta, current:muestra el valor
+def p_operad_pila(p):
+  ''' operad_pila : PUSH PAREN_IZQ datos PAREN_DER PUNTO_COMA 
+                  | POP PAREN_IZQ PAREN_DER PUNTO_COMA
+                  | COUNT PAREN_IZQ PAREN_DER PUNTO_COMA
+                  | CURRENT PAREN_IZQ PAREN_DER PUNTO_COMA
+  '''
 
 
 def p_error(p):

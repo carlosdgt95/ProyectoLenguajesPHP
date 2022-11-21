@@ -62,6 +62,9 @@ reserved = {
   #Estructuras de datos
   "array" : "ARRAY",
   "SplStack" : "STACK",
+  "push" : "PUSH",
+  "pop" : "POP",
+  "current": "CURRENT",
   "SplQueue" : "QUEUE",
 }
 #Elaborado Carlos Gomez
