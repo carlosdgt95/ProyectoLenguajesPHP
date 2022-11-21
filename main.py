@@ -6,7 +6,8 @@ def p_instrucciones(p):
     '''instrucciones : salida
                     | asignacion
                     | whileDeclaracion
-                    | arreglo'''
+                    | arreglo
+                    | tipoFunciones'''
 
 
 def p_salida_forma1(p):
@@ -44,7 +45,8 @@ def p_condicion(p):
 
 def p_contenido(p):
     '''contenido : salida
-               | asignacion'''
+               | asignacion
+               | sinRetorno'''
 
 def p_whileDeclaracion(p):
     "whileDeclaracion : WHILE PAREN_IZQ SIGNO_DOLAR CADENA condicion valor PAREN_DER LLAVE_IZQ contenido LLAVE_DER"
@@ -85,8 +87,16 @@ def p_repite_valoresSeparados_flecha(p):
 def p_arreglo_asociativo(p):
     "arreglo : SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valoresflecha PAREN_DER PUNTO_COMA"
 
+##########
+def p_funciones(p):
+  '''tipoFunciones : sinRetorno'''
+
+def p_sinretorno(p):
+  '''sinRetorno : FUNCTION CADENA PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ contenido LLAVE_DER'''
 
 ##########
+
+  
 def p_error(p):
     if p:
         print(
