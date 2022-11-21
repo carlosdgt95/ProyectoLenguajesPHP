@@ -12,7 +12,8 @@ def p_instrucciones(p):  #todas las disponibles
                     | asignacion
                     | salida 
                     | estructuras_control
-                    | estructuras_datos  
+                    | estructuras_datos
+                    | funciones  
                     | op_logica
                     | op_pila
   '''
@@ -46,7 +47,9 @@ def p_estructuras_control(p):
   " estructuras_control : if_else "
 
 
-# Sentencia IF-ELSEIF-ELSE Karla Castro
+####  Sentencia IF-ELSEIF-ELSE Karla Castro
+
+# Ejemplo: if(3>=2){print"mayor";}elseif(3==2){print "iguales";}else{print "menor";}
 def p_if_else(p):
   ''' if_else : if_else_corto
               | if_else_extendido
@@ -84,13 +87,15 @@ def p_operad_log(p):
                 | MENOR_IGUAL
   '''
 
-# PILA - KarlaCastro
+#### PILA - KarlaCastro
 def p_estructuras_datos(p):
   " estructuras_datos : pila "
 
+# Ejemplo: $_pila = new SplStack();
 def p_pila(p):
   " pila :  NEW STACK PAREN_IZQ PAREN_DER"
 
+# Ejemplo: $_pila1 -> push(2);
 def p_op_pila(p):
   " op_pila : SIGNO_DOLAR CADENA RESTA MAYOR_QUE operad_pila"
 
@@ -102,6 +107,23 @@ def p_operad_pila(p):
                   | CURRENT PAREN_IZQ PAREN_DER PUNTO_COMA
   '''
 
+#### Funciones con lista de argumentos de longitud variable - KarlaCastro
+
+def p_funciones(p):
+  "funciones : funcion_variable "
+
+# Ejemplo: function abc(...$_num){ return $_suma}
+def p_funcion_variable(p):
+  ''' funcion_variable : FUNCTION CADENA PAREN_IZQ TRES_PUNTOS SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ bloque LLAVE_DER'''
+
+def p_bloque(p):
+  ''' bloque : asignacion
+              | salida
+              | retorno
+  '''
+
+def p_retorno(p):
+  " retorno : RETURN SIGNO_DOLAR CADENA"
 
 def p_error(p):
   if p:
