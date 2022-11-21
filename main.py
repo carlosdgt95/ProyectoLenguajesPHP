@@ -1,5 +1,3 @@
-
-#import sintactico
 import ply.yacc as yacc
 from lexicophp import tokens
 
@@ -7,7 +5,6 @@ from lexicophp import tokens
 #### Todas las instrucciones disponibles ###
 def p_instrucciones(p):  
   '''instrucciones : valor
-                    | datos
                     | asignacion
                     | salida 
                     | estructuras_control
@@ -54,11 +51,13 @@ def p_salida_forma3(p):
 def p_estructuras_control(p):
   ''' estructuras_control : if_else 
                           | switch1
+                          | whileDeclaracion
   '''
 
 def p_estructuras_datos(p):
   ''' estructuras_datos : pila 
                         | cola
+                        | arreglo
   '''
 
 def p_funciones(p):
@@ -74,6 +73,12 @@ def p_operad_log(p):
                 | MAYOR_IGUAL
                 | MENOR_QUE
                 | MENOR_IGUAL
+  '''
+#bloques de código permitidos dentro de alguna funcion
+def p_bloque(p):
+  ''' bloque : asignacion
+              | salida
+              | retorno
   '''
 
 ########## CARLOS GOMEZ  ##########
@@ -97,17 +102,14 @@ def p_switch1(p):
 ##  Sentencia IF-ELSEIF-ELSE
 # Ejemplo: if(3>=2){print"mayor";}elseif(3==2){print "iguales";}else{print "menor";}
 
-def p_if_else(p):
-  ''' if_else : if_else_corto
-              | if_else_extendido
-  '''
+
 # if-else
 def p_if_else_corto(p):
-  " if_else_corto : if_else_inicio if_else_fin"
+  " if_else : if_else_inicio if_else_fin"
 
 # if-elseif-else
 def p_if_else_extendido(p):
-  " if_else_extendido : if_else_inicio if_else_cuerpo if_else_fin"
+  " if_else : if_else_inicio if_else_cuerpo if_else_fin"
 
 # bloque IF
 def p_if_else_inicio(p):
@@ -128,7 +130,6 @@ def p_op_logica(p):
                 | STRING operad_log STRING
                 | BOOLEANO
   '''
-
 
 
 ## PILA 
@@ -157,12 +158,7 @@ def p_operad_pila(p):
 def p_funcion_variable(p):
   ''' funcion_variable : FUNCTION CADENA PAREN_IZQ TRES_PUNTOS SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ bloque LLAVE_DER'''
 
-#bloques de código permitidos para esta funcion
-def p_bloque(p):
-  ''' bloque : asignacion
-              | salida
-              | retorno
-  '''
+
 
 # retorno de variable
 def p_retorno(p):
@@ -171,22 +167,69 @@ def p_retorno(p):
 
 
 
+########## EMILY CORDERO  ##########
+def p_contenido(p):
+    '''contenido : bloque
+               | sinRetorno'''
+
+## While
+def p_whileDeclaracion(p):
+    "whileDeclaracion : WHILE PAREN_IZQ SIGNO_DOLAR CADENA operad_log valor PAREN_DER LLAVE_IZQ contenido LLAVE_DER"
+
+
+## Array
+def p_valoresSeparadosComa(p):
+    'valores : valor repite_valores'
+
+def p_repite_valoresSeparadosComa(p):
+    ''' repite_valores : COMA valor
+                        | COMA valor repite_valores
+    '''
+
+def p_arreglo_asociativo(p):
+    "arreglo : SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valor FLECHA valor PAREN_DER PUNTO_COMA"
+
+
+def p_arreglo_parentesis(p):
+    "arreglo : SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valores PAREN_DER PUNTO_COMA"
+
+
+#para array con asignacion con flecha
+def p_valoresArregloAsociativo(p):
+    " valoresflecha : valor FLECHA valor repite_valores_f"
+
+
+def p_repite_valoresSeparados_flecha(p):
+  ''' repite_valores_f : COMA valor FLECHA valor
+                        | COMA valor FLECHA valor repite_valores
+  '''
+
+def p_arreglo_asociativo(p):
+    "arreglo : SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valoresflecha PAREN_DER PUNTO_COMA"
+
+# Función dentro de otra funcion
+def p_sinretorno(p):
+  '''sinRetorno : FUNCTION CADENA PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ contenido LLAVE_DER'''
+
+##########
+
+  
 def p_error(p):
-  if p:
-    print(
-      f"Error de sintaxis - Token: {p.type}, Línea: {p.lineno}, Col: {p.lexpos}"
-    )
-    parser.errok()
-  else:
-    print("Error de sintaxis Fin de Linea")
+    if p:
+        print(
+            f"Error de sintaxis - Token: {p.type}, Línea: {p.lineno}, Col: {p.lexpos}"
+        )
+        parser.errok()
+    else:
+        print("Error de sintaxis Fin de Linea")
 
 
 parser = yacc.yacc()
 
 
 def validaRegla(s):
-  result = parser.parse(s)
-  print(result)
+    result = parser.parse(s)
+    print(result)
 
 
 while True:

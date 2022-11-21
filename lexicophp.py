@@ -111,7 +111,9 @@ tokens = (
   'CADENA',
   'COMA',
   'TRES_PUNTOS',
-  'PUNTODOBLE'
+  'PUNTODOBLE',
+  'FLECHA'
+
   ###
 ) + tuple(reserved.values())
 #Emily Cordero
@@ -151,6 +153,7 @@ t_INTERROG_CE = r'\?'
 t_COMA = r'\,'
 t_TRES_PUNTOS = r'\.\.\.'
 t_PUNTODOBLE = r'\:'
+t_FLECHA = r'=>'
 
 
 def t_ENTERO(t):
