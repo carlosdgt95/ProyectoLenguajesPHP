@@ -8,9 +8,6 @@ def p_instrucciones(p):
                     | whileDeclaracion
                     | arreglo'''
 
-def p_bucleWhile(p):
-  '''bucleWhile : asignacion
-                '''
 
 def p_salida_forma1(p):
     "salida : ECHO STRING PUNTO_COMA"
@@ -34,6 +31,7 @@ def p_valor(p):
 def p_asignacion_ps(p):
     "asignacion : SIGNO_DOLAR CADENA IGUAL valor PUNTO_COMA"
 
+
 #para while
 def p_condicion(p):
     '''condicion : IDENTICO
@@ -43,14 +41,52 @@ def p_condicion(p):
               | MAYOR_IGUAL
               | MENOR_IGUAL'''
 
+
+def p_contenido(p):
+    '''contenido : salida
+               | asignacion'''
+
 def p_whileDeclaracion(p):
-  "whileDeclaracion : WHILE PAREN_IZQ SIGNO_DOLAR CADENA condicion valor PAREN_DER LLAVE_IZQ LLAVE_DER"
+    "whileDeclaracion : WHILE PAREN_IZQ SIGNO_DOLAR CADENA condicion valor PAREN_DER LLAVE_IZQ contenido LLAVE_DER"
+
 
 #para array
+def p_valoresSeparadosComa(p):
+    'valores : valor repite_valores'
+
+
+def p_repite_valoresSeparadosComa(p):
+    '''
+  repite_valores : COMA valor
+                | COMA valor repite_valores'''
+
+
 def p_arreglo_asociativo(p):
-  "arreglo : SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valor FLECHA valor PAREN_DER PUNTO_COMA"
+    "arreglo : SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valor FLECHA valor PAREN_DER PUNTO_COMA"
 
 
+def p_arreglo_parentesis(p):
+    "arreglo : SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valores PAREN_DER PUNTO_COMA"
+
+
+#para array con asignacion con flecha
+
+
+def p_valoresArregloAsociativo(p):
+    'valoresflecha : valor FLECHA valor repite_valores_f'
+
+
+def p_repite_valoresSeparados_flecha(p):
+    '''
+  repite_valores_f : COMA valor FLECHA valor
+                | COMA valor FLECHA valor repite_valores'''
+
+
+def p_arreglo_asociativo(p):
+    "arreglo : SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valoresflecha PAREN_DER PUNTO_COMA"
+
+
+##########
 def p_error(p):
     if p:
         print(
