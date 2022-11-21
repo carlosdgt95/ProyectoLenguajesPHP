@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ABSTRACT AND AS ASIGNACION ASIG_CONCA ASIG_REFER BOOLEANO BREAK CADENA CALLABLE CASE CATH CLASS CLONE COMA COMENTARIO CONST CONTINUE CORCH_DER CORCH_IZQ DECLARE DECREMENTO DEFAULT DIFERENTE DIVISION DO ECHO ELSE ELSEIF ENDDECLARE ENDIF ENDSWITCH ENDWHILE ENTERO EXTENDS FINAL FINALLY FLOTANTE FN FOR FOREACH FUNCTION GLOBAL ID IDENTICO IF IGUAL IMPLEMENTS INCLUDE INCREMENTO INTANCEOF INTEADOF INTERFACE INTERROG_CE LLAVE_DER LLAVE_IZQ MACHT MAYOR_IGUAL MAYOR_QUE MENOR_IGUAL MENOR_QUE MODULO MULTIPL NAMESPACE NEW OR PAREN_DER PAREN_IZQ POTENCIA PRINT PRIVATE PROTECTED PUBLIC PUNTO PUNTO_COMA REQUIERE RESTA RETURN SALTO_LINEA SIGNO_DOLAR STATIC STRING SUMA SWITCH TABULACION THROW TRAIT TRY USE VARIABLE WHILE XORsalida : ECHO STRING PUNTO_COMAsalida : PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMAsalida : PRINT STRING PUNTO_COMAvariable : ASIGNACION ID IGUAL STRING PUNTO_COMA'
+_lr_signature = 'ABSTRACT AND AND_SYMB ARRAY AS ASIG_CONCA ASIG_REFER BOOLEANO BREAK CADENA CALLABLE CASE CATH CLASS CLONE COMA COMENTARIO CONST CONTINUE CORCH_DER CORCH_IZQ COUNT CURRENT DECLARE DECREMENTO DEFAULT DIFERENTE DIVISION DIVISION_ENT DO ECHO ELSE ELSEIF ENDDECLARE ENDIF ENDSWITCH ENDWHILE ENTERO EXTENDS FINAL FINALLY FLOTANTE FN FOR FOREACH FUNCTION GLOBAL IDENTICO IF IGUAL IMPLEMENTS INCLUDE INCREMENTO INTANCEOF INTEADOF INTERFACE INTERROG_CE LLAVE_DER LLAVE_IZQ MACHT MAYOR_IGUAL MAYOR_QUE MENOR_IGUAL MENOR_QUE MODULO MULTIPL NAMESPACE NEW OR OR_SYMB PAREN_DER PAREN_IZQ POP POTENCIA PRINT PRIVATE PROTECTED PUBLIC PUNTO PUNTO_COMA PUSH QUEUE REQUIERE RESTA RETURN SALTO_LINEA SIGNO_DOLAR STACK STATIC STRING STRREV SUMA SWITCH TABULACION THROW TRAIT TRES_PUNTOS TRY USE VAR WHILEinstrucciones : valor\n                    | datos\n                    | asignacion\n                    | salida \n                    | estructuras_control\n                    | estructuras_datos\n                    | funciones  \n                    | op_logica\n                    | op_pila\n  datos : ENTERO\n          | FLOTANTE\n          | STRING \n          | BOOLEANO \n  valor : datos \n          | pila\n  asignacion : SIGNO_DOLAR CADENA IGUAL valor PUNTO_COMAsalida : ECHO STRING PUNTO_COMAsalida : PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMAsalida : PRINT STRING PUNTO_COMA estructuras_control : if_else  if_else : if_else_corto\n              | if_else_extendido\n   if_else_corto : if_else_inicio if_else_fin if_else_extendido : if_else_inicio if_else_cuerpo if_else_finif_else_inicio : IF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DERif_else_cuerpo : ELSEIF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DERif_else_fin : ELSE LLAVE_IZQ salida LLAVE_DER op_logica : ENTERO operad_log ENTERO\n                | FLOTANTE operad_log FLOTANTE\n                | STRING operad_log STRING\n                | BOOLEANO\n  operad_log : IDENTICO\n                | DIFERENTE\n                | MAYOR_QUE\n                | MAYOR_IGUAL\n                | MENOR_QUE\n                | MENOR_IGUAL\n   estructuras_datos : pila  pila :  NEW STACK PAREN_IZQ PAREN_DER op_pila : SIGNO_DOLAR CADENA RESTA MAYOR_QUE operad_pila operad_pila : PUSH PAREN_IZQ datos PAREN_DER PUNTO_COMA \n                  | POP PAREN_IZQ PAREN_DER PUNTO_COMA\n                  | COUNT PAREN_IZQ PAREN_DER PUNTO_COMA\n                  | CURRENT PAREN_IZQ PAREN_DER PUNTO_COMA\n  funciones : funcion_variable  funcion_variable : FUNCTION CADENA PAREN_IZQ TRES_PUNTOS SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ bloque LLAVE_DER bloque : asignacion\n              | salida\n              | retorno\n   retorno : RETURN SIGNO_DOLAR CADENA'
     
-_lr_action_items = {'ECHO':([0,],[2,]),'PRINT':([0,],[3,]),'$end':([1,7,9,11,],[0,-1,-3,-2,]),'STRING':([2,3,5,],[4,6,8,]),'PAREN_IZQ':([3,],[5,]),'PUNTO_COMA':([4,6,10,],[7,9,11,]),'PAREN_DER':([8,],[10,]),}
+_lr_action_items = {'ENTERO':([0,27,28,29,30,31,32,33,46,50,59,90,],[12,47,-32,-33,-34,-35,-36,-37,61,68,61,68,]),'FLOTANTE':([0,28,29,30,31,32,33,34,46,50,59,90,],[13,-32,-33,-34,-35,-36,-37,48,62,69,62,69,]),'STRING':([0,17,18,28,29,30,31,32,33,35,38,46,50,59,90,],[14,37,39,-32,-33,-34,-35,-36,-37,49,53,63,70,63,70,]),'BOOLEANO':([0,46,50,59,90,],[15,64,71,64,71,]),'SIGNO_DOLAR':([0,75,108,116,],[16,86,111,119,]),'ECHO':([0,58,89,95,108,],[17,17,17,17,17,]),'PRINT':([0,58,89,95,108,],[18,18,18,18,18,]),'NEW':([0,50,],[21,21,]),'FUNCTION':([0,],[24,]),'IF':([0,],[26,]),'$end':([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,19,20,22,23,42,47,48,49,52,54,57,74,79,80,85,87,105,106,107,110,118,],[0,-1,-2,-3,-4,-5,-6,-7,-8,-9,-15,-10,-11,-12,-13,-20,-45,-21,-22,-23,-28,-29,-30,-17,-19,-24,-39,-16,-40,-18,-27,-42,-43,-44,-41,-46,]),'IDENTICO':([12,13,14,61,62,63,],[28,28,28,28,28,28,]),'DIFERENTE':([12,13,14,61,62,63,],[29,29,29,29,29,29,]),'MAYOR_QUE':([12,13,14,51,61,62,63,],[30,30,30,72,30,30,30,]),'MAYOR_IGUAL':([12,13,14,61,62,63,],[31,31,31,31,31,31,]),'MENOR_QUE':([12,13,14,61,62,63,],[32,32,32,32,32,32,]),'MENOR_IGUAL':([12,13,14,61,62,63,],[33,33,33,33,33,33,]),'CADENA':([16,24,86,111,119,],[36,41,94,117,120,]),'PAREN_IZQ':([18,26,40,41,45,81,82,83,84,],[38,46,55,56,59,90,91,92,93,]),'STACK':([21,],[40,]),'ELSE':([25,43,103,109,],[44,44,-25,-26,]),'ELSEIF':([25,103,],[45,-25,]),'IGUAL':([36,117,],[50,50,]),'RESTA':([36,],[51,]),'PUNTO_COMA':([37,39,65,66,67,68,69,70,71,73,74,98,99,100,104,],[52,54,79,-14,-15,-10,-11,-12,-13,85,-39,105,106,107,110,]),'LLAVE_IZQ':([44,78,88,101,],[58,89,95,108,]),'PAREN_DER':([47,48,49,53,55,60,64,68,69,70,71,77,91,92,93,94,97,],[-28,-29,-30,73,74,78,-31,-10,-11,-12,-13,88,98,99,100,101,104,]),'LLAVE_DER':([52,54,76,79,85,96,102,112,113,114,115,120,],[-17,-19,87,-16,-18,103,109,118,-47,-48,-49,-50,]),'TRES_PUNTOS':([56,],[75,]),'PUSH':([72,],[81,]),'POP':([72,],[82,]),'COUNT':([72,],[83,]),'CURRENT':([72,],[84,]),'RETURN':([108,],[116,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'salida':([0,],[1,]),}
+_lr_goto_items = {'instrucciones':([0,],[1,]),'valor':([0,50,],[2,65,]),'datos':([0,50,90,],[3,66,97,]),'asignacion':([0,108,],[4,113,]),'salida':([0,58,89,95,108,],[5,76,96,102,114,]),'estructuras_control':([0,],[6,]),'estructuras_datos':([0,],[7,]),'funciones':([0,],[8,]),'op_logica':([0,46,59,],[9,60,77,]),'op_pila':([0,],[10,]),'pila':([0,50,],[11,67,]),'if_else':([0,],[19,]),'funcion_variable':([0,],[20,]),'if_else_corto':([0,],[22,]),'if_else_extendido':([0,],[23,]),'if_else_inicio':([0,],[25,]),'operad_log':([12,13,14,61,62,63,],[27,34,35,27,34,35,]),'if_else_fin':([25,43,],[42,57,]),'if_else_cuerpo':([25,],[43,]),'operad_pila':([72,],[80,]),'bloque':([108,],[112,]),'retorno':([108,],[115,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,9 +26,55 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> salida","S'",1,None,None,None),
-  ('salida -> ECHO STRING PUNTO_COMA','salida',3,'p_salida_forma1','main.py',11),
-  ('salida -> PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMA','salida',5,'p_salida_forma2','main.py',15),
-  ('salida -> PRINT STRING PUNTO_COMA','salida',3,'p_salida_forma3','main.py',19),
-  ('variable -> ASIGNACION ID IGUAL STRING PUNTO_COMA','variable',5,'p_variable_ps','main.py',23),
+  ("S' -> instrucciones","S'",1,None,None,None),
+  ('instrucciones -> valor','instrucciones',1,'p_instrucciones','main.py',10),
+  ('instrucciones -> datos','instrucciones',1,'p_instrucciones','main.py',11),
+  ('instrucciones -> asignacion','instrucciones',1,'p_instrucciones','main.py',12),
+  ('instrucciones -> salida','instrucciones',1,'p_instrucciones','main.py',13),
+  ('instrucciones -> estructuras_control','instrucciones',1,'p_instrucciones','main.py',14),
+  ('instrucciones -> estructuras_datos','instrucciones',1,'p_instrucciones','main.py',15),
+  ('instrucciones -> funciones','instrucciones',1,'p_instrucciones','main.py',16),
+  ('instrucciones -> op_logica','instrucciones',1,'p_instrucciones','main.py',17),
+  ('instrucciones -> op_pila','instrucciones',1,'p_instrucciones','main.py',18),
+  ('datos -> ENTERO','datos',1,'p_datos','main.py',22),
+  ('datos -> FLOTANTE','datos',1,'p_datos','main.py',23),
+  ('datos -> STRING','datos',1,'p_datos','main.py',24),
+  ('datos -> BOOLEANO','datos',1,'p_datos','main.py',25),
+  ('valor -> datos','valor',1,'p_valor','main.py',29),
+  ('valor -> pila','valor',1,'p_valor','main.py',30),
+  ('asignacion -> SIGNO_DOLAR CADENA IGUAL valor PUNTO_COMA','asignacion',5,'p_asignacion','main.py',34),
+  ('salida -> ECHO STRING PUNTO_COMA','salida',3,'p_salida_forma1','main.py',38),
+  ('salida -> PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMA','salida',5,'p_salida_forma2','main.py',41),
+  ('salida -> PRINT STRING PUNTO_COMA','salida',3,'p_salida_forma3','main.py',44),
+  ('estructuras_control -> if_else','estructuras_control',1,'p_estructuras_control','main.py',47),
+  ('if_else -> if_else_corto','if_else',1,'p_if_else','main.py',54),
+  ('if_else -> if_else_extendido','if_else',1,'p_if_else','main.py',55),
+  ('if_else_corto -> if_else_inicio if_else_fin','if_else_corto',2,'p_if_else_corto','main.py',59),
+  ('if_else_extendido -> if_else_inicio if_else_cuerpo if_else_fin','if_else_extendido',3,'p_if_else_extendido','main.py',62),
+  ('if_else_inicio -> IF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER','if_else_inicio',7,'p_if_else_inicio','main.py',65),
+  ('if_else_cuerpo -> ELSEIF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER','if_else_cuerpo',7,'p_if_else_cuerpo','main.py',68),
+  ('if_else_fin -> ELSE LLAVE_IZQ salida LLAVE_DER','if_else_fin',4,'p_if_else_fin','main.py',71),
+  ('op_logica -> ENTERO operad_log ENTERO','op_logica',3,'p_op_logica','main.py',75),
+  ('op_logica -> FLOTANTE operad_log FLOTANTE','op_logica',3,'p_op_logica','main.py',76),
+  ('op_logica -> STRING operad_log STRING','op_logica',3,'p_op_logica','main.py',77),
+  ('op_logica -> BOOLEANO','op_logica',1,'p_op_logica','main.py',78),
+  ('operad_log -> IDENTICO','operad_log',1,'p_operad_log','main.py',82),
+  ('operad_log -> DIFERENTE','operad_log',1,'p_operad_log','main.py',83),
+  ('operad_log -> MAYOR_QUE','operad_log',1,'p_operad_log','main.py',84),
+  ('operad_log -> MAYOR_IGUAL','operad_log',1,'p_operad_log','main.py',85),
+  ('operad_log -> MENOR_QUE','operad_log',1,'p_operad_log','main.py',86),
+  ('operad_log -> MENOR_IGUAL','operad_log',1,'p_operad_log','main.py',87),
+  ('estructuras_datos -> pila','estructuras_datos',1,'p_estructuras_datos','main.py',92),
+  ('pila -> NEW STACK PAREN_IZQ PAREN_DER','pila',4,'p_pila','main.py',96),
+  ('op_pila -> SIGNO_DOLAR CADENA RESTA MAYOR_QUE operad_pila','op_pila',5,'p_op_pila','main.py',100),
+  ('operad_pila -> PUSH PAREN_IZQ datos PAREN_DER PUNTO_COMA','operad_pila',5,'p_operad_pila','main.py',104),
+  ('operad_pila -> POP PAREN_IZQ PAREN_DER PUNTO_COMA','operad_pila',4,'p_operad_pila','main.py',105),
+  ('operad_pila -> COUNT PAREN_IZQ PAREN_DER PUNTO_COMA','operad_pila',4,'p_operad_pila','main.py',106),
+  ('operad_pila -> CURRENT PAREN_IZQ PAREN_DER PUNTO_COMA','operad_pila',4,'p_operad_pila','main.py',107),
+  ('funciones -> funcion_variable','funciones',1,'p_funciones','main.py',113),
+  ('funcion_variable -> FUNCTION CADENA PAREN_IZQ TRES_PUNTOS SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ bloque LLAVE_DER','funcion_variable',10,'p_funcion_variable','main.py',117),
+  ('bloque -> asignacion','bloque',1,'p_bloque','main.py',120),
+  ('bloque -> salida','bloque',1,'p_bloque','main.py',121),
+  ('bloque -> retorno','bloque',1,'p_bloque','main.py',122),
+  ('retorno -> RETURN SIGNO_DOLAR CADENA','retorno',3,'p_retorno','main.py',126),
 ]
