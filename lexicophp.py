@@ -110,8 +110,8 @@ tokens = (
   'INTERROG_CE',
   'CADENA',
   'COMA',
-  'TRES_PUNTOS'
-
+  'TRES_PUNTOS',
+  'PUNTODOBLE'
   ###
 ) + tuple(reserved.values())
 #Emily Cordero
@@ -150,6 +150,7 @@ t_PUNTO_COMA = r';'
 t_INTERROG_CE = r'\?'
 t_COMA = r'\,'
 t_TRES_PUNTOS = r'\.\.\.'
+t_PUNTODOBLE = r'\:'
 
 
 def t_ENTERO(t):
@@ -168,6 +169,7 @@ def t_BOOLEANO(t):
   r'(true|True|TRUE|false|False|FALSE)'
   t.type = reserved.get(t.value, "BOOLEANO")
   return t
+
 
 
 def t_CADENA(t):

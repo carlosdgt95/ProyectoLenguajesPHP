@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ABSTRACT AND AS ASIGNACION ASIG_CONCA ASIG_REFER BOOLEANO BREAK CADENA CALLABLE CASE CATH CLASS CLONE COMA COMENTARIO CONST CONTINUE CORCH_DER CORCH_IZQ DECLARE DECREMENTO DEFAULT DIFERENTE DIVISION DO ECHO ELSE ELSEIF ENDDECLARE ENDIF ENDSWITCH ENDWHILE ENTERO EXTENDS FINAL FINALLY FLOTANTE FN FOR FOREACH FUNCTION GLOBAL ID IDENTICO IF IGUAL IMPLEMENTS INCLUDE INCREMENTO INTANCEOF INTEADOF INTERFACE INTERROG_CE LLAVE_DER LLAVE_IZQ MACHT MAYOR_IGUAL MAYOR_QUE MENOR_IGUAL MENOR_QUE MODULO MULTIPL NAMESPACE NEW OR PAREN_DER PAREN_IZQ POTENCIA PRINT PRIVATE PROTECTED PUBLIC PUNTO PUNTO_COMA REQUIERE RESTA RETURN SALTO_LINEA SIGNO_DOLAR STATIC STRING SUMA SWITCH TABULACION THROW TRAIT TRY USE VARIABLE WHILE XORsalida : ECHO STRING PUNTO_COMAsalida : PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMAsalida : PRINT STRING PUNTO_COMAvariable : ASIGNACION ID IGUAL STRING PUNTO_COMA'
+_lr_signature = 'ABSTRACT AND AND_SYMB ARRAY AS ASIG_CONCA ASIG_REFER BOOLEANO BREAK CADENA CALLABLE CASE CATH CLASS CLONE COMA COMENTARIO CONST CONTINUE CORCH_DER CORCH_IZQ COUNT DECLARE DECREMENTO DEFAULT DIFERENTE DIVISION DIVISION_ENT DO ECHO ELSE ELSEIF ENDDECLARE ENDIF ENDSWITCH ENDWHILE ENTERO EXTENDS FINAL FINALLY FLOTANTE FN FOR FOREACH FUNCTION GLOBAL IDENTICO IF IGUAL IMPLEMENTS INCLUDE INCREMENTO INTANCEOF INTEADOF INTERFACE INTERROG_CE LLAVE_DER LLAVE_IZQ MACHT MAYOR_IGUAL MAYOR_QUE MENOR_IGUAL MENOR_QUE MODULO MULTIPL NAMESPACE NEW OR OR_SYMB PAREN_DER PAREN_IZQ POTENCIA PRINT PRIVATE PROTECTED PUBLIC PUNTO PUNTODOBLE PUNTO_COMA QUEUE REQUIERE RESTA RETURN SALTO_LINEA SIGNO_DOLAR STACK STATIC STRING STRREV SUMA SWITCH TABULACION THROW TRAIT TRY USE VAR WHILEsentencias : valor\n                  | estructuras_control \n                  | tipoFunciones estructuras_control : SWITCH1\n                          | colatipoFunciones : sinRetornosinRetorno : FUNCTION CADENA PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ salida1 LLAVE_DERcola : SIGNO_DOLAR CADENA IGUAL NEW QUEUE PAREN_IZQ PAREN_DERSWITCH1 : SWITCH PAREN_IZQ  SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ CASE ENTERO PUNTODOBLE  BREAK LLAVE_DER valor :  STRING\n   salida1 : ECHO CADENA PUNTO_COMAsalida : PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMAsalida : PRINT STRING PUNTO_COMAvariable : SIGNO_DOLAR CADENA IGUAL STRING PUNTO_COMA'
     
-_lr_action_items = {'ECHO':([0,],[2,]),'PRINT':([0,],[3,]),'$end':([1,7,9,11,],[0,-1,-3,-2,]),'STRING':([2,3,5,],[4,6,8,]),'PAREN_IZQ':([3,],[5,]),'PUNTO_COMA':([4,6,10,],[7,9,11,]),'PAREN_DER':([8,],[10,]),}
+_lr_action_items = {'STRING':([0,],[5,]),'SWITCH':([0,],[9,]),'SIGNO_DOLAR':([0,12,17,],[10,15,20,]),'FUNCTION':([0,],[11,]),'$end':([1,2,3,4,5,6,7,8,28,34,38,],[0,-1,-2,-3,-10,-4,-5,-6,-8,-7,-9,]),'PAREN_IZQ':([9,14,22,],[12,17,25,]),'CADENA':([10,11,15,20,32,],[13,14,18,23,35,]),'IGUAL':([13,],[16,]),'NEW':([16,],[19,]),'PAREN_DER':([18,23,25,],[21,26,28,]),'QUEUE':([19,],[22,]),'LLAVE_IZQ':([21,26,],[24,29,]),'CASE':([24,],[27,]),'ENTERO':([27,],[30,]),'ECHO':([29,],[32,]),'PUNTODOBLE':([30,],[33,]),'LLAVE_DER':([31,36,37,],[34,38,-11,]),'BREAK':([33,],[36,]),'PUNTO_COMA':([35,],[37,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'salida':([0,],[1,]),}
+_lr_goto_items = {'sentencias':([0,],[1,]),'valor':([0,],[2,]),'estructuras_control':([0,],[3,]),'tipoFunciones':([0,],[4,]),'SWITCH1':([0,],[6,]),'cola':([0,],[7,]),'sinRetorno':([0,],[8,]),'salida1':([29,],[31,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,9 +26,19 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> salida","S'",1,None,None,None),
-  ('salida -> ECHO STRING PUNTO_COMA','salida',3,'p_salida_forma1','main.py',11),
-  ('salida -> PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMA','salida',5,'p_salida_forma2','main.py',15),
-  ('salida -> PRINT STRING PUNTO_COMA','salida',3,'p_salida_forma3','main.py',19),
-  ('variable -> ASIGNACION ID IGUAL STRING PUNTO_COMA','variable',5,'p_variable_ps','main.py',23),
+  ("S' -> sentencias","S'",1,None,None,None),
+  ('sentencias -> valor','sentencias',1,'p_sentencias','main.py',11),
+  ('sentencias -> estructuras_control','sentencias',1,'p_sentencias','main.py',12),
+  ('sentencias -> tipoFunciones','sentencias',1,'p_sentencias','main.py',13),
+  ('estructuras_control -> SWITCH1','estructuras_control',1,'p_estructuras_control','main.py',15),
+  ('estructuras_control -> cola','estructuras_control',1,'p_estructuras_control','main.py',16),
+  ('tipoFunciones -> sinRetorno','tipoFunciones',1,'p_funciones','main.py',18),
+  ('sinRetorno -> FUNCTION CADENA PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ salida1 LLAVE_DER','sinRetorno',9,'p_sinretorno','main.py',21),
+  ('cola -> SIGNO_DOLAR CADENA IGUAL NEW QUEUE PAREN_IZQ PAREN_DER','cola',7,'p_cola','main.py',23),
+  ('SWITCH1 -> SWITCH PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ CASE ENTERO PUNTODOBLE BREAK LLAVE_DER','SWITCH1',11,'p_switch1','main.py',25),
+  ('valor -> STRING','valor',1,'p_valor','main.py',28),
+  ('salida1 -> ECHO CADENA PUNTO_COMA','salida1',3,'p_salida_forma1','main.py',34),
+  ('salida -> PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMA','salida',5,'p_salida_forma2','main.py',38),
+  ('salida -> PRINT STRING PUNTO_COMA','salida',3,'p_salida_forma3','main.py',42),
+  ('variable -> SIGNO_DOLAR CADENA IGUAL STRING PUNTO_COMA','variable',5,'p_variable_ps','main.py',46),
 ]
