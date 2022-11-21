@@ -106,7 +106,8 @@ tokens = (
   'PUNTO_COMA',
   'INTERROG_CE',
   'CADENA',
-  'COMA'
+  'COMA',
+  'FLECHA'
 
   ###
 ) + tuple(reserved.values())
@@ -145,7 +146,7 @@ t_PUNTO = r'\.'
 t_PUNTO_COMA = r';'
 t_INTERROG_CE = r'\?'
 t_COMA = r'\,'
-
+t_FLECHA = r'=>'
 
 def t_ENTERO(t):
   r'(-?[1-9]\d*)|0'
