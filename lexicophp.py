@@ -62,6 +62,9 @@ reserved = {
   #Estructuras de datos
   "array" : "ARRAY",
   "SplStack" : "STACK",
+  "push" : "PUSH",
+  "pop" : "POP",
+  "current": "CURRENT",
   "SplQueue" : "QUEUE",
 }
 #Elaborado Carlos Gomez
@@ -106,7 +109,10 @@ tokens = (
   'PUNTO_COMA',
   'INTERROG_CE',
   'CADENA',
-  'COMA'
+  'COMA',
+  'TRES_PUNTOS',
+  'PUNTODOBLE',
+  'FLECHA'
 
   ###
 ) + tuple(reserved.values())
@@ -145,6 +151,9 @@ t_PUNTO = r'\.'
 t_PUNTO_COMA = r';'
 t_INTERROG_CE = r'\?'
 t_COMA = r'\,'
+t_TRES_PUNTOS = r'\.\.\.'
+t_PUNTODOBLE = r'\:'
+t_FLECHA = r'=>'
 
 
 def t_ENTERO(t):
@@ -163,6 +172,7 @@ def t_BOOLEANO(t):
   r'(true|True|TRUE|false|False|FALSE)'
   t.type = reserved.get(t.value, "BOOLEANO")
   return t
+
 
 
 def t_CADENA(t):
