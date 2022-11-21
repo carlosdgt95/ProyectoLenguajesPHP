@@ -1,7 +1,6 @@
 import ply.yacc as yacc
-from lexicophp import tokens
-
-from datetime import datetime
+from lexicophp import tokens 
+from datetime import datetime 
 
 today = datetime.now()
 
@@ -231,18 +230,17 @@ parser = yacc.yacc()
 
 
 def validaRegla(s):
-    result = parser.parse(s)
-    #print(result)
+  if not s: pass
+  result = parser.parse(s)
 
 
-while True:
-  try:
-    #Crear archivo para logs
-    logs_file = open ('logs.txt','a')
-    s = input('calc > ')
-
-  except EOFError:
-    break
-  if not s: continue
-  logs_file.write(datetime.now().strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +s+"\n")
-  validaRegla(s)
+archivo = open("algoritmos.txt")
+logs_file = open ('logs.txt', 'w')
+for linea in archivo:
+  if(linea[0]=='#'):
+    continue
+  else:
+    print(linea)
+    logs_file.write(today.strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +str(linea)+"\n")
+    validaRegla(linea)
+  
