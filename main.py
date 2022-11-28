@@ -1,6 +1,7 @@
 import ply.yacc as yacc
 from lexicophp import tokens
 
+import ply.lex as lex
 from datetime import datetime
 
 today = datetime.now()
@@ -215,34 +216,55 @@ def p_sinretorno(p):
   '''sinRetorno : FUNCTION CADENA PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ contenido LLAVE_DER'''
 
 ##########
-
-  
+#correcion Carlos Gomez
+errores_sintaxis = []  
 def p_error(p):
     if p:
-        #print(f"Error de sintaxis - Token: {p.type}, Línea: {p.lineno}, Col: {p.lexpos}")
+        print(f"Error de sintaxis - Token: {p.type}, Línea: {p.lineno}, Col: {p.lexpos}")
+        errores_sintaxis.append("Error de sintaxis en token {}, en la linea {}".format(p.type, p.lineno))
         parser.errok()
-        logs_file.write(today.strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +"Error de sintaxis - Token: "+ str(p.type) +", Línea: "+ str(p.lineno) +", Col: "+ str(p.lexpos) +"\n")
+        # logs_file.write(today.strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +"Error de sintaxis - Token: "+ str(p.type) +", Línea: "+ str(p.lineno) +", Col: "+ str(p.lexpos) +"\n")
     else:
-        #print("Error de sintaxis Fin de Linea")
-        logs_file.write(today.strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +"Error de sintaxis Fin de Linea"+"\n")
+        errores_sintaxis.append("Error de sintaxis ")
+        print("Error de sintaxis Fin de Linea")
+        # logs_file.write(today.strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +"Error de sintaxis Fin de Linea"+"\n")
 
+#Construya el lexer
 
 parser = yacc.yacc()
-
+#validacion para interfaz Carlos Gomez
+def obtener_analizador_sintactico():
+    return yacc.yacc()
+    #errorlog=yacc.NullLogger()
+#carlos Gomez
 
 def validaRegla(s):
-    result = parser.parse(s)
-    #print(result)
+    result1 = parser.parse(s)
+    return result1
+    #print(result1)
+# Método para analizar cada línea
+
+# archivo = open("algoritmos.txt")
+# for linea in archivo:
+#   print(">>" + linea)
+#   validaRegla(linea)
+#   logs_file = open ('logs.txt','a')
+#   if len(linea) == 0:
+#     logs_file.write(datetime.now().strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +linea+"\n")
+ 
+#     break
+    
 
 
-while True:
-  try:
-    #Crear archivo para logs
-    logs_file = open ('logs.txt','a')
-    s = input('calc > ')
 
-  except EOFError:
-    break
-  if not s: continue
-  logs_file.write(datetime.now().strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +s+"\n")
-  validaRegla(s)
+# while True:
+  # try:
+  #   #Crear archivo para logs
+  #   logs_file = open ('logs.txt','a')
+  #   s = input('calc > ')
+
+  # except EOFError:
+  #   break
+  # if not s: continue
+  # logs_file.write(datetime.now().strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +s+"\n")
+  # validaRegla(s)

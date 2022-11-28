@@ -207,9 +207,18 @@ t_ignore = ' \t'
 #Construya el lexer
 lexer = lex.lex()
 
+# Lista que almacenara los errores que sucedan en el analisis lexico
+errores_lexico = []
+
+def getTokens(lexer, lista):
+    while True:
+        tok = lexer.token()
+        if not tok:
+            break 
+        lista.append(tok)
+
 ###  Lea el archivo algoritmos.txt y retorne los tokens
 
-'''
 # Método para analizar cada línea
 def analizar(data):
   lexer.input(data)
@@ -217,7 +226,13 @@ def analizar(data):
     tok = lexer.token()
     if not tok:
       break
-    print(tok)
+    return tok
+#obtener valores del lexico para interfaz Carlos Gómez
+def obtener_validador_lexico():
+    return lex.lex()
+#Carlos Gómez
+'''
+
 
 
 # Leer archivos
