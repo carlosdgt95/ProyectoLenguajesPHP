@@ -174,7 +174,6 @@ def t_BOOLEANO(t):
   return t
 
 
-
 def t_CADENA(t):
   r'([a-zA-Z0-9_]?[a-zA-Z0-9_]+)'
   t.type = reserved.get(t.value, 'CADENA')

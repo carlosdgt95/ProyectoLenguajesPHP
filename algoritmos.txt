@@ -44,6 +44,7 @@ $num=5;
 esPar($num); 
 binario($num);
 #Carlos Gomezs
+
 #Emily Cordero
 $descuento=25;
 $totalCompra = 100;

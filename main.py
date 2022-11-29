@@ -7,6 +7,7 @@ today = datetime.now()
 #### Todas las instrucciones disponibles ###
 def p_instrucciones(p):  
   '''instrucciones : valor
+                    | decl_variable
                     | asignacion
                     | salida 
                     | estructuras_control
@@ -15,9 +16,13 @@ def p_instrucciones(p):
                     | op_logica
                     | op_pila
   '''
+
+def p_decl_variable(p):
+  "decl_variable : SIGNO_DOLAR CADENA"
+
 ## Definicion de una variable
 def p_asignacion(p):
-  "asignacion : SIGNO_DOLAR CADENA IGUAL valor PUNTO_COMA"
+  "asignacion : decl_variable IGUAL valor PUNTO_COMA"
 
 ## Valores que pueden ir en una variable
 # Ejemplo: $_variable = regla_valor
@@ -38,7 +43,7 @@ def p_datos(p):
 
 #Múltiples salidas permitidas
 def p_salida_forma1(p):
-  '''salida : ECHO CADENA PUNTO_COMA'''
+  '''salida : ECHO STRING PUNTO_COMA'''
 
 def p_salida_forma2(p):
   '''salida : PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMA'''
@@ -87,7 +92,7 @@ def p_bloque(p):
 ## Funcion sin retorno 
 
 def p_sinretorno(p):
-  '''sinRetorno : FUNCTION CADENA PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ salida LLAVE_DER'''
+  '''sinRetorno : FUNCTION CADENA PAREN_IZQ decl_variable PAREN_DER LLAVE_IZQ salida LLAVE_DER'''
 
 
 ## Cola 
@@ -96,10 +101,12 @@ def p_cola(p):
 
 ## Switch 
 def p_switch1(p):
-   '''switch1 : SWITCH PAREN_IZQ  SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ CASE ENTERO PUNTODOBLE  BREAK LLAVE_DER'''
+   '''switch1 : SWITCH PAREN_IZQ  decl_variable PAREN_DER LLAVE_IZQ CASE ENTERO PUNTODOBLE  BREAK LLAVE_DER'''
 
 
 ########## KARLA CASTRO  ##########
+
+##### REGLAS SINTACTICAS
 
 ##  Sentencia IF-ELSEIF-ELSE
 # Ejemplo: if(3>=2){print"mayor";}elseif(3==2){print "iguales";}else{print "menor";}
@@ -119,7 +126,9 @@ def p_if_else_inicio(p):
 
 # bloque ELSEIF
 def p_if_else_cuerpo(p):
-  "if_else_cuerpo : ELSEIF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER"
+  ''' if_else_cuerpo : ELSEIF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER
+                    |  ELSEIF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER if_else_cuerpo
+  '''
 
 # bloque ELSE
 def p_if_else_fin(p):
@@ -143,7 +152,7 @@ def p_pila(p):
 # métodos de la pila
 # Ejemplo: $_pila1 -> push(2);
 def p_op_pila(p):
-  " op_pila : SIGNO_DOLAR CADENA RESTA MAYOR_QUE operad_pila"
+  " op_pila : decl_variable RESTA MAYOR_QUE operad_pila"
 
 # push:añade, pop:elimina, count:cuenta, current:muestra el valor
 def p_operad_pila(p):
@@ -158,14 +167,18 @@ def p_operad_pila(p):
 
 # Ejemplo: function abc(...$_num){ return $_suma}
 def p_funcion_variable(p):
-  ''' funcion_variable : FUNCTION CADENA PAREN_IZQ TRES_PUNTOS SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ bloque LLAVE_DER'''
-
+  ''' funcion_variable : FUNCTION CADENA PAREN_IZQ TRES_PUNTOS decl_variable PAREN_DER LLAVE_IZQ bloque LLAVE_DER'''
 
 
 # retorno de variable
 def p_retorno(p):
-  " retorno : RETURN SIGNO_DOLAR CADENA"
+  ''' retorno : RETURN decl_variable PUNTO_COMA'''
 
+##### REGLAS SEMANTICAS
+
+## Concatenación de String
+
+## Casting
 
 
 
@@ -176,10 +189,13 @@ def p_contenido(p):
 
 ## While
 def p_whileDeclaracion(p):
-    "whileDeclaracion : WHILE PAREN_IZQ SIGNO_DOLAR CADENA operad_log valor PAREN_DER LLAVE_IZQ contenido LLAVE_DER"
+    "whileDeclaracion : WHILE PAREN_IZQ decl_variable operad_log valor PAREN_DER LLAVE_IZQ contenido LLAVE_DER"
 
 
-## Array
+## Array 
+## array() 
+## array(....)
+## array( )
 def p_valoresSeparadosComa(p):
     'valores : valor repite_valores'
 
@@ -189,11 +205,11 @@ def p_repite_valoresSeparadosComa(p):
     '''
 
 def p_arreglo_asociativo(p):
-    "arreglo : SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valor FLECHA valor PAREN_DER PUNTO_COMA"
+    "arreglo : decl_variable IGUAL ARRAY PAREN_IZQ valor FLECHA valor PAREN_DER PUNTO_COMA"
 
 
 def p_arreglo_parentesis(p):
-    "arreglo : SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valores PAREN_DER PUNTO_COMA"
+    "arreglo : decl_variable IGUAL ARRAY PAREN_IZQ valores PAREN_DER PUNTO_COMA"
 
 
 #para array con asignacion con flecha
@@ -207,11 +223,11 @@ def p_repite_valoresSeparados_flecha(p):
   '''
 
 def p_arreglo_asociativo(p):
-    "arreglo : SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valoresflecha PAREN_DER PUNTO_COMA"
+    "arreglo : decl_variable IGUAL ARRAY PAREN_IZQ valoresflecha PAREN_DER PUNTO_COMA"
 
 # Función dentro de otra funcion
 def p_sinretorno(p):
-  '''sinRetorno : FUNCTION CADENA PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ contenido LLAVE_DER'''
+  '''sinRetorno : FUNCTION CADENA PAREN_IZQ decl_variable PAREN_DER LLAVE_IZQ contenido LLAVE_DER'''
 
 ##########
 
