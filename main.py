@@ -1,304 +1,149 @@
-import ply.yacc as yacc
-from lexicophp import tokens
+import tkinter
+from tkinter import *
+import tkinter.scrolledtext as st
+import sintactico
+import lexicophp 
 
-import ply.lex as lex
-from datetime import datetime
+from datetime import datetime 
 
 today = datetime.now()
 
-#### Todas las instrucciones disponibles ###
-def p_instrucciones(p):  
-  '''instrucciones : valor
-                    | asignacion
-                    | salida
-                    | prueba
-                    | estructuras_control
-                    | estructuras_datos
-                    | funciones  
-                    | op_logica
-                    | op_pila
-                    | declaracion
-                    | declaracionp
-                    | declaracion_s
-                    | crecimiento
-                    | valorc
-                    | LLAVE_DER
+
+valorLexico= lexicophp.lexer
+valorsintatico=sintactico.parser
+analizadorLexico=lexicophp.obtener_validador_lexico()
+analizadorSintactico= sintactico.obtener_analizador_sintactico()
 
 
-  '''
-## Definicion de una variable
-def p_asignacion(p):
-  "asignacion : SIGNO_DOLAR CADENA IGUAL valor PUNTO_COMA"
-
-## Valores que pueden ir en una variable
-# Ejemplo: $_variable = regla_valor
-def p_valor(p):
-  '''valor : datos 
-          | pila
-          | cola
-  '''
-
-#Tipos de datos primitivos
-def p_datos(p):
-  '''datos : ENTERO
-          | FLOTANTE
-          | STRING 
-          | BOOLEANO 
-  '''
-
-
-#Múltiples salidas permitidas
-def p_salida_forma1(p):
-  '''salida : ECHO CADENA PUNTO_COMA'''
-def p_prueba(p):
-  '''prueba : ECHO SIGNO_DOLAR CADENA PUNTO_COMA LLAVE_DER'''
-
-def p_salida_forma2(p):
-  '''salida : PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMA'''
-
-def p_salida_forma3(p):
-  '''salida : PRINT STRING PUNTO_COMA'''
-
-def p_salida_forma4(p):
-  '''salida : PRINT for PUNTO_COMA '''
-
-### Definiciones Generales ###
-
-def p_estructuras_control(p):
-  ''' estructuras_control : if_else 
-                          | for
-                          | whileDeclaracion
-  '''
-
-def p_estructuras_datos(p):
-  ''' estructuras_datos : pila 
-                        | cola
-                        | arreglo
-  '''
-
-def p_funciones(p):
-  '''funciones : funcion_variable 
-                | sinRetorno
-  '''
-
-### Operadores Logicos ###
-def p_operad_log(p):
-  '''operad_log : IDENTICO
-                | DIFERENTE
-                | MAYOR_QUE
-                | MAYOR_IGUAL
-                | MENOR_QUE
-                | MENOR_IGUAL
-  '''
-#bloques de código permitidos dentro de alguna funcion
-def p_bloque(p):
-  ''' bloque : asignacion
-              | salida
-              | retorno
-              | prueba
-          
-  '''
-
-########## CARLOS GOMEZ  ##########
-## Funcion sin retorno 
-
-def p_sinretorno(p):
-  '''sinRetorno : FUNCTION CADENA PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ sentenciasAnidadas LLAVE_DER'''
-
-
-## Cola 
-def p_cola(p):
-  " cola : NEW QUEUE PAREN_IZQ PAREN_DER "
-def p_sentenciasAnidadas(p):
-	'''sentenciasAnidadas : instrucciones 
-						| instrucciones sentenciasAnidadas
-	'''
-## for
-def p_for(p):
-   '''for : FOR PAREN_IZQ declaracion declaracionp declaracion_s PAREN_DER LLAVE_IZQ sentenciasAnidadas 
-                                                                                    | cola LLAVE_DER '''
-
-def p_declaracion(p):
-  '''declaracion :  SIGNO_DOLAR CADENA IGUAL ENTERO PUNTO_COMA'''
-def p_declaracionM(p):
-   '''declaracionp :  SIGNO_DOLAR CADENA valorc'''
-def p_menor(p):
-  '''menor : MENOR_IGUAL ENTERO PUNTO_COMA'''
-def p_mayor(p):
-  '''mayor : MAYOR_IGUAL ENTERO PUNTO_COMA'''
-def p_valorC(p):
-  ''' valorc : menor
-              | mayor'''
-def p_declaracionsimple(p):
-   '''declaracion_s : SIGNO_DOLAR CADENA crecimiento'''
-def p_crecimiento(p):
-  '''crecimiento : INCREMENTO 
-                | DECREMENTO'''
-
-########## KARLA CASTRO  ##########
-
-##  Sentencia IF-ELSEIF-ELSE
-# Ejemplo: if(3>=2){print"mayor";}elseif(3==2){print "iguales";}else{print "menor";}
-
-
-# if-else
-def p_if_else_corto(p):
-  " if_else : if_else_inicio if_else_fin"
-
-# if-elseif-else
-def p_if_else_extendido(p):
-  " if_else : if_else_inicio if_else_cuerpo if_else_fin"
-
-# bloque IF
-def p_if_else_inicio(p):
-  "if_else_inicio : IF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER"
-
-# bloque ELSEIF
-def p_if_else_cuerpo(p):
-  "if_else_cuerpo : ELSEIF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER"
-
-# bloque ELSE
-def p_if_else_fin(p):
-  "if_else_fin : ELSE LLAVE_IZQ salida LLAVE_DER"
-
-#Permitidas para tipos de datos iguales
-def p_op_logica(p):
-  ''' op_logica : ENTERO operad_log ENTERO
-                | FLOTANTE operad_log FLOTANTE
-                | STRING operad_log STRING
-                | BOOLEANO
-  '''
-
-
-## PILA 
-
-# regla_variable new SplStack();
-def p_pila(p):
-  " pila :  NEW STACK PAREN_IZQ PAREN_DER"
-
-# métodos de la pila
-# Ejemplo: $_pila1 -> push(2);
-def p_op_pila(p):
-  " op_pila : SIGNO_DOLAR CADENA RESTA MAYOR_QUE operad_pila"
-
-# push:añade, pop:elimina, count:cuenta, current:muestra el valor
-def p_operad_pila(p):
-  ''' operad_pila : PUSH PAREN_IZQ datos PAREN_DER PUNTO_COMA 
-                  | POP PAREN_IZQ PAREN_DER PUNTO_COMA
-                  | COUNT PAREN_IZQ PAREN_DER PUNTO_COMA
-                  | CURRENT PAREN_IZQ PAREN_DER PUNTO_COMA
-  '''
-
-
-## Funciones con lista de argumentos de longitud variable
-
-# Ejemplo: function abc(...$_num){ return $_suma}
-def p_funcion_variable(p):
-  ''' funcion_variable : FUNCTION CADENA PAREN_IZQ TRES_PUNTOS SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ bloque LLAVE_DER'''
-
-
-
-# retorno de variable
-def p_retorno(p):
-  " retorno : RETURN SIGNO_DOLAR CADENA"
+##Logs
+logs_file = open ('logs.txt','w')
 
 
 
 
-########## EMILY CORDERO  ##########
-def p_contenido(p):
-    '''contenido : bloque
-               | sinRetorno'''
+## Root GUI
+ventana=tkinter.Tk(className='PHP')
+ventana.geometry("900x800")
 
-## While
-def p_whileDeclaracion(p):
-    "whileDeclaracion : WHILE PAREN_IZQ SIGNO_DOLAR CADENA operad_log valor PAREN_DER LLAVE_IZQ contenido LLAVE_DER"
+## Etiqueta Principal
+mensaje = tkinter.Label(ventana, text="Analizador del Lenguaje de PHP" , fg="#FFFFFF", bg='#008080',  font=("Arial", 25) )
+mensaje.grid(row = 0, column = 0, padx = 15, columnspan=2)
 
+##Etiqueta Ingreso
+mensaje_in = tkinter.Label(ventana, text="Ingrese su código aquí:" , bg='#008080',  font=("Arial", 12))
+mensaje_in.grid(row = 1, column = 0, padx = 2)
 
-## Array
-def p_valoresSeparadosComa(p):
-    'valores : valor repite_valores'
-
-def p_repite_valoresSeparadosComa(p):
-    ''' repite_valores : COMA valor
-                        | COMA valor repite_valores
-    '''
-
-def p_arreglo_asociativo(p):
-    "arreglo : SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valor FLECHA valor PAREN_DER PUNTO_COMA"
+## Caja de ingreso
+cajatexto = tkinter.scrolledtext.ScrolledText(ventana, width= 80, height = 12, wrap=WORD)
+cajatexto.grid(row=2, column=0, padx=20, pady=20, rowspan=5)
 
 
-def p_arreglo_parentesis(p):
-    "arreglo : SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valores PAREN_DER PUNTO_COMA"
+## Caja de salida
+muestra = tkinter.scrolledtext.ScrolledText(ventana, width= 80, height = 12, wrap=WORD)
+muestra.grid(row = 12, column=0, padx = 20 ,pady = 20, rowspan=5)
+muestra.configure(state='disabled')   
+
+## Etiqueta Salida
+mensaje_out = tkinter.Label(ventana, text="Salida:" , bg='#008080',  font=("Arial", 12))
+mensaje_out.grid(row = 11, column = 0, padx = 2)
 
 
-#para array con asignacion con flecha
-def p_valoresArregloAsociativo(p):
-    " valoresflecha : valor FLECHA valor repite_valores_f"
+#sintactico Carlos Gomez
+def sintatico():
+    #obtenemos el codigo
+    codigo = cajatexto.get("1.0", END)
 
+    ##### LOGS #####
+    logs_file.write(datetime.now().strftime("%m/%d/%Y, %H:%M:%S")+ "\n")
+    logs_file.write("Entrada:"+"\n" +codigo+"\n")
+    ################
 
-def p_repite_valoresSeparados_flecha(p):
-  ''' repite_valores_f : COMA valor FLECHA valor
-                        | COMA valor FLECHA valor repite_valores
-  '''
+    # Habilitamos la seccion para que pueda ser modificable
+    muestra.configure(state='normal')
+    # Borramos el contenido Anterior
+    muestra.delete("1.0", END)
 
-def p_arreglo_asociativo(p):
-    "arreglo : SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valoresflecha PAREN_DER PUNTO_COMA"
-
-# Función dentro de otra funcion
-def p_sinretorno(p):
-  '''sinRetorno : FUNCTION CADENA PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ contenido LLAVE_DER'''
-
-##########
-#correcion Carlos Gomez
-errores_sintaxis = []  
-def p_error(p):
-    if p:
-        print(f"Error de sintaxis - Token: {p.type}, Línea: {p.lineno}, Col: {p.lexpos}")
-        errores_sintaxis.append("Error de sintaxis en token {}, en la linea {}".format(p.type, p.lineno))
-        parser.errok()
-        # logs_file.write(today.strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +"Error de sintaxis - Token: "+ str(p.type) +", Línea: "+ str(p.lineno) +", Col: "+ str(p.lexpos) +"\n")
-    else:
-        errores_sintaxis.append("Error de sintaxis ")
-        print("Error de sintaxis Fin de Linea")
-        # logs_file.write(today.strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +"Error de sintaxis Fin de Linea"+"\n")
-
-#Construya el lexer
-
-parser = yacc.yacc()
-#validacion para interfaz Carlos Gomez
-def obtener_analizador_sintactico():
-    return yacc.yacc(errorlog=yacc.NullLogger())
-    #errorlog=yacc.NullLogger()
-#carlos Gomez
-
-def validaRegla(s):
-    result1 = parser.parse(s)
-    return result1
-    #print(result1)
-# Método para analizar cada línea
-
-# archivo = open("algoritmos.txt")
-# for linea in archivo:
-#   print(">>" + linea)
-#   validaRegla(linea)
-#   logs_file = open ('logs.txt','a')
-#   if len(linea) == 0:
-#     logs_file.write(datetime.now().strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +linea+"\n")
- 
-#     break
+    ##### LOGS #####
+    logs_file.write("Salida:"+"\n")
+    ################
     
+    #Aquí debe hacerse el análisis sintáctico con el código y mostrarlo
+    analisis = str(analizadorSintactico.parse(codigo))   
+    #print(analisis)
+    if len(sintactico.errores_sintaxis) > 0:
+        #print(sintactico.errores_sintaxis)
+        #errores = '\n'.join(sintactico.errores_sintaxis) + '\n'
+        #muestra.insert("1.0", errores, 'warning')
+        for i in range(len(sintactico.errores_sintaxis)):
+            ##### LOGS #####
+            logs_file.write(str(sintactico.errores_sintaxis[i])+"\n")
+            ################
+            muestra.insert( float(i+1), str(sintactico.errores_sintaxis[i])+"\n")
+    
+        sintactico.errores_sintaxis.clear() 
+    else:
+        # Insertamos el resultado
+        muestra.insert("1.0", "Ingresi Válido")
 
+    # deshabilitar la seccion p
+    muestra.configure(state='disabled')   
+        
 
+def lexico():
+    codigo = cajatexto.get("1.0", END)
 
-# while True:
-  # try:
-  #   #Crear archivo para logs
-  #   logs_file = open ('logs.txt','a')
-  #   s = input('calc > ')
+    ##### LOGS #####
+    logs_file.write(datetime.now().strftime("%m/%d/%Y, %H:%M:%S")+ "\n")
+    logs_file.write("Entrada:"+"\n" +codigo+"\n")
+    ################
 
-  # except EOFError:
-  #   break
-  # if not s: continue
-  # logs_file.write(datetime.now().strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +s+"\n")
-  # validaRegla(s)
+    ##Se habilita el bloque de salida
+    muestra.configure(state='normal')
+    # Limpiamos la caja
+    muestra.delete("1.0", END)
+   
+    lista_tokens = [] 
+    analizadorLexico.input(codigo)  #Pasamos el código a analizar
+    lexicophp.getTokens(analizadorLexico, lista_tokens) # Enviamos el resultado del análisis a la lista    
+  
+    ##### LOGS #####
+    logs_file.write("Salida:"+"\n")
+    ################
+
+    ## Mostramos los tokens en la caja de salida
+    for i in range(0,len(lista_tokens)):
+        
+        ##### LOGS #####
+        logs_file.write(str(lista_tokens[i])+"\n")
+        ################
+
+        muestra.insert( float(i+1), str(lista_tokens[i])+"\n")
+    
+    muestra.configure(state='disabled') #Volvemos a deshabilitar la caja de salida
+ 
+def limpiar():
+    cajatexto.delete("1.0", END)
+    muestra.configure(state='normal')
+    muestra.delete("1.0", END)
+
+def salir():
+    ventana.destroy()
+
+#presentacion
+botonLex = tkinter.Button(ventana, text="Análisis Léxico", width = 15, height=2, command=lexico)
+botonLex.grid(row = 3, column = 1, padx = 15)
+
+botonSin = tkinter.Button(ventana, text="Análisis Sintactico", width = 15, height=2, command=sintatico)
+botonSin.grid(row = 4, column = 1, padx = 15)
+
+botonSem = tkinter.Button(ventana, text="Análisis Semántico", width = 15, height=2)
+botonSem.grid(row = 5, column = 1, padx = 15)
+
+b_limpiar = tkinter.Button(ventana, text="Limpiar", width = 10, height=2, command=limpiar)
+b_limpiar.grid(row = 14, column = 1, padx = 15, columnspan=1)
+
+b_salir = tkinter.Button(ventana, text="Salir", width = 10, height=2, command=salir)
+b_salir.grid(row = 15, column = 1, padx = 15, columnspan=1)
+
+ventana.configure(bg='#008080')
+ventana.mainloop()

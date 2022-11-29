@@ -3,6 +3,7 @@ import ply.lex as lex
 # Lista de palabras reservadas
 #Elaborado por Carlos Gómez
 reserved = {
+  "print_r" : "PRINT_R",
   "break": "BREAK",
   "clone": "CLONE",
   "endswitch": "ENDSWITCH",
@@ -108,12 +109,14 @@ tokens = (
   'PUNTO',
   'PUNTO_COMA',
   'INTERROG_CE',
-  'CADENA',
+  'VARIABLE',
   'COMA',
   'TRES_PUNTOS',
   'PUNTODOBLE',
   'FLECHA',
-  'ESPACIO'
+  'ESPACIO',
+  'ASIG_OBJ',
+ 
 
   ###
 ) + tuple(reserved.values())
@@ -155,17 +158,17 @@ t_COMA = r'\,'
 t_TRES_PUNTOS = r'\.\.\.'
 t_PUNTODOBLE = r'\:'
 t_FLECHA = r'=>'
-t_ESPACIO =r'" "'
-
-def t_ENTERO(t):
-  r'(-?[1-9]\d*)|0'
-  t.value = int(t.value)
-  return t
-
+t_ESPACIO =r'\s'
+t_ASIG_OBJ = r'\->'
 
 def t_FLOTANTE(t):
   r'(-?\d*\.\d+)|^0.0$'
   t.value = float(t.value)
+  return t
+  
+def t_ENTERO(t):
+  r'(-?[1-9]\d*)|0'
+  t.value = int(t.value)
   return t
 
 
@@ -175,11 +178,11 @@ def t_BOOLEANO(t):
   return t
 
 
-
-def t_CADENA(t):
+def t_VARIABLE(t):
   r'([a-zA-Z0-9_]?[a-zA-Z0-9_]+)'
-  t.type = reserved.get(t.value, 'CADENA')
+  t.type = reserved.get(t.value, 'VARIABLE')
   return t
+
 
 
 def t_STRING(t):
@@ -218,7 +221,6 @@ def getTokens(lexer, lista):
             break 
         lista.append(tok)
 
-###  Lea el archivo algoritmos.txt y retorne los tokens
 
 # Método para analizar cada línea
 def analizar(data):

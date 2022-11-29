@@ -1,68 +1,55 @@
 ### Algoritmos de cada miembro del equipo
 
-<html>
-  <head>
-    <title>PHP Test Lexer</title>
-  </head>
-  <body>
-    <?php      
+# Karla Castro
 
-    # Karla Castro
+$libros = array("Don Quijote de la Mancha", "El principito", "El señor de los anillos",  "El Alquimista", "Narnia", "After",  "Romeo y Julieta");
+$autores = array("Miguel De Cervantes", "Antoine de Saint-Exupery", "J. R. R. Tolkien",  "Paulo Coello", "C. S. Lewis", "Anna Todd",  "Wiliam Shakespeare");
+function crear_diccionario($arreglo_clave, $arreglo_valor){
+  $diccionario = array();
+  $_longitud = count($arreglo_clave);
+  for ($i = 0; $i < $_longitud; $i++)
+  {
+    $clave_autor = $arreglo_clave[$i];
+    $valor_libro = $arreglo_valor[$i];
+    $diccionario[$clave_autor] = $valor_libro ;
+  }
+  return $diccionario;
+}
+function mostrar_diccionario($_dicc){
+  echo "Datos literarios \n";
+  foreach ($_dicc as $clave => $valor) {
+    echo "Autor: {$clave}"."\t";
+    echo "Obra: {$valor} \n";
+  }
+}
+$dicc_completo = crear_diccionario($autores, $libros);
+mostrar_diccionario($dicc_completo);
+# Karla Castro
 
-    $libros = array("Don Quijote de la Mancha", "El principito", "El señor de los anillos",  "El Alquimista", "Narnia", "After",  "Romeo y Julieta", );
-    $autores = array("Miguel De Cervantes", "Antoine de Saint-Exupery", "J. R. R. Tolkien",  "Paulo Coello", "C. S. Lewis", "Anna Todd",  "Wiliam Shakespeare");
+#Carlos Gomez
 
-    function crear_diccionario($arreglo_clave, $arreglo_valor){
-        
-        $diccionario = array();
-        $_longitud = count($arreglo_clave);
-        
-        for ($i = 0; $i < $_longitud; $i++){
-            
-            $clave_autor = $arreglo_clave[$i];
-            $valor_libro = $arreglo_valor[$i];
-            
-            $diccionario[$clave_autor] = $valor_libro ;
-        }
-        
-        return $diccionario;
-    }
-
-    function mostrar_diccionario($_dicc){
-        
-        echo "Datos literarios \n";
-        foreach ($_dicc as $clave => $valor) {
-            echo "Autor: {$clave}"."\t";
-            echo "Obra: {$valor} \n";
-        }
-    }
-
-
-    $dicc_completo = crear_diccionario($autores, $libros);
-    mostrar_diccionario($dicc_completo);
-
-    # Karla Castro
-
-
-    #Carlos Gomez
-    
-    function esPar($_num){
-        if($_num%2==0) }
-        return True;}
-        else{
-        return False;}     
-    }  
-    #pruebapaaaaa
-    for($i=1;$i<=10;$i++){echo$i;}
-    for( $i=1; $i>=10; $i++) {echo $i ;}
-
-    $num=5;
-    esPar($num); 
-    binario($num);
+function esPar($_num){
+  if($_num%2==0){
+  return True;
+  }else{
+  return False;
+  }     
+}  
+function binario($_num){
+  $numStr="";
+  while($_num!=0){
+  $residuo=$_num%2;
+  $_num=$_num//2;
+  num+=str($residuo);
+  }
+  return strrev($numStr);
+}  
+$num=5;
+esPar($num); 
+binario($num);
 #Carlos Gomezs
 
 #Emily Cordero
-
 $descuento=25;
 $totalCompra = 100;
 $minValorDscto = 60;
@@ -76,12 +63,4 @@ function calcularDescuento($_dscto,$_total,$_minV){
   }
 }
 calcularDescuento($descuento,$totalCompra,$minValorDscto);
-
 #Emily Cordero
- 
-    ?> 
-   
-    </body>
-</html>
-
-
