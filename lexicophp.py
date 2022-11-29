@@ -108,11 +108,12 @@ tokens = (
   'PUNTO',
   'PUNTO_COMA',
   'INTERROG_CE',
-  'CADENA',
+  'VARIABLE',
   'COMA',
   'TRES_PUNTOS',
   'PUNTODOBLE',
-  'FLECHA'
+  'FLECHA',
+  'ESPACIO'
 
   ###
 ) + tuple(reserved.values())
@@ -154,7 +155,7 @@ t_COMA = r'\,'
 t_TRES_PUNTOS = r'\.\.\.'
 t_PUNTODOBLE = r'\:'
 t_FLECHA = r'=>'
-
+t_ESPACIO =r'\s'
 
 def t_ENTERO(t):
   r'(-?[1-9]\d*)|0'
@@ -174,9 +175,9 @@ def t_BOOLEANO(t):
   return t
 
 
-def t_CADENA(t):
+def t_VARIABLE(t):
   r'([a-zA-Z0-9_]?[a-zA-Z0-9_]+)'
-  t.type = reserved.get(t.value, 'CADENA')
+  t.type = reserved.get(t.value, 'VARIABLE')
   return t
 
 
@@ -206,9 +207,18 @@ t_ignore = ' \t'
 #Construya el lexer
 lexer = lex.lex()
 
+# Lista que almacenara los errores que sucedan en el analisis lexico
+errores_lexico = []
+
+def getTokens(lexer, lista):
+    while True:
+        tok = lexer.token()
+        if not tok:
+            break 
+        lista.append(tok)
+
 ###  Lea el archivo algoritmos.txt y retorne los tokens
 
-'''
 # Método para analizar cada línea
 def analizar(data):
   lexer.input(data)
@@ -216,7 +226,13 @@ def analizar(data):
     tok = lexer.token()
     if not tok:
       break
-    print(tok)
+    return tok
+#obtener valores del lexico para interfaz Carlos Gómez
+def obtener_validador_lexico():
+    return lex.lex()
+#Carlos Gómez
+'''
+
 
 
 # Leer archivos

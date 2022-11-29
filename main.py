@@ -1,261 +1,119 @@
-import ply.yacc as yacc
-from lexicophp import tokens 
-from datetime import datetime 
-
-today = datetime.now()
-
-#### Todas las instrucciones disponibles ###
-def p_instrucciones(p):  
-  '''instrucciones : valor
-                    | decl_variable
-                    | asignacion
-                    | salida 
-                    | estructuras_control
-                    | estructuras_datos
-                    | funciones  
-                    | op_logica
-                    | op_pila
-  '''
-
-def p_decl_variable(p):
-  "decl_variable : SIGNO_DOLAR CADENA"
-
-## Definicion de una variable
-def p_asignacion(p):
-  "asignacion : decl_variable IGUAL valor PUNTO_COMA"
-
-## Valores que pueden ir en una variable
-# Ejemplo: $_variable = regla_valor
-def p_valor(p):
-  '''valor : datos 
-          | pila
-          | cola
-  '''
-
-#Tipos de datos primitivos
-def p_datos(p):
-  '''datos : ENTERO
-          | FLOTANTE
-          | STRING 
-          | BOOLEANO 
-  '''
-
-
-#Múltiples salidas permitidas
-def p_salida_forma1(p):
-  '''salida : ECHO STRING PUNTO_COMA'''
-
-def p_salida_forma2(p):
-  '''salida : PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMA'''
-
-def p_salida_forma3(p):
-  '''salida : PRINT STRING PUNTO_COMA'''
-
-
-
-### Definiciones Generales ###
-
-def p_estructuras_control(p):
-  ''' estructuras_control : if_else 
-                          | switch1
-                          | whileDeclaracion
-  '''
-
-def p_estructuras_datos(p):
-  ''' estructuras_datos : pila 
-                        | cola
-                        | arreglo
-  '''
-
-def p_funciones(p):
-  '''funciones : funcion_variable 
-                | sinRetorno
-  '''
-
-### Operadores Logicos ###
-def p_operad_log(p):
-  '''operad_log : IDENTICO
-                | DIFERENTE
-                | MAYOR_QUE
-                | MAYOR_IGUAL
-                | MENOR_QUE
-                | MENOR_IGUAL
-  '''
-#bloques de código permitidos dentro de alguna funcion
-def p_bloque(p):
-  ''' bloque : asignacion
-              | salida
-              | retorno
-  '''
-
-########## CARLOS GOMEZ  ##########
-## Funcion sin retorno 
-
-def p_sinretorno(p):
-  '''sinRetorno : FUNCTION CADENA PAREN_IZQ decl_variable PAREN_DER LLAVE_IZQ salida LLAVE_DER'''
-
-
-## Cola 
-def p_cola(p):
-  " cola : NEW QUEUE PAREN_IZQ PAREN_DER "
-
-## Switch 
-def p_switch1(p):
-   '''switch1 : SWITCH PAREN_IZQ  decl_variable PAREN_DER LLAVE_IZQ CASE ENTERO PUNTODOBLE  BREAK LLAVE_DER'''
-
-
-########## KARLA CASTRO  ##########
-
-##### REGLAS SINTACTICAS
-
-##  Sentencia IF-ELSEIF-ELSE
-# Ejemplo: if(3>=2){print"mayor";}elseif(3==2){print "iguales";}else{print "menor";}
-
-
-# if-else
-def p_if_else_corto(p):
-  " if_else : if_else_inicio if_else_fin"
-
-# if-elseif-else
-def p_if_else_extendido(p):
-  " if_else : if_else_inicio if_else_cuerpo if_else_fin"
-
-# bloque IF
-def p_if_else_inicio(p):
-  "if_else_inicio : IF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER"
-
-# bloque ELSEIF
-def p_if_else_cuerpo(p):
-  ''' if_else_cuerpo : ELSEIF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER
-                    |  ELSEIF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER if_else_cuerpo
-  '''
-
-# bloque ELSE
-def p_if_else_fin(p):
-  "if_else_fin : ELSE LLAVE_IZQ salida LLAVE_DER"
-
-#Permitidas para tipos de datos iguales
-def p_op_logica(p):
-  ''' op_logica : ENTERO operad_log ENTERO
-                | FLOTANTE operad_log FLOTANTE
-                | STRING operad_log STRING
-                | BOOLEANO
-  '''
-
-
-## PILA 
-
-# regla_variable new SplStack();
-def p_pila(p):
-  " pila :  NEW STACK PAREN_IZQ PAREN_DER"
-
-# métodos de la pila
-# Ejemplo: $_pila1 -> push(2);
-def p_op_pila(p):
-  " op_pila : decl_variable RESTA MAYOR_QUE operad_pila"
-
-# push:añade, pop:elimina, count:cuenta, current:muestra el valor
-def p_operad_pila(p):
-  ''' operad_pila : PUSH PAREN_IZQ datos PAREN_DER PUNTO_COMA 
-                  | POP PAREN_IZQ PAREN_DER PUNTO_COMA
-                  | COUNT PAREN_IZQ PAREN_DER PUNTO_COMA
-                  | CURRENT PAREN_IZQ PAREN_DER PUNTO_COMA
-  '''
-
-
-## Funciones con lista de argumentos de longitud variable
-
-# Ejemplo: function abc(...$_num){ return $_suma}
-def p_funcion_variable(p):
-  ''' funcion_variable : FUNCTION CADENA PAREN_IZQ TRES_PUNTOS decl_variable PAREN_DER LLAVE_IZQ bloque LLAVE_DER'''
-
-
-# retorno de variable
-def p_retorno(p):
-  ''' retorno : RETURN decl_variable PUNTO_COMA'''
-
-##### REGLAS SEMANTICAS
-
-## Concatenación de String
-
-## Casting
-
-
-
-########## EMILY CORDERO  ##########
-def p_contenido(p):
-    '''contenido : bloque
-               | sinRetorno'''
-
-## While
-def p_whileDeclaracion(p):
-    "whileDeclaracion : WHILE PAREN_IZQ decl_variable operad_log valor PAREN_DER LLAVE_IZQ contenido LLAVE_DER"
-
-
-## Array 
-## array() 
-## array(....)
-## array( )
-def p_valoresSeparadosComa(p):
-    'valores : valor repite_valores'
-
-def p_repite_valoresSeparadosComa(p):
-    ''' repite_valores : COMA valor
-                        | COMA valor repite_valores
-    '''
-
-def p_arreglo_asociativo(p):
-    "arreglo : decl_variable IGUAL ARRAY PAREN_IZQ valor FLECHA valor PAREN_DER PUNTO_COMA"
-
-
-def p_arreglo_parentesis(p):
-    "arreglo : decl_variable IGUAL ARRAY PAREN_IZQ valores PAREN_DER PUNTO_COMA"
-
-
-#para array con asignacion con flecha
-def p_valoresArregloAsociativo(p):
-    " valoresflecha : valor FLECHA valor repite_valores_f"
-
-
-def p_repite_valoresSeparados_flecha(p):
-  ''' repite_valores_f : COMA valor FLECHA valor
-                        | COMA valor FLECHA valor repite_valores
-  '''
-
-def p_arreglo_asociativo(p):
-    "arreglo : decl_variable IGUAL ARRAY PAREN_IZQ valoresflecha PAREN_DER PUNTO_COMA"
-
-# Función dentro de otra funcion
-def p_sinretorno(p):
-  '''sinRetorno : FUNCTION CADENA PAREN_IZQ decl_variable PAREN_DER LLAVE_IZQ contenido LLAVE_DER'''
-
-##########
-
-  
-def p_error(p):
-    if p:
-        #print(f"Error de sintaxis - Token: {p.type}, Línea: {p.lineno}, Col: {p.lexpos}")
-        parser.errok()
-        logs_file.write(today.strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +"Error de sintaxis - Token: "+ str(p.type) +", Línea: "+ str(p.lineno) +", Col: "+ str(p.lexpos) +"\n")
+import tkinter
+from tkinter import *
+import tkinter.scrolledtext as st
+import sintactico
+import lexicophp 
+
+valorLexico= lexicophp.lexer
+valorsintatico=sintactico.parser
+analizadorLexico=lexicophp.obtener_validador_lexico()
+analizadorSintactico= sintactico.obtener_analizador_sintactico()
+
+ventana=tkinter.Tk(className='PHP')
+ventana.geometry("900x800")
+
+mensaje = tkinter.Label(ventana, text="Analizador del Lenguaje de PHP" , fg="#FFFFFF", bg='#008080',  font=("Arial", 25) )
+mensaje.grid(row = 0, column = 0, padx = 15, columnspan=2)
+
+mensaje_in = tkinter.Label(ventana, text="Ingrese su código aquí:" , bg='#008080',  font=("Arial", 12))
+mensaje_in.grid(row = 1, column = 0, padx = 2)
+
+#cajatexto=tkinter.Entry(ventana)
+## Caja de ingreso
+cajatexto = tkinter.scrolledtext.ScrolledText(ventana, width= 80, height = 12, wrap=WORD)
+cajatexto.grid(row=2, column=0, padx=20, pady=20, rowspan=5)
+
+## Caja de salida
+muestra = tkinter.scrolledtext.ScrolledText(ventana, width= 80, height = 12, wrap=WORD)
+muestra.grid(row = 12, column=0, padx = 20 ,pady = 20, rowspan=5)
+
+
+mensaje_out = tkinter.Label(ventana, text="Salida:" , bg='#008080',  font=("Arial", 12))
+mensaje_out.grid(row = 11, column = 0, padx = 2)
+
+cajatextoSalida=tkinter.Entry(ventana)
+
+#sintactico Carlos Gomez
+def sintatico():
+    #obtenemos el codigo
+    codigo = cajatexto.get()
+
+    
+    # Habilitamos la seccion para que pueda ser modificable
+    muestra.configure(state='normal')
+
+    # Borramos el contenido Anterior
+    muestra.delete("1.0", END)
+
+    #Aquí debe hacerse el análisis sintáctico con el código y mostrarlo    
+    #analizadorSintactico.lineno = 1
+    analisis = str(analizadorSintactico.parse(codigo))   
+    if len(sintactico.errores_sintaxis) > 0:
+        errores = '\n'.join(sintactico.errores_sintaxis) + '\n'
+        muestra.insert("1.0", errores, 'warning')
+        sintactico.errores_sintaxis.clear() 
     else:
-        #print("Error de sintaxis Fin de Linea")
-        logs_file.write(today.strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +"Error de sintaxis Fin de Linea"+"\n")
+        # Insertamos el resultado
+        muestra.insert("1.0", analisis)
+
+    # deshabilitar la seccion p
+    muestra.configure(state='disabled')   
+        
 
 
-parser = yacc.yacc()
+#lexico Carlos Gomez
+def lexico():
+    codigo = cajatexto.get()
+    muestra.configure(state='normal')
 
+    # Borramos el contenido Anterior
+    muestra.delete("1.0", END)
+   
+    lista = []
+    # lexicophp.lineno = 1
+    lista.append(codigo)
+    analizadorLexico.input(codigo)
+    lexicophp.getTokens(analizadorLexico, lista)    
+    analisis = ''
 
-def validaRegla(s):
-  if not s: pass
-  result = parser.parse(s)
+    for elem in lista:
+        #print("xxxxeeee",elem)
+        analisis += repr(elem)
+        analisis += ' '
+       
+    
+    #VL=lexicophp.analizar(analisis)
+    muestra.insert('1.0',analisis)
+    #print("algooooo", analisis)
+    muestra.configure(state='disabled')
+    #print("algoxxx",(VL))
+    #lexicophp.getTokens(VL,lista)
+    
+    
+    #muestra(lexicophp.analizar(analisis))
+ 
+def limpiar():
+    cajatexto.delete("1.0", END)
+    muestra.delete("1.0", END)
 
+def salir():
+    ventana.destroy()
 
-archivo = open("algoritmos.txt")
-logs_file = open ('logs.txt', 'w')
-for linea in archivo:
-  if(linea[0]=='#'):
-    continue
-  else:
-    logs_file.write(today.strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +str(linea)+"\n")
-    validaRegla(linea)
-  
+#presentacion
+botonLex = tkinter.Button(ventana, text="Análisis \nLéxico", width = 10, height=2, command=lexico)
+botonLex.grid(row = 3, column = 1, padx = 15)
+
+botonSin = tkinter.Button(ventana, text="Análisis \nSintactico", width = 10, height=2, command=sintatico)
+botonSin.grid(row = 4, column = 1, padx = 15)
+
+botonSem = tkinter.Button(ventana, text="Análisis \nSemántico", width = 10, height=2)
+botonSem.grid(row = 5, column = 1, padx = 15)
+
+b_limpiar = tkinter.Button(ventana, text="Limpiar", width = 10, height=2, command=limpiar)
+b_limpiar.grid(row = 14, column = 1, padx = 15, columnspan=1)
+
+b_salir = tkinter.Button(ventana, text="Salir", width = 10, height=2, command=salir)
+b_salir.grid(row = 15, column = 1, padx = 15, columnspan=1)
+
+ventana.configure(bg='#008080')
+ventana.mainloop()

@@ -1,5 +1,7 @@
 ### Algoritmos de cada miembro del equipo
+
 # Karla Castro
+
 $libros = array("Don Quijote de la Mancha", "El principito", "El señor de los anillos",  "El Alquimista", "Narnia", "After",  "Romeo y Julieta");
 $autores = array("Miguel De Cervantes", "Antoine de Saint-Exupery", "J. R. R. Tolkien",  "Paulo Coello", "C. S. Lewis", "Anna Todd",  "Wiliam Shakespeare");
 function crear_diccionario($arreglo_clave, $arreglo_valor){
@@ -23,7 +25,9 @@ function mostrar_diccionario($_dicc){
 $dicc_completo = crear_diccionario($autores, $libros);
 mostrar_diccionario($dicc_completo);
 # Karla Castro
+
 #Carlos Gomez
+
 function esPar($_num){
   if($_num%2==0){
   return True;
