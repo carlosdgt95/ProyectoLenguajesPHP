@@ -9,8 +9,6 @@ today = datetime.now()
 #### Todas las instrucciones disponibles ###
 def p_instrucciones(p):  
   '''instrucciones : valor
-                    | menor
-                    | mayor
                     | asignacion
                     | salida
                     | prueba
@@ -24,6 +22,7 @@ def p_instrucciones(p):
                     | declaracion_s
                     | crecimiento
                     | valorc
+                    | LLAVE_DER
 
 
   '''
@@ -52,7 +51,7 @@ def p_datos(p):
 def p_salida_forma1(p):
   '''salida : ECHO CADENA PUNTO_COMA'''
 def p_prueba(p):
-  '''prueba : ECHO SIGNO_DOLAR CADENA PUNTO_COMA'''
+  '''prueba : ECHO SIGNO_DOLAR CADENA PUNTO_COMA LLAVE_DER'''
 
 def p_salida_forma2(p):
   '''salida : PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMA'''
@@ -60,7 +59,8 @@ def p_salida_forma2(p):
 def p_salida_forma3(p):
   '''salida : PRINT STRING PUNTO_COMA'''
 
-
+def p_salida_forma4(p):
+  '''salida : PRINT for PUNTO_COMA '''
 
 ### Definiciones Generales ###
 
@@ -95,22 +95,28 @@ def p_bloque(p):
   ''' bloque : asignacion
               | salida
               | retorno
+              | prueba
+          
   '''
 
 ########## CARLOS GOMEZ  ##########
 ## Funcion sin retorno 
 
 def p_sinretorno(p):
-  '''sinRetorno : FUNCTION CADENA PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ salida LLAVE_DER'''
+  '''sinRetorno : FUNCTION CADENA PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ sentenciasAnidadas LLAVE_DER'''
 
 
 ## Cola 
 def p_cola(p):
   " cola : NEW QUEUE PAREN_IZQ PAREN_DER "
-
+def p_sentenciasAnidadas(p):
+	'''sentenciasAnidadas : instrucciones 
+						| instrucciones sentenciasAnidadas
+	'''
 ## for
 def p_for(p):
-   '''for : FOR PAREN_IZQ declaracion declaracionp declaracion_s PAREN_DER LLAVE_IZQ prueba LLAVE_DER'''
+   '''for : FOR PAREN_IZQ declaracion declaracionp declaracion_s PAREN_DER LLAVE_IZQ sentenciasAnidadas 
+                                                                                    | cola LLAVE_DER '''
 
 def p_declaracion(p):
   '''declaracion :  SIGNO_DOLAR CADENA IGUAL ENTERO PUNTO_COMA'''

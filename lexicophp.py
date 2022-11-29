@@ -65,7 +65,7 @@ reserved = {
   "push" : "PUSH",
   "pop" : "POP",
   "current": "CURRENT",
-  "SplQueue" : "QUEUE",
+  "queue" : "QUEUE",
 }
 #Elaborado Carlos Gomez
 #Definicion de tokens
