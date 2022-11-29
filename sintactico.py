@@ -17,7 +17,6 @@ def p_instrucciones(p):
                     | funciones  
                     | op_logica
                     | op_pila
-                    | declaracion
                     | declaracionp
                     | declaracion_s
                     | crecimiento
@@ -114,33 +113,31 @@ def p_cola(p):
 
 ## for
 def p_for(p):
-   '''for : FOR PAREN_IZQ declaracion declaracionp declaracion_s PAREN_DER LLAVE_IZQ prueba LLAVE_DER'''
+   '''for : FOR PAREN_IZQ asignacion declaracionp declaracion_s PAREN_DER LLAVE_IZQ prueba LLAVE_DER'''
 
-def p_declaracion(p):
-  '''declaracion :  SIGNO_DOLAR VARIABLE IGUAL ENTERO PUNTO_COMA'''
+
 def p_declaracionM(p):
    '''declaracionp :  SIGNO_DOLAR VARIABLE valorc'''
+
 def p_menor(p):
   '''menor : MENOR_IGUAL ENTERO PUNTO_COMA'''
+
 def p_mayor(p):
   '''mayor : MAYOR_IGUAL ENTERO PUNTO_COMA'''
+
 def p_valorC(p):
   ''' valorc : menor
               | mayor'''
+
 def p_declaracionsimple(p):
    '''declaracion_s : SIGNO_DOLAR VARIABLE crecimiento'''
+
 def p_crecimiento(p):
   '''crecimiento : INCREMENTO 
                 | DECREMENTO'''
 
 
 ########## KARLA CASTRO  ##########
-
-##### REGLAS SINTACTICAS
-
-##  Sentencia IF-ELSEIF-ELSE
-# Ejemplo: if(3>=2){print"mayor";}elseif(3==2){print "iguales";}else{print "menor";}
-
 
 # if-else
 def p_if_else_corto(p):
@@ -203,13 +200,6 @@ def p_funcion_variable(p):
 # retorno de variable
 def p_retorno(p):
   ''' retorno : RETURN decl_variable PUNTO_COMA'''
-
-##### REGLAS SEMANTICAS
-
-## Concatenación de String
-
-## Casting
-
 
 
 ########## EMILY CORDERO  ##########
@@ -274,6 +264,7 @@ def p_error(p):
         # logs_file.write(today.strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +"Error de sintaxis Fin de Linea"+"\n")
 
 #Construya el lexer
+
 
 parser = yacc.yacc()
 def obtener_analizador_sintactico():
