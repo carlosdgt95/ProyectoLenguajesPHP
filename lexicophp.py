@@ -3,6 +3,7 @@ import ply.lex as lex
 # Lista de palabras reservadas
 #Elaborado por Carlos Gómez
 reserved = {
+  "print_r" : "PRINT_R",
   "break": "BREAK",
   "clone": "CLONE",
   "endswitch": "ENDSWITCH",
@@ -113,7 +114,8 @@ tokens = (
   'TRES_PUNTOS',
   'PUNTODOBLE',
   'FLECHA',
-  'ESPACIO'
+  'ESPACIO',
+  'ASIG_OBJ'
 
   ###
 ) + tuple(reserved.values())
@@ -156,6 +158,7 @@ t_TRES_PUNTOS = r'\.\.\.'
 t_PUNTODOBLE = r'\:'
 t_FLECHA = r'=>'
 t_ESPACIO =r'\s'
+t_ASIG_OBJ = r'\->'
 
 def t_FLOTANTE(t):
   r'(-?\d*\.\d+)|^0.0$'

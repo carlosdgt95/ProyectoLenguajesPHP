@@ -1,0 +1,48 @@
+11/29/2022, 15:21:13
+Entrada:
+f(3==4){for($a=0; $a>=2; $a++){$vat=4.5; $pila = new SplStack(); $pila->push(2);}}else{return $variable}
+
+Salida:
+Error de sintaxis en token VARIABLE, en la linea 1, Col: 0
+Error de sintaxis en token SIGNO_DOLAR, en la linea 1, Col: 31
+Error de sintaxis en token SIGNO_DOLAR, en la linea 1, Col: 65
+11/29/2022, 15:21:36
+Entrada:
+if(3==4){for($a=0; $a>=2; $a++){$vat=4.5; $pila = new SplStack(); $pila->push(2);}}else{return $variable}
+
+Salida:
+Error de sintaxis en token SIGNO_DOLAR, en la linea 2, Col: 32
+Error de sintaxis en token SIGNO_DOLAR, en la linea 2, Col: 66
+11/29/2022, 15:21:53
+Entrada:
+if(3==4){for($a=0; $a>=2; $a++){$vat=4.5; $pila = new SplStack(); $pila->push(2);}}else{return $variable;}
+
+Salida:
+Error de sintaxis en token SIGNO_DOLAR, en la linea 3, Col: 32
+Error de sintaxis en token SIGNO_DOLAR, en la linea 3, Col: 66
+11/29/2022, 15:22:46
+Entrada:
+if(3==4){
+	for($a=0; $a>=2; $a++){
+		$vat=4.5; 
+		$pila = new SplStack(); 
+		$pila->push(2);
+	}
+}else{
+return $variable;
+}
+
+Salida:
+Error de sintaxis en token SIGNO_DOLAR, en la linea 6, Col: 37
+Error de sintaxis en token SIGNO_DOLAR, en la linea 8, Col: 77
+11/29/2022, 15:23:02
+Entrada:
+if(3==4){
+	for($a=0; $a>=2; $a++){
+		print("ABC");
+	}
+}else{
+return $variable;
+}
+
+Salida:

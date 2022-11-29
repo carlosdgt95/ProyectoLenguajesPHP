@@ -6,23 +6,14 @@ from lexicophp import tokens
 #### Todas las instrucciones disponibles ###
 def p_instrucciones(p):  
   '''instrucciones : valor
-                    | decl_variable
-                    | menor
-                    | mayor
                     | asignacion
+                    | concatenacion
                     | salida
-                    | prueba
                     | estructuras_control
                     | estructuras_datos
-                    | funciones  
-                    | op_logica
+                    | funciones
                     | op_pila
-                    | declaracionp
-                    | declaracion_s
-                    | crecimiento
                     | valorc
-
-
   '''
 
 def p_decl_variable(p):
@@ -32,12 +23,14 @@ def p_decl_variable(p):
 def p_asignacion(p):
   "asignacion : decl_variable IGUAL valor PUNTO_COMA"
 
+
 ## Valores que pueden ir en una variable
 # Ejemplo: $_variable = regla_valor
 def p_valor(p):
   '''valor : datos 
           | pila
           | cola
+          | arreglo
   '''
 
 #Tipos de datos primitivos
@@ -48,19 +41,23 @@ def p_datos(p):
           | BOOLEANO 
   '''
 
+#Todos los objetos posibles como salidas
+def p_salidas_pos(p):
+  '''salidas_pos : datos
+                | decl_variable
+                | conca_string
+  '''
+
 
 #Múltiples salidas permitidas
 def p_salida_forma1(p):
-  '''salida : ECHO STRING PUNTO_COMA'''
-
-def p_prueba(p):
-  '''prueba : ECHO SIGNO_DOLAR VARIABLE PUNTO_COMA'''
+  '''salida : ECHO salidas_pos PUNTO_COMA'''
 
 def p_salida_forma2(p):
-  '''salida : PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMA'''
+  '''salida : PRINT PAREN_IZQ salidas_pos PAREN_DER PUNTO_COMA'''
 
 def p_salida_forma3(p):
-  '''salida : PRINT STRING PUNTO_COMA'''
+  '''salida : PRINT salidas_pos PUNTO_COMA'''
 
 
 
@@ -92,11 +89,25 @@ def p_operad_log(p):
                 | MENOR_QUE
                 | MENOR_IGUAL
   '''
+
+### Operadores Logicos ###
+def p_operad_arit(p):
+  '''operad_arit : SUMA
+                | RESTA
+                | MULTIPL
+                | DIVISION
+                | DIVISION_ENT
+                | POTENCIA
+                | MODULO
+  '''
+
+
 #bloques de código permitidos dentro de alguna funcion
 def p_bloque(p):
   ''' bloque : asignacion
               | salida
               | retorno
+              | estructuras_control
   '''
 
 ########## CARLOS GOMEZ  ##########
@@ -113,7 +124,7 @@ def p_cola(p):
 
 ## for
 def p_for(p):
-   '''for : FOR PAREN_IZQ asignacion declaracionp declaracion_s PAREN_DER LLAVE_IZQ prueba LLAVE_DER'''
+   '''for : FOR PAREN_IZQ asignacion declaracionp declaracion_s PAREN_DER LLAVE_IZQ salida LLAVE_DER'''
 
 
 def p_declaracionM(p):
@@ -139,6 +150,8 @@ def p_crecimiento(p):
 
 ########## KARLA CASTRO  ##########
 
+#### Reglas Sintácticas
+
 # if-else
 def p_if_else_corto(p):
   " if_else : if_else_inicio if_else_fin"
@@ -149,17 +162,17 @@ def p_if_else_extendido(p):
 
 # bloque IF
 def p_if_else_inicio(p):
-  "if_else_inicio : IF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER"
+  "if_else_inicio : IF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ bloque LLAVE_DER"
 
 # bloque ELSEIF
 def p_if_else_cuerpo(p):
-  ''' if_else_cuerpo : ELSEIF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER
-                    |  ELSEIF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER if_else_cuerpo
+  ''' if_else_cuerpo : ELSEIF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ bloque LLAVE_DER
+                    |  ELSEIF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ bloque LLAVE_DER if_else_cuerpo
   '''
 
 # bloque ELSE
 def p_if_else_fin(p):
-  "if_else_fin : ELSE LLAVE_IZQ salida LLAVE_DER"
+  "if_else_fin : ELSE LLAVE_IZQ bloque LLAVE_DER"
 
 #Permitidas para tipos de datos iguales
 def p_op_logica(p):
@@ -172,14 +185,14 @@ def p_op_logica(p):
 
 ## PILA 
 
-# regla_variable new SplStack();
+# regla_variable new SplStack()
 def p_pila(p):
   " pila :  NEW STACK PAREN_IZQ PAREN_DER"
 
 # métodos de la pila
 # Ejemplo: $_pila1 -> push(2);
 def p_op_pila(p):
-  " op_pila : decl_variable RESTA MAYOR_QUE operad_pila"
+  " op_pila : decl_variable ASIG_OBJ operad_pila"
 
 # push:añade, pop:elimina, count:cuenta, current:muestra el valor
 def p_operad_pila(p):
@@ -197,9 +210,35 @@ def p_funcion_variable(p):
   ''' funcion_variable : FUNCTION VARIABLE PAREN_IZQ TRES_PUNTOS decl_variable PAREN_DER LLAVE_IZQ bloque LLAVE_DER'''
 
 
-# retorno de variable
+# retorno de variables, datos primitivos
 def p_retorno(p):
-  ''' retorno : RETURN decl_variable PUNTO_COMA'''
+  ''' retorno : RETURN salidas_pos PUNTO_COMA'''
+
+
+#### Reglas semánticas
+
+## Concatenacion 
+# Ejemplos:
+# $var = "casa"
+# $var.= 2    -----> "casa2"
+# $var.=true ------> "casa1"
+def p_concatenacion(p):
+  "concatenacion : decl_variable ASIG_CONCA datos PUNTO_COMA"
+
+def p_conca_string(p):
+  "conca_string : STRING PUNTO STRING"
+
+## Salida de objetos
+# Solo print_r permite imprimir las estructuras de datos sin recorrerlas
+def p_salida_obj(p):
+  "salida : PRINT_R PAREN_IZQ valor PAREN_DER PUNTO_COMA "
+
+def p_salidas_pos_obj(p):
+  '''salidas_pos_obj : valor
+                | decl_variable
+                | conca_string
+  '''
+
 
 
 ########## EMILY CORDERO  ##########
@@ -212,34 +251,31 @@ def p_whileDeclaracion(p):
     "whileDeclaracion : WHILE PAREN_IZQ decl_variable operad_log valor PAREN_DER LLAVE_IZQ contenido LLAVE_DER"
 
 
-## Array 
-## array() 
-## array(....)
-## array( )
+
 def p_valoresSeparadosComa(p):
-    'valores : valor repite_valores'
+    'valores : datos repite_valores'
 
 def p_repite_valoresSeparadosComa(p):
-    ''' repite_valores : COMA valor
-                        | COMA valor repite_valores
+    ''' repite_valores : COMA datos
+                        | COMA datos repite_valores
     '''
 
 def p_arreglo_asociativo(p):
-    "arreglo : decl_variable IGUAL ARRAY PAREN_IZQ valor FLECHA valor PAREN_DER PUNTO_COMA"
+    "arreglo :  ARRAY PAREN_IZQ datos FLECHA datos PAREN_DER"
 
 
 def p_arreglo_parentesis(p):
-    "arreglo : decl_variable IGUAL ARRAY PAREN_IZQ valores PAREN_DER PUNTO_COMA"
+    "arreglo : ARRAY PAREN_IZQ valores PAREN_DER"
 
 
 #para array con asignacion con flecha
 def p_valoresArregloAsociativo(p):
-    " valoresflecha : valor FLECHA valor repite_valores_f"
+    " valoresflecha : datos FLECHA datos repite_valores_f"
 
 
 def p_repite_valoresSeparados_flecha(p):
-  ''' repite_valores_f : COMA valor FLECHA valor
-                        | COMA valor FLECHA valor repite_valores
+  ''' repite_valores_f : COMA datos FLECHA datos
+                        | COMA datos FLECHA datos repite_valores
   '''
 
 def p_arreglo_asociativo(p):
@@ -255,7 +291,7 @@ errores_sintaxis = []
 def p_error(p):
     if p:
         print(f"Error de sintaxis - Token: {p.type}, Línea: {p.lineno}, Col: {p.lexpos}")
-        errores_sintaxis.append("Error de sintaxis en token {}, en la linea {}".format(p.type, p.lineno))
+        errores_sintaxis.append("Error de sintaxis en token {}, en la linea {}, Col: {}".format(p.type, p.lineno, p.lexpos))
         parser.errok()
         # logs_file.write(today.strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +"Error de sintaxis - Token: "+ str(p.type) +", Línea: "+ str(p.lineno) +", Col: "+ str(p.lexpos) +"\n")
     else:
@@ -273,6 +309,7 @@ def obtener_analizador_sintactico():
 
 def validaRegla(s):
     result1 = parser.parse(s)
+    print(result1)
     return result1
 
 

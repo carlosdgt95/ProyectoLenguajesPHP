@@ -66,15 +66,21 @@ def sintatico():
     
     #Aquí debe hacerse el análisis sintáctico con el código y mostrarlo
     analisis = str(analizadorSintactico.parse(codigo))   
-    print(analisis)
+    #print(analisis)
     if len(sintactico.errores_sintaxis) > 0:
-        print(sintactico.errores_sintaxis)
-        errores = '\n'.join(sintactico.errores_sintaxis) + '\n'
-        muestra.insert("1.0", errores, 'warning')
+        #print(sintactico.errores_sintaxis)
+        #errores = '\n'.join(sintactico.errores_sintaxis) + '\n'
+        #muestra.insert("1.0", errores, 'warning')
+        for i in range(len(sintactico.errores_sintaxis)):
+            ##### LOGS #####
+            logs_file.write(str(sintactico.errores_sintaxis[i])+"\n")
+            ################
+            muestra.insert( float(i+1), str(sintactico.errores_sintaxis[i])+"\n")
+    
         sintactico.errores_sintaxis.clear() 
     else:
         # Insertamos el resultado
-        muestra.insert("1.0", analisis)
+        muestra.insert("1.0", "Ingresi Válido")
 
     # deshabilitar la seccion p
     muestra.configure(state='disabled')   
