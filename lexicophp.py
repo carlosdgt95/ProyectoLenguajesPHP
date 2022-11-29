@@ -114,7 +114,7 @@ tokens = (
   'TRES_PUNTOS',
   'PUNTODOBLE',
   'FLECHA',
-  'ESPACIO',
+ 
   'ASIG_OBJ',
  
 
@@ -158,7 +158,7 @@ t_COMA = r'\,'
 t_TRES_PUNTOS = r'\.\.\.'
 t_PUNTODOBLE = r'\:'
 t_FLECHA = r'=>'
-t_ESPACIO =r'\s'
+
 t_ASIG_OBJ = r'\->'
 
 def t_FLOTANTE(t):

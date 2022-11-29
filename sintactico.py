@@ -19,7 +19,7 @@ def p_instrucciones(p):
                     | crecimiento
                     | valorc
                     | LLAVE_DER
-                    | salidas_pos_obj
+                
 
 
   '''
@@ -122,7 +122,8 @@ def p_bloque(p):
 ## Funcion sin retorno 
 
 def p_sinretorno(p):
-  '''sinRetorno : FUNCTION VARIABLE PAREN_IZQ SIGNO_DOLAR VARIABLE PAREN_DER LLAVE_IZQ sentenciasAnidadas LLAVE_DER'''
+  '''sinRetorno : FUNCTION VARIABLE PAREN_IZQ SIGNO_DOLAR VARIABLE PAREN_DER LLAVE_IZQ sentenciasAnidadas
+                                                                                  | cola LLAVE_DER'''
 
 
 
@@ -133,8 +134,8 @@ def p_cola(p):
 
 ## for
 def p_for(p):
-   '''for : FOR PAREN_IZQ declaracion declaracionp declaracion_s PAREN_DER LLAVE_IZQ sentenciasAnidadas 
-                                                                                    | cola LLAVE_DER '''
+   '''for : FOR PAREN_IZQ declaracion declaracionp declaracion_s PAREN_DER LLAVE_IZQ sentenciasAnidadas
+                                                                                  | cola LLAVE_DER'''
 def p_declaracion(p):
   '''declaracion :  SIGNO_DOLAR VARIABLE IGUAL ENTERO PUNTO_COMA'''
 def p_declaracionM(p):
