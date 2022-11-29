@@ -1,9 +1,7 @@
 import ply.yacc as yacc
 import ply.lex as lex
 from lexicophp import tokens 
-from datetime import datetime 
 
-today = datetime.now()
 
 #### Todas las instrucciones disponibles ###
 def p_instrucciones(p):  
@@ -261,8 +259,8 @@ def p_arreglo_asociativo(p):
 def p_sinretorno(p):
   '''sinRetorno : FUNCTION VARIABLE PAREN_IZQ decl_variable PAREN_DER LLAVE_IZQ contenido LLAVE_DER'''
 
-##########
-#correcion Carlos Gomez
+
+
 errores_sintaxis = []  
 def p_error(p):
     if p:
@@ -271,23 +269,20 @@ def p_error(p):
         parser.errok()
         # logs_file.write(today.strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +"Error de sintaxis - Token: "+ str(p.type) +", Línea: "+ str(p.lineno) +", Col: "+ str(p.lexpos) +"\n")
     else:
-        errores_sintaxis.append("Error de sintaxis ")
+        errores_sintaxis.append("Error de sintaxis Fin de Linea")
         print("Error de sintaxis Fin de Linea")
         # logs_file.write(today.strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +"Error de sintaxis Fin de Linea"+"\n")
 
 #Construya el lexer
 
 parser = yacc.yacc()
-#validacion para interfaz Carlos Gomez
 def obtener_analizador_sintactico():
-    return yacc.yacc(errorlog=yacc.NullLogger())
-    #errorlog=yacc.NullLogger()
-#carlos Gomez
+    return yacc.yacc()
+
 
 def validaRegla(s):
     result1 = parser.parse(s)
     return result1
-    #print(result1)
 
 
 
@@ -298,7 +293,7 @@ def validaRegla(s):
 # for linea in archivo:
 #   print(">>" + linea)
 #   validaRegla(linea)
-#   logs_file = open ('logs.txt','a')
+#   logs_file = open ('logs.txt','w')
 #   if len(linea) == 0:
 #     logs_file.write(datetime.now().strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +linea+"\n")
  

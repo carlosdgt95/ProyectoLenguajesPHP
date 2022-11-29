@@ -157,15 +157,14 @@ t_PUNTODOBLE = r'\:'
 t_FLECHA = r'=>'
 t_ESPACIO =r'\s'
 
-def t_ENTERO(t):
-  r'(-?[1-9]\d*)|0'
-  t.value = int(t.value)
-  return t
-
-
 def t_FLOTANTE(t):
   r'(-?\d*\.\d+)|^0.0$'
   t.value = float(t.value)
+  return t
+  
+def t_ENTERO(t):
+  r'(-?[1-9]\d*)|0'
+  t.value = int(t.value)
   return t
 
 
@@ -217,7 +216,6 @@ def getTokens(lexer, lista):
             break 
         lista.append(tok)
 
-###  Lea el archivo algoritmos.txt y retorne los tokens
 
 # Método para analizar cada línea
 def analizar(data):
