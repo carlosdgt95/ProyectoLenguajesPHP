@@ -9,13 +9,23 @@ today = datetime.now()
 #### Todas las instrucciones disponibles ###
 def p_instrucciones(p):  
   '''instrucciones : valor
+                    | menor
+                    | mayor
                     | asignacion
-                    | salida 
+                    | salida
+                    | prueba
                     | estructuras_control
                     | estructuras_datos
                     | funciones  
                     | op_logica
                     | op_pila
+                    | declaracion
+                    | declaracionp
+                    | declaracion_s
+                    | crecimiento
+                    | valorc
+
+
   '''
 ## Definicion de una variable
 def p_asignacion(p):
@@ -41,6 +51,8 @@ def p_datos(p):
 #Múltiples salidas permitidas
 def p_salida_forma1(p):
   '''salida : ECHO CADENA PUNTO_COMA'''
+def p_prueba(p):
+  '''prueba : ECHO SIGNO_DOLAR CADENA PUNTO_COMA'''
 
 def p_salida_forma2(p):
   '''salida : PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMA'''
@@ -54,7 +66,7 @@ def p_salida_forma3(p):
 
 def p_estructuras_control(p):
   ''' estructuras_control : if_else 
-                          | switch1
+                          | for
                           | whileDeclaracion
   '''
 
@@ -96,10 +108,26 @@ def p_sinretorno(p):
 def p_cola(p):
   " cola : NEW QUEUE PAREN_IZQ PAREN_DER "
 
-## Switch 
-def p_switch1(p):
-   '''switch1 : SWITCH PAREN_IZQ  SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ CASE ENTERO PUNTODOBLE  BREAK LLAVE_DER'''
+## for
+def p_for(p):
+   '''for : FOR PAREN_IZQ declaracion declaracionp declaracion_s PAREN_DER LLAVE_IZQ prueba LLAVE_DER'''
 
+def p_declaracion(p):
+  '''declaracion :  SIGNO_DOLAR CADENA IGUAL ENTERO PUNTO_COMA'''
+def p_declaracionM(p):
+   '''declaracionp :  SIGNO_DOLAR CADENA valorc'''
+def p_menor(p):
+  '''menor : MENOR_IGUAL ENTERO PUNTO_COMA'''
+def p_mayor(p):
+  '''mayor : MAYOR_IGUAL ENTERO PUNTO_COMA'''
+def p_valorC(p):
+  ''' valorc : menor
+              | mayor'''
+def p_declaracionsimple(p):
+   '''declaracion_s : SIGNO_DOLAR CADENA crecimiento'''
+def p_crecimiento(p):
+  '''crecimiento : INCREMENTO 
+                | DECREMENTO'''
 
 ########## KARLA CASTRO  ##########
 
@@ -234,7 +262,7 @@ def p_error(p):
 parser = yacc.yacc()
 #validacion para interfaz Carlos Gomez
 def obtener_analizador_sintactico():
-    return yacc.yacc()
+    return yacc.yacc(errorlog=yacc.NullLogger())
     #errorlog=yacc.NullLogger()
 #carlos Gomez
 

@@ -1,0 +1,2447 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    ABSTRACT
+    AND
+    AND_SYMB
+    AS
+    ASIG_CONCA
+    ASIG_REFER
+    BREAK
+    CALLABLE
+    CASE
+    CATH
+    CLASS
+    CLONE
+    COMENTARIO
+    CONST
+    CONTINUE
+    CORCH_DER
+    CORCH_IZQ
+    DECLARE
+    DEFAULT
+    DIVISION
+    DIVISION_ENT
+    DO
+    ENDDECLARE
+    ENDIF
+    ENDSWITCH
+    ENDWHILE
+    ESPACIO
+    EXTENDS
+    FINAL
+    FINALLY
+    FN
+    FOREACH
+    GLOBAL
+    IMPLEMENTS
+    INCLUDE
+    INTANCEOF
+    INTEADOF
+    INTERFACE
+    INTERROG_CE
+    MACHT
+    MODULO
+    MULTIPL
+    NAMESPACE
+    OR
+    OR_SYMB
+    POTENCIA
+    PRIVATE
+    PROTECTED
+    PUBLIC
+    PUNTO
+    PUNTODOBLE
+    REQUIERE
+    SALTO_LINEA
+    STATIC
+    STRREV
+    SUMA
+    SWITCH
+    TABULACION
+    THROW
+    TRAIT
+    TRY
+    USE
+    VAR
+
+Grammar
+
+Rule 0     S' -> instrucciones
+Rule 1     instrucciones -> valor
+Rule 2     instrucciones -> menor
+Rule 3     instrucciones -> mayor
+Rule 4     instrucciones -> asignacion
+Rule 5     instrucciones -> salida
+Rule 6     instrucciones -> prueba
+Rule 7     instrucciones -> estructuras_control
+Rule 8     instrucciones -> estructuras_datos
+Rule 9     instrucciones -> funciones
+Rule 10    instrucciones -> op_logica
+Rule 11    instrucciones -> op_pila
+Rule 12    instrucciones -> declaracion
+Rule 13    instrucciones -> declaracionp
+Rule 14    instrucciones -> declaracion_s
+Rule 15    instrucciones -> crecimiento
+Rule 16    instrucciones -> valorc
+Rule 17    asignacion -> SIGNO_DOLAR CADENA IGUAL valor PUNTO_COMA
+Rule 18    valor -> datos
+Rule 19    valor -> pila
+Rule 20    valor -> cola
+Rule 21    datos -> ENTERO
+Rule 22    datos -> FLOTANTE
+Rule 23    datos -> STRING
+Rule 24    datos -> BOOLEANO
+Rule 25    salida -> ECHO CADENA PUNTO_COMA
+Rule 26    prueba -> ECHO SIGNO_DOLAR CADENA PUNTO_COMA
+Rule 27    salida -> PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMA
+Rule 28    salida -> PRINT STRING PUNTO_COMA
+Rule 29    estructuras_control -> if_else
+Rule 30    estructuras_control -> for
+Rule 31    estructuras_control -> whileDeclaracion
+Rule 32    estructuras_datos -> pila
+Rule 33    estructuras_datos -> cola
+Rule 34    estructuras_datos -> arreglo
+Rule 35    funciones -> funcion_variable
+Rule 36    funciones -> sinRetorno
+Rule 37    operad_log -> IDENTICO
+Rule 38    operad_log -> DIFERENTE
+Rule 39    operad_log -> MAYOR_QUE
+Rule 40    operad_log -> MAYOR_IGUAL
+Rule 41    operad_log -> MENOR_QUE
+Rule 42    operad_log -> MENOR_IGUAL
+Rule 43    bloque -> asignacion
+Rule 44    bloque -> salida
+Rule 45    bloque -> retorno
+Rule 46    cola -> NEW QUEUE PAREN_IZQ PAREN_DER
+Rule 47    for -> FOR PAREN_IZQ declaracion declaracionp declaracion_s PAREN_DER LLAVE_IZQ prueba LLAVE_DER
+Rule 48    declaracion -> SIGNO_DOLAR CADENA IGUAL ENTERO PUNTO_COMA
+Rule 49    declaracionp -> SIGNO_DOLAR CADENA valorc
+Rule 50    menor -> MENOR_IGUAL ENTERO PUNTO_COMA
+Rule 51    mayor -> MAYOR_IGUAL ENTERO PUNTO_COMA
+Rule 52    valorc -> menor
+Rule 53    valorc -> mayor
+Rule 54    declaracion_s -> SIGNO_DOLAR CADENA crecimiento
+Rule 55    crecimiento -> INCREMENTO
+Rule 56    crecimiento -> DECREMENTO
+Rule 57    if_else -> if_else_inicio if_else_fin
+Rule 58    if_else -> if_else_inicio if_else_cuerpo if_else_fin
+Rule 59    if_else_inicio -> IF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER
+Rule 60    if_else_cuerpo -> ELSEIF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER
+Rule 61    if_else_fin -> ELSE LLAVE_IZQ salida LLAVE_DER
+Rule 62    op_logica -> ENTERO operad_log ENTERO
+Rule 63    op_logica -> FLOTANTE operad_log FLOTANTE
+Rule 64    op_logica -> STRING operad_log STRING
+Rule 65    op_logica -> BOOLEANO
+Rule 66    pila -> NEW STACK PAREN_IZQ PAREN_DER
+Rule 67    op_pila -> SIGNO_DOLAR CADENA RESTA MAYOR_QUE operad_pila
+Rule 68    operad_pila -> PUSH PAREN_IZQ datos PAREN_DER PUNTO_COMA
+Rule 69    operad_pila -> POP PAREN_IZQ PAREN_DER PUNTO_COMA
+Rule 70    operad_pila -> COUNT PAREN_IZQ PAREN_DER PUNTO_COMA
+Rule 71    operad_pila -> CURRENT PAREN_IZQ PAREN_DER PUNTO_COMA
+Rule 72    funcion_variable -> FUNCTION CADENA PAREN_IZQ TRES_PUNTOS SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ bloque LLAVE_DER
+Rule 73    retorno -> RETURN SIGNO_DOLAR CADENA
+Rule 74    contenido -> bloque
+Rule 75    contenido -> sinRetorno
+Rule 76    whileDeclaracion -> WHILE PAREN_IZQ SIGNO_DOLAR CADENA operad_log valor PAREN_DER LLAVE_IZQ contenido LLAVE_DER
+Rule 77    valores -> valor repite_valores
+Rule 78    repite_valores -> COMA valor
+Rule 79    repite_valores -> COMA valor repite_valores
+Rule 80    arreglo -> SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valores PAREN_DER PUNTO_COMA
+Rule 81    valoresflecha -> valor FLECHA valor repite_valores_f
+Rule 82    repite_valores_f -> COMA valor FLECHA valor
+Rule 83    repite_valores_f -> COMA valor FLECHA valor repite_valores
+Rule 84    arreglo -> SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valoresflecha PAREN_DER PUNTO_COMA
+Rule 85    sinRetorno -> FUNCTION CADENA PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ contenido LLAVE_DER
+
+Terminals, with rules where they appear
+
+ABSTRACT             : 
+AND                  : 
+AND_SYMB             : 
+ARRAY                : 80 84
+AS                   : 
+ASIG_CONCA           : 
+ASIG_REFER           : 
+BOOLEANO             : 24 65
+BREAK                : 
+CADENA               : 17 25 26 48 49 54 67 72 72 73 76 80 84 85 85
+CALLABLE             : 
+CASE                 : 
+CATH                 : 
+CLASS                : 
+CLONE                : 
+COMA                 : 78 79 82 83
+COMENTARIO           : 
+CONST                : 
+CONTINUE             : 
+CORCH_DER            : 
+CORCH_IZQ            : 
+COUNT                : 70
+CURRENT              : 71
+DECLARE              : 
+DECREMENTO           : 56
+DEFAULT              : 
+DIFERENTE            : 38
+DIVISION             : 
+DIVISION_ENT         : 
+DO                   : 
+ECHO                 : 25 26
+ELSE                 : 61
+ELSEIF               : 60
+ENDDECLARE           : 
+ENDIF                : 
+ENDSWITCH            : 
+ENDWHILE             : 
+ENTERO               : 21 48 50 51 62 62
+ESPACIO              : 
+EXTENDS              : 
+FINAL                : 
+FINALLY              : 
+FLECHA               : 81 82 83
+FLOTANTE             : 22 63 63
+FN                   : 
+FOR                  : 47
+FOREACH              : 
+FUNCTION             : 72 85
+GLOBAL               : 
+IDENTICO             : 37
+IF                   : 59
+IGUAL                : 17 48 80 84
+IMPLEMENTS           : 
+INCLUDE              : 
+INCREMENTO           : 55
+INTANCEOF            : 
+INTEADOF             : 
+INTERFACE            : 
+INTERROG_CE          : 
+LLAVE_DER            : 47 59 60 61 72 76 85
+LLAVE_IZQ            : 47 59 60 61 72 76 85
+MACHT                : 
+MAYOR_IGUAL          : 40 51
+MAYOR_QUE            : 39 67
+MENOR_IGUAL          : 42 50
+MENOR_QUE            : 41
+MODULO               : 
+MULTIPL              : 
+NAMESPACE            : 
+NEW                  : 46 66
+OR                   : 
+OR_SYMB              : 
+PAREN_DER            : 27 46 47 59 60 66 68 69 70 71 72 76 80 84 85
+PAREN_IZQ            : 27 46 47 59 60 66 68 69 70 71 72 76 80 84 85
+POP                  : 69
+POTENCIA             : 
+PRINT                : 27 28
+PRIVATE              : 
+PROTECTED            : 
+PUBLIC               : 
+PUNTO                : 
+PUNTODOBLE           : 
+PUNTO_COMA           : 17 25 26 27 28 48 50 51 68 69 70 71 80 84
+PUSH                 : 68
+QUEUE                : 46
+REQUIERE             : 
+RESTA                : 67
+RETURN               : 73
+SALTO_LINEA          : 
+SIGNO_DOLAR          : 17 26 48 49 54 67 72 73 76 80 84 85
+STACK                : 66
+STATIC               : 
+STRING               : 23 27 28 64 64
+STRREV               : 
+SUMA                 : 
+SWITCH               : 
+TABULACION           : 
+THROW                : 
+TRAIT                : 
+TRES_PUNTOS          : 72
+TRY                  : 
+USE                  : 
+VAR                  : 
+WHILE                : 76
+error                : 
+
+Nonterminals, with rules where they appear
+
+arreglo              : 34
+asignacion           : 4 43
+bloque               : 72 74
+cola                 : 20 33
+contenido            : 76 85
+crecimiento          : 15 54
+datos                : 18 68
+declaracion          : 12 47
+declaracion_s        : 14 47
+declaracionp         : 13 47
+estructuras_control  : 7
+estructuras_datos    : 8
+for                  : 30
+funcion_variable     : 35
+funciones            : 9
+if_else              : 29
+if_else_cuerpo       : 58
+if_else_fin          : 57 58
+if_else_inicio       : 57 58
+instrucciones        : 0
+mayor                : 3 53
+menor                : 2 52
+op_logica            : 10 59 60
+op_pila              : 11
+operad_log           : 62 63 64 76
+operad_pila          : 67
+pila                 : 19 32
+prueba               : 6 47
+repite_valores       : 77 79 83
+repite_valores_f     : 81
+retorno              : 45
+salida               : 5 44 59 60 61
+sinRetorno           : 36 75
+valor                : 1 17 76 77 78 79 81 81 82 82 83 83
+valorc               : 16 49
+valores              : 80
+valoresflecha        : 84
+whileDeclaracion     : 31
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . instrucciones
+    (1) instrucciones -> . valor
+    (2) instrucciones -> . menor
+    (3) instrucciones -> . mayor
+    (4) instrucciones -> . asignacion
+    (5) instrucciones -> . salida
+    (6) instrucciones -> . prueba
+    (7) instrucciones -> . estructuras_control
+    (8) instrucciones -> . estructuras_datos
+    (9) instrucciones -> . funciones
+    (10) instrucciones -> . op_logica
+    (11) instrucciones -> . op_pila
+    (12) instrucciones -> . declaracion
+    (13) instrucciones -> . declaracionp
+    (14) instrucciones -> . declaracion_s
+    (15) instrucciones -> . crecimiento
+    (16) instrucciones -> . valorc
+    (18) valor -> . datos
+    (19) valor -> . pila
+    (20) valor -> . cola
+    (50) menor -> . MENOR_IGUAL ENTERO PUNTO_COMA
+    (51) mayor -> . MAYOR_IGUAL ENTERO PUNTO_COMA
+    (17) asignacion -> . SIGNO_DOLAR CADENA IGUAL valor PUNTO_COMA
+    (25) salida -> . ECHO CADENA PUNTO_COMA
+    (27) salida -> . PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMA
+    (28) salida -> . PRINT STRING PUNTO_COMA
+    (26) prueba -> . ECHO SIGNO_DOLAR CADENA PUNTO_COMA
+    (29) estructuras_control -> . if_else
+    (30) estructuras_control -> . for
+    (31) estructuras_control -> . whileDeclaracion
+    (32) estructuras_datos -> . pila
+    (33) estructuras_datos -> . cola
+    (34) estructuras_datos -> . arreglo
+    (35) funciones -> . funcion_variable
+    (36) funciones -> . sinRetorno
+    (62) op_logica -> . ENTERO operad_log ENTERO
+    (63) op_logica -> . FLOTANTE operad_log FLOTANTE
+    (64) op_logica -> . STRING operad_log STRING
+    (65) op_logica -> . BOOLEANO
+    (67) op_pila -> . SIGNO_DOLAR CADENA RESTA MAYOR_QUE operad_pila
+    (48) declaracion -> . SIGNO_DOLAR CADENA IGUAL ENTERO PUNTO_COMA
+    (49) declaracionp -> . SIGNO_DOLAR CADENA valorc
+    (54) declaracion_s -> . SIGNO_DOLAR CADENA crecimiento
+    (55) crecimiento -> . INCREMENTO
+    (56) crecimiento -> . DECREMENTO
+    (52) valorc -> . menor
+    (53) valorc -> . mayor
+    (21) datos -> . ENTERO
+    (22) datos -> . FLOTANTE
+    (23) datos -> . STRING
+    (24) datos -> . BOOLEANO
+    (66) pila -> . NEW STACK PAREN_IZQ PAREN_DER
+    (46) cola -> . NEW QUEUE PAREN_IZQ PAREN_DER
+    (57) if_else -> . if_else_inicio if_else_fin
+    (58) if_else -> . if_else_inicio if_else_cuerpo if_else_fin
+    (47) for -> . FOR PAREN_IZQ declaracion declaracionp declaracion_s PAREN_DER LLAVE_IZQ prueba LLAVE_DER
+    (76) whileDeclaracion -> . WHILE PAREN_IZQ SIGNO_DOLAR CADENA operad_log valor PAREN_DER LLAVE_IZQ contenido LLAVE_DER
+    (80) arreglo -> . SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valores PAREN_DER PUNTO_COMA
+    (84) arreglo -> . SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valoresflecha PAREN_DER PUNTO_COMA
+    (72) funcion_variable -> . FUNCTION CADENA PAREN_IZQ TRES_PUNTOS SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ bloque LLAVE_DER
+    (85) sinRetorno -> . FUNCTION CADENA PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ contenido LLAVE_DER
+    (59) if_else_inicio -> . IF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER
+
+    MENOR_IGUAL     shift and go to state 21
+    MAYOR_IGUAL     shift and go to state 23
+    SIGNO_DOLAR     shift and go to state 24
+    ECHO            shift and go to state 25
+    PRINT           shift and go to state 26
+    ENTERO          shift and go to state 22
+    FLOTANTE        shift and go to state 34
+    STRING          shift and go to state 27
+    BOOLEANO        shift and go to state 35
+    INCREMENTO      shift and go to state 36
+    DECREMENTO      shift and go to state 37
+    NEW             shift and go to state 38
+    FOR             shift and go to state 40
+    WHILE           shift and go to state 41
+    FUNCTION        shift and go to state 42
+    IF              shift and go to state 43
+
+    instrucciones                  shift and go to state 1
+    valor                          shift and go to state 2
+    menor                          shift and go to state 3
+    mayor                          shift and go to state 4
+    asignacion                     shift and go to state 5
+    salida                         shift and go to state 6
+    prueba                         shift and go to state 7
+    estructuras_control            shift and go to state 8
+    estructuras_datos              shift and go to state 9
+    funciones                      shift and go to state 10
+    op_logica                      shift and go to state 11
+    op_pila                        shift and go to state 12
+    declaracion                    shift and go to state 13
+    declaracionp                   shift and go to state 14
+    declaracion_s                  shift and go to state 15
+    crecimiento                    shift and go to state 16
+    valorc                         shift and go to state 17
+    datos                          shift and go to state 18
+    pila                           shift and go to state 19
+    cola                           shift and go to state 20
+    if_else                        shift and go to state 28
+    for                            shift and go to state 29
+    whileDeclaracion               shift and go to state 30
+    arreglo                        shift and go to state 31
+    funcion_variable               shift and go to state 32
+    sinRetorno                     shift and go to state 33
+    if_else_inicio                 shift and go to state 39
+
+state 1
+
+    (0) S' -> instrucciones .
+
+
+
+state 2
+
+    (1) instrucciones -> valor .
+
+    $end            reduce using rule 1 (instrucciones -> valor .)
+
+
+state 3
+
+    (2) instrucciones -> menor .
+    (52) valorc -> menor .
+
+  ! reduce/reduce conflict for $end resolved using rule 2 (instrucciones -> menor .)
+    $end            reduce using rule 2 (instrucciones -> menor .)
+
+  ! $end            [ reduce using rule 52 (valorc -> menor .) ]
+
+
+state 4
+
+    (3) instrucciones -> mayor .
+    (53) valorc -> mayor .
+
+  ! reduce/reduce conflict for $end resolved using rule 3 (instrucciones -> mayor .)
+    $end            reduce using rule 3 (instrucciones -> mayor .)
+
+  ! $end            [ reduce using rule 53 (valorc -> mayor .) ]
+
+
+state 5
+
+    (4) instrucciones -> asignacion .
+
+    $end            reduce using rule 4 (instrucciones -> asignacion .)
+
+
+state 6
+
+    (5) instrucciones -> salida .
+
+    $end            reduce using rule 5 (instrucciones -> salida .)
+
+
+state 7
+
+    (6) instrucciones -> prueba .
+
+    $end            reduce using rule 6 (instrucciones -> prueba .)
+
+
+state 8
+
+    (7) instrucciones -> estructuras_control .
+
+    $end            reduce using rule 7 (instrucciones -> estructuras_control .)
+
+
+state 9
+
+    (8) instrucciones -> estructuras_datos .
+
+    $end            reduce using rule 8 (instrucciones -> estructuras_datos .)
+
+
+state 10
+
+    (9) instrucciones -> funciones .
+
+    $end            reduce using rule 9 (instrucciones -> funciones .)
+
+
+state 11
+
+    (10) instrucciones -> op_logica .
+
+    $end            reduce using rule 10 (instrucciones -> op_logica .)
+
+
+state 12
+
+    (11) instrucciones -> op_pila .
+
+    $end            reduce using rule 11 (instrucciones -> op_pila .)
+
+
+state 13
+
+    (12) instrucciones -> declaracion .
+
+    $end            reduce using rule 12 (instrucciones -> declaracion .)
+
+
+state 14
+
+    (13) instrucciones -> declaracionp .
+
+    $end            reduce using rule 13 (instrucciones -> declaracionp .)
+
+
+state 15
+
+    (14) instrucciones -> declaracion_s .
+
+    $end            reduce using rule 14 (instrucciones -> declaracion_s .)
+
+
+state 16
+
+    (15) instrucciones -> crecimiento .
+
+    $end            reduce using rule 15 (instrucciones -> crecimiento .)
+
+
+state 17
+
+    (16) instrucciones -> valorc .
+
+    $end            reduce using rule 16 (instrucciones -> valorc .)
+
+
+state 18
+
+    (18) valor -> datos .
+
+    $end            reduce using rule 18 (valor -> datos .)
+    PUNTO_COMA      reduce using rule 18 (valor -> datos .)
+    FLECHA          reduce using rule 18 (valor -> datos .)
+    COMA            reduce using rule 18 (valor -> datos .)
+    PAREN_DER       reduce using rule 18 (valor -> datos .)
+
+
+state 19
+
+    (19) valor -> pila .
+    (32) estructuras_datos -> pila .
+
+  ! reduce/reduce conflict for $end resolved using rule 19 (valor -> pila .)
+    $end            reduce using rule 19 (valor -> pila .)
+
+  ! $end            [ reduce using rule 32 (estructuras_datos -> pila .) ]
+
+
+state 20
+
+    (20) valor -> cola .
+    (33) estructuras_datos -> cola .
+
+  ! reduce/reduce conflict for $end resolved using rule 20 (valor -> cola .)
+    $end            reduce using rule 20 (valor -> cola .)
+
+  ! $end            [ reduce using rule 33 (estructuras_datos -> cola .) ]
+
+
+state 21
+
+    (50) menor -> MENOR_IGUAL . ENTERO PUNTO_COMA
+
+    ENTERO          shift and go to state 44
+
+
+state 22
+
+    (62) op_logica -> ENTERO . operad_log ENTERO
+    (21) datos -> ENTERO .
+    (37) operad_log -> . IDENTICO
+    (38) operad_log -> . DIFERENTE
+    (39) operad_log -> . MAYOR_QUE
+    (40) operad_log -> . MAYOR_IGUAL
+    (41) operad_log -> . MENOR_QUE
+    (42) operad_log -> . MENOR_IGUAL
+
+    $end            reduce using rule 21 (datos -> ENTERO .)
+    IDENTICO        shift and go to state 46
+    DIFERENTE       shift and go to state 47
+    MAYOR_QUE       shift and go to state 48
+    MAYOR_IGUAL     shift and go to state 49
+    MENOR_QUE       shift and go to state 50
+    MENOR_IGUAL     shift and go to state 51
+
+    operad_log                     shift and go to state 45
+
+state 23
+
+    (51) mayor -> MAYOR_IGUAL . ENTERO PUNTO_COMA
+
+    ENTERO          shift and go to state 52
+
+
+state 24
+
+    (17) asignacion -> SIGNO_DOLAR . CADENA IGUAL valor PUNTO_COMA
+    (67) op_pila -> SIGNO_DOLAR . CADENA RESTA MAYOR_QUE operad_pila
+    (48) declaracion -> SIGNO_DOLAR . CADENA IGUAL ENTERO PUNTO_COMA
+    (49) declaracionp -> SIGNO_DOLAR . CADENA valorc
+    (54) declaracion_s -> SIGNO_DOLAR . CADENA crecimiento
+    (80) arreglo -> SIGNO_DOLAR . CADENA IGUAL ARRAY PAREN_IZQ valores PAREN_DER PUNTO_COMA
+    (84) arreglo -> SIGNO_DOLAR . CADENA IGUAL ARRAY PAREN_IZQ valoresflecha PAREN_DER PUNTO_COMA
+
+    CADENA          shift and go to state 53
+
+
+state 25
+
+    (25) salida -> ECHO . CADENA PUNTO_COMA
+    (26) prueba -> ECHO . SIGNO_DOLAR CADENA PUNTO_COMA
+
+    CADENA          shift and go to state 54
+    SIGNO_DOLAR     shift and go to state 55
+
+
+state 26
+
+    (27) salida -> PRINT . PAREN_IZQ STRING PAREN_DER PUNTO_COMA
+    (28) salida -> PRINT . STRING PUNTO_COMA
+
+    PAREN_IZQ       shift and go to state 56
+    STRING          shift and go to state 57
+
+
+state 27
+
+    (64) op_logica -> STRING . operad_log STRING
+    (23) datos -> STRING .
+    (37) operad_log -> . IDENTICO
+    (38) operad_log -> . DIFERENTE
+    (39) operad_log -> . MAYOR_QUE
+    (40) operad_log -> . MAYOR_IGUAL
+    (41) operad_log -> . MENOR_QUE
+    (42) operad_log -> . MENOR_IGUAL
+
+    $end            reduce using rule 23 (datos -> STRING .)
+    IDENTICO        shift and go to state 46
+    DIFERENTE       shift and go to state 47
+    MAYOR_QUE       shift and go to state 48
+    MAYOR_IGUAL     shift and go to state 49
+    MENOR_QUE       shift and go to state 50
+    MENOR_IGUAL     shift and go to state 51
+
+    operad_log                     shift and go to state 58
+
+state 28
+
+    (29) estructuras_control -> if_else .
+
+    $end            reduce using rule 29 (estructuras_control -> if_else .)
+
+
+state 29
+
+    (30) estructuras_control -> for .
+
+    $end            reduce using rule 30 (estructuras_control -> for .)
+
+
+state 30
+
+    (31) estructuras_control -> whileDeclaracion .
+
+    $end            reduce using rule 31 (estructuras_control -> whileDeclaracion .)
+
+
+state 31
+
+    (34) estructuras_datos -> arreglo .
+
+    $end            reduce using rule 34 (estructuras_datos -> arreglo .)
+
+
+state 32
+
+    (35) funciones -> funcion_variable .
+
+    $end            reduce using rule 35 (funciones -> funcion_variable .)
+
+
+state 33
+
+    (36) funciones -> sinRetorno .
+
+    $end            reduce using rule 36 (funciones -> sinRetorno .)
+
+
+state 34
+
+    (63) op_logica -> FLOTANTE . operad_log FLOTANTE
+    (22) datos -> FLOTANTE .
+    (37) operad_log -> . IDENTICO
+    (38) operad_log -> . DIFERENTE
+    (39) operad_log -> . MAYOR_QUE
+    (40) operad_log -> . MAYOR_IGUAL
+    (41) operad_log -> . MENOR_QUE
+    (42) operad_log -> . MENOR_IGUAL
+
+    $end            reduce using rule 22 (datos -> FLOTANTE .)
+    IDENTICO        shift and go to state 46
+    DIFERENTE       shift and go to state 47
+    MAYOR_QUE       shift and go to state 48
+    MAYOR_IGUAL     shift and go to state 49
+    MENOR_QUE       shift and go to state 50
+    MENOR_IGUAL     shift and go to state 51
+
+    operad_log                     shift and go to state 59
+
+state 35
+
+    (65) op_logica -> BOOLEANO .
+    (24) datos -> BOOLEANO .
+
+  ! reduce/reduce conflict for $end resolved using rule 24 (datos -> BOOLEANO .)
+    $end            reduce using rule 24 (datos -> BOOLEANO .)
+
+  ! $end            [ reduce using rule 65 (op_logica -> BOOLEANO .) ]
+
+
+state 36
+
+    (55) crecimiento -> INCREMENTO .
+
+    $end            reduce using rule 55 (crecimiento -> INCREMENTO .)
+    PAREN_DER       reduce using rule 55 (crecimiento -> INCREMENTO .)
+
+
+state 37
+
+    (56) crecimiento -> DECREMENTO .
+
+    $end            reduce using rule 56 (crecimiento -> DECREMENTO .)
+    PAREN_DER       reduce using rule 56 (crecimiento -> DECREMENTO .)
+
+
+state 38
+
+    (66) pila -> NEW . STACK PAREN_IZQ PAREN_DER
+    (46) cola -> NEW . QUEUE PAREN_IZQ PAREN_DER
+
+    STACK           shift and go to state 60
+    QUEUE           shift and go to state 61
+
+
+state 39
+
+    (57) if_else -> if_else_inicio . if_else_fin
+    (58) if_else -> if_else_inicio . if_else_cuerpo if_else_fin
+    (61) if_else_fin -> . ELSE LLAVE_IZQ salida LLAVE_DER
+    (60) if_else_cuerpo -> . ELSEIF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER
+
+    ELSE            shift and go to state 64
+    ELSEIF          shift and go to state 65
+
+    if_else_fin                    shift and go to state 62
+    if_else_cuerpo                 shift and go to state 63
+
+state 40
+
+    (47) for -> FOR . PAREN_IZQ declaracion declaracionp declaracion_s PAREN_DER LLAVE_IZQ prueba LLAVE_DER
+
+    PAREN_IZQ       shift and go to state 66
+
+
+state 41
+
+    (76) whileDeclaracion -> WHILE . PAREN_IZQ SIGNO_DOLAR CADENA operad_log valor PAREN_DER LLAVE_IZQ contenido LLAVE_DER
+
+    PAREN_IZQ       shift and go to state 67
+
+
+state 42
+
+    (72) funcion_variable -> FUNCTION . CADENA PAREN_IZQ TRES_PUNTOS SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ bloque LLAVE_DER
+    (85) sinRetorno -> FUNCTION . CADENA PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ contenido LLAVE_DER
+
+    CADENA          shift and go to state 68
+
+
+state 43
+
+    (59) if_else_inicio -> IF . PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER
+
+    PAREN_IZQ       shift and go to state 69
+
+
+state 44
+
+    (50) menor -> MENOR_IGUAL ENTERO . PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 70
+
+
+state 45
+
+    (62) op_logica -> ENTERO operad_log . ENTERO
+
+    ENTERO          shift and go to state 71
+
+
+state 46
+
+    (37) operad_log -> IDENTICO .
+
+    ENTERO          reduce using rule 37 (operad_log -> IDENTICO .)
+    STRING          reduce using rule 37 (operad_log -> IDENTICO .)
+    FLOTANTE        reduce using rule 37 (operad_log -> IDENTICO .)
+    BOOLEANO        reduce using rule 37 (operad_log -> IDENTICO .)
+    NEW             reduce using rule 37 (operad_log -> IDENTICO .)
+
+
+state 47
+
+    (38) operad_log -> DIFERENTE .
+
+    ENTERO          reduce using rule 38 (operad_log -> DIFERENTE .)
+    STRING          reduce using rule 38 (operad_log -> DIFERENTE .)
+    FLOTANTE        reduce using rule 38 (operad_log -> DIFERENTE .)
+    BOOLEANO        reduce using rule 38 (operad_log -> DIFERENTE .)
+    NEW             reduce using rule 38 (operad_log -> DIFERENTE .)
+
+
+state 48
+
+    (39) operad_log -> MAYOR_QUE .
+
+    ENTERO          reduce using rule 39 (operad_log -> MAYOR_QUE .)
+    STRING          reduce using rule 39 (operad_log -> MAYOR_QUE .)
+    FLOTANTE        reduce using rule 39 (operad_log -> MAYOR_QUE .)
+    BOOLEANO        reduce using rule 39 (operad_log -> MAYOR_QUE .)
+    NEW             reduce using rule 39 (operad_log -> MAYOR_QUE .)
+
+
+state 49
+
+    (40) operad_log -> MAYOR_IGUAL .
+
+    ENTERO          reduce using rule 40 (operad_log -> MAYOR_IGUAL .)
+    STRING          reduce using rule 40 (operad_log -> MAYOR_IGUAL .)
+    FLOTANTE        reduce using rule 40 (operad_log -> MAYOR_IGUAL .)
+    BOOLEANO        reduce using rule 40 (operad_log -> MAYOR_IGUAL .)
+    NEW             reduce using rule 40 (operad_log -> MAYOR_IGUAL .)
+
+
+state 50
+
+    (41) operad_log -> MENOR_QUE .
+
+    ENTERO          reduce using rule 41 (operad_log -> MENOR_QUE .)
+    STRING          reduce using rule 41 (operad_log -> MENOR_QUE .)
+    FLOTANTE        reduce using rule 41 (operad_log -> MENOR_QUE .)
+    BOOLEANO        reduce using rule 41 (operad_log -> MENOR_QUE .)
+    NEW             reduce using rule 41 (operad_log -> MENOR_QUE .)
+
+
+state 51
+
+    (42) operad_log -> MENOR_IGUAL .
+
+    ENTERO          reduce using rule 42 (operad_log -> MENOR_IGUAL .)
+    STRING          reduce using rule 42 (operad_log -> MENOR_IGUAL .)
+    FLOTANTE        reduce using rule 42 (operad_log -> MENOR_IGUAL .)
+    BOOLEANO        reduce using rule 42 (operad_log -> MENOR_IGUAL .)
+    NEW             reduce using rule 42 (operad_log -> MENOR_IGUAL .)
+
+
+state 52
+
+    (51) mayor -> MAYOR_IGUAL ENTERO . PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 72
+
+
+state 53
+
+    (17) asignacion -> SIGNO_DOLAR CADENA . IGUAL valor PUNTO_COMA
+    (67) op_pila -> SIGNO_DOLAR CADENA . RESTA MAYOR_QUE operad_pila
+    (48) declaracion -> SIGNO_DOLAR CADENA . IGUAL ENTERO PUNTO_COMA
+    (49) declaracionp -> SIGNO_DOLAR CADENA . valorc
+    (54) declaracion_s -> SIGNO_DOLAR CADENA . crecimiento
+    (80) arreglo -> SIGNO_DOLAR CADENA . IGUAL ARRAY PAREN_IZQ valores PAREN_DER PUNTO_COMA
+    (84) arreglo -> SIGNO_DOLAR CADENA . IGUAL ARRAY PAREN_IZQ valoresflecha PAREN_DER PUNTO_COMA
+    (52) valorc -> . menor
+    (53) valorc -> . mayor
+    (55) crecimiento -> . INCREMENTO
+    (56) crecimiento -> . DECREMENTO
+    (50) menor -> . MENOR_IGUAL ENTERO PUNTO_COMA
+    (51) mayor -> . MAYOR_IGUAL ENTERO PUNTO_COMA
+
+    IGUAL           shift and go to state 73
+    RESTA           shift and go to state 74
+    INCREMENTO      shift and go to state 36
+    DECREMENTO      shift and go to state 37
+    MENOR_IGUAL     shift and go to state 21
+    MAYOR_IGUAL     shift and go to state 23
+
+    valorc                         shift and go to state 75
+    crecimiento                    shift and go to state 76
+    menor                          shift and go to state 77
+    mayor                          shift and go to state 78
+
+state 54
+
+    (25) salida -> ECHO CADENA . PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 79
+
+
+state 55
+
+    (26) prueba -> ECHO SIGNO_DOLAR . CADENA PUNTO_COMA
+
+    CADENA          shift and go to state 80
+
+
+state 56
+
+    (27) salida -> PRINT PAREN_IZQ . STRING PAREN_DER PUNTO_COMA
+
+    STRING          shift and go to state 81
+
+
+state 57
+
+    (28) salida -> PRINT STRING . PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 82
+
+
+state 58
+
+    (64) op_logica -> STRING operad_log . STRING
+
+    STRING          shift and go to state 83
+
+
+state 59
+
+    (63) op_logica -> FLOTANTE operad_log . FLOTANTE
+
+    FLOTANTE        shift and go to state 84
+
+
+state 60
+
+    (66) pila -> NEW STACK . PAREN_IZQ PAREN_DER
+
+    PAREN_IZQ       shift and go to state 85
+
+
+state 61
+
+    (46) cola -> NEW QUEUE . PAREN_IZQ PAREN_DER
+
+    PAREN_IZQ       shift and go to state 86
+
+
+state 62
+
+    (57) if_else -> if_else_inicio if_else_fin .
+
+    $end            reduce using rule 57 (if_else -> if_else_inicio if_else_fin .)
+
+
+state 63
+
+    (58) if_else -> if_else_inicio if_else_cuerpo . if_else_fin
+    (61) if_else_fin -> . ELSE LLAVE_IZQ salida LLAVE_DER
+
+    ELSE            shift and go to state 64
+
+    if_else_fin                    shift and go to state 87
+
+state 64
+
+    (61) if_else_fin -> ELSE . LLAVE_IZQ salida LLAVE_DER
+
+    LLAVE_IZQ       shift and go to state 88
+
+
+state 65
+
+    (60) if_else_cuerpo -> ELSEIF . PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER
+
+    PAREN_IZQ       shift and go to state 89
+
+
+state 66
+
+    (47) for -> FOR PAREN_IZQ . declaracion declaracionp declaracion_s PAREN_DER LLAVE_IZQ prueba LLAVE_DER
+    (48) declaracion -> . SIGNO_DOLAR CADENA IGUAL ENTERO PUNTO_COMA
+
+    SIGNO_DOLAR     shift and go to state 91
+
+    declaracion                    shift and go to state 90
+
+state 67
+
+    (76) whileDeclaracion -> WHILE PAREN_IZQ . SIGNO_DOLAR CADENA operad_log valor PAREN_DER LLAVE_IZQ contenido LLAVE_DER
+
+    SIGNO_DOLAR     shift and go to state 92
+
+
+state 68
+
+    (72) funcion_variable -> FUNCTION CADENA . PAREN_IZQ TRES_PUNTOS SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ bloque LLAVE_DER
+    (85) sinRetorno -> FUNCTION CADENA . PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ contenido LLAVE_DER
+
+    PAREN_IZQ       shift and go to state 93
+
+
+state 69
+
+    (59) if_else_inicio -> IF PAREN_IZQ . op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER
+    (62) op_logica -> . ENTERO operad_log ENTERO
+    (63) op_logica -> . FLOTANTE operad_log FLOTANTE
+    (64) op_logica -> . STRING operad_log STRING
+    (65) op_logica -> . BOOLEANO
+
+    ENTERO          shift and go to state 95
+    FLOTANTE        shift and go to state 96
+    STRING          shift and go to state 97
+    BOOLEANO        shift and go to state 98
+
+    op_logica                      shift and go to state 94
+
+state 70
+
+    (50) menor -> MENOR_IGUAL ENTERO PUNTO_COMA .
+
+    $end            reduce using rule 50 (menor -> MENOR_IGUAL ENTERO PUNTO_COMA .)
+    SIGNO_DOLAR     reduce using rule 50 (menor -> MENOR_IGUAL ENTERO PUNTO_COMA .)
+
+
+state 71
+
+    (62) op_logica -> ENTERO operad_log ENTERO .
+
+    $end            reduce using rule 62 (op_logica -> ENTERO operad_log ENTERO .)
+    PAREN_DER       reduce using rule 62 (op_logica -> ENTERO operad_log ENTERO .)
+
+
+state 72
+
+    (51) mayor -> MAYOR_IGUAL ENTERO PUNTO_COMA .
+
+    $end            reduce using rule 51 (mayor -> MAYOR_IGUAL ENTERO PUNTO_COMA .)
+    SIGNO_DOLAR     reduce using rule 51 (mayor -> MAYOR_IGUAL ENTERO PUNTO_COMA .)
+
+
+state 73
+
+    (17) asignacion -> SIGNO_DOLAR CADENA IGUAL . valor PUNTO_COMA
+    (48) declaracion -> SIGNO_DOLAR CADENA IGUAL . ENTERO PUNTO_COMA
+    (80) arreglo -> SIGNO_DOLAR CADENA IGUAL . ARRAY PAREN_IZQ valores PAREN_DER PUNTO_COMA
+    (84) arreglo -> SIGNO_DOLAR CADENA IGUAL . ARRAY PAREN_IZQ valoresflecha PAREN_DER PUNTO_COMA
+    (18) valor -> . datos
+    (19) valor -> . pila
+    (20) valor -> . cola
+    (21) datos -> . ENTERO
+    (22) datos -> . FLOTANTE
+    (23) datos -> . STRING
+    (24) datos -> . BOOLEANO
+    (66) pila -> . NEW STACK PAREN_IZQ PAREN_DER
+    (46) cola -> . NEW QUEUE PAREN_IZQ PAREN_DER
+
+    ENTERO          shift and go to state 100
+    ARRAY           shift and go to state 101
+    FLOTANTE        shift and go to state 104
+    STRING          shift and go to state 105
+    BOOLEANO        shift and go to state 106
+    NEW             shift and go to state 38
+
+    valor                          shift and go to state 99
+    datos                          shift and go to state 18
+    pila                           shift and go to state 102
+    cola                           shift and go to state 103
+
+state 74
+
+    (67) op_pila -> SIGNO_DOLAR CADENA RESTA . MAYOR_QUE operad_pila
+
+    MAYOR_QUE       shift and go to state 107
+
+
+state 75
+
+    (49) declaracionp -> SIGNO_DOLAR CADENA valorc .
+
+    $end            reduce using rule 49 (declaracionp -> SIGNO_DOLAR CADENA valorc .)
+    SIGNO_DOLAR     reduce using rule 49 (declaracionp -> SIGNO_DOLAR CADENA valorc .)
+
+
+state 76
+
+    (54) declaracion_s -> SIGNO_DOLAR CADENA crecimiento .
+
+    $end            reduce using rule 54 (declaracion_s -> SIGNO_DOLAR CADENA crecimiento .)
+    PAREN_DER       reduce using rule 54 (declaracion_s -> SIGNO_DOLAR CADENA crecimiento .)
+
+
+state 77
+
+    (52) valorc -> menor .
+
+    $end            reduce using rule 52 (valorc -> menor .)
+    SIGNO_DOLAR     reduce using rule 52 (valorc -> menor .)
+
+
+state 78
+
+    (53) valorc -> mayor .
+
+    $end            reduce using rule 53 (valorc -> mayor .)
+    SIGNO_DOLAR     reduce using rule 53 (valorc -> mayor .)
+
+
+state 79
+
+    (25) salida -> ECHO CADENA PUNTO_COMA .
+
+    $end            reduce using rule 25 (salida -> ECHO CADENA PUNTO_COMA .)
+    LLAVE_DER       reduce using rule 25 (salida -> ECHO CADENA PUNTO_COMA .)
+
+
+state 80
+
+    (26) prueba -> ECHO SIGNO_DOLAR CADENA . PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 108
+
+
+state 81
+
+    (27) salida -> PRINT PAREN_IZQ STRING . PAREN_DER PUNTO_COMA
+
+    PAREN_DER       shift and go to state 109
+
+
+state 82
+
+    (28) salida -> PRINT STRING PUNTO_COMA .
+
+    $end            reduce using rule 28 (salida -> PRINT STRING PUNTO_COMA .)
+    LLAVE_DER       reduce using rule 28 (salida -> PRINT STRING PUNTO_COMA .)
+
+
+state 83
+
+    (64) op_logica -> STRING operad_log STRING .
+
+    $end            reduce using rule 64 (op_logica -> STRING operad_log STRING .)
+    PAREN_DER       reduce using rule 64 (op_logica -> STRING operad_log STRING .)
+
+
+state 84
+
+    (63) op_logica -> FLOTANTE operad_log FLOTANTE .
+
+    $end            reduce using rule 63 (op_logica -> FLOTANTE operad_log FLOTANTE .)
+    PAREN_DER       reduce using rule 63 (op_logica -> FLOTANTE operad_log FLOTANTE .)
+
+
+state 85
+
+    (66) pila -> NEW STACK PAREN_IZQ . PAREN_DER
+
+    PAREN_DER       shift and go to state 110
+
+
+state 86
+
+    (46) cola -> NEW QUEUE PAREN_IZQ . PAREN_DER
+
+    PAREN_DER       shift and go to state 111
+
+
+state 87
+
+    (58) if_else -> if_else_inicio if_else_cuerpo if_else_fin .
+
+    $end            reduce using rule 58 (if_else -> if_else_inicio if_else_cuerpo if_else_fin .)
+
+
+state 88
+
+    (61) if_else_fin -> ELSE LLAVE_IZQ . salida LLAVE_DER
+    (25) salida -> . ECHO CADENA PUNTO_COMA
+    (27) salida -> . PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMA
+    (28) salida -> . PRINT STRING PUNTO_COMA
+
+    ECHO            shift and go to state 113
+    PRINT           shift and go to state 26
+
+    salida                         shift and go to state 112
+
+state 89
+
+    (60) if_else_cuerpo -> ELSEIF PAREN_IZQ . op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER
+    (62) op_logica -> . ENTERO operad_log ENTERO
+    (63) op_logica -> . FLOTANTE operad_log FLOTANTE
+    (64) op_logica -> . STRING operad_log STRING
+    (65) op_logica -> . BOOLEANO
+
+    ENTERO          shift and go to state 95
+    FLOTANTE        shift and go to state 96
+    STRING          shift and go to state 97
+    BOOLEANO        shift and go to state 98
+
+    op_logica                      shift and go to state 114
+
+state 90
+
+    (47) for -> FOR PAREN_IZQ declaracion . declaracionp declaracion_s PAREN_DER LLAVE_IZQ prueba LLAVE_DER
+    (49) declaracionp -> . SIGNO_DOLAR CADENA valorc
+
+    SIGNO_DOLAR     shift and go to state 116
+
+    declaracionp                   shift and go to state 115
+
+state 91
+
+    (48) declaracion -> SIGNO_DOLAR . CADENA IGUAL ENTERO PUNTO_COMA
+
+    CADENA          shift and go to state 117
+
+
+state 92
+
+    (76) whileDeclaracion -> WHILE PAREN_IZQ SIGNO_DOLAR . CADENA operad_log valor PAREN_DER LLAVE_IZQ contenido LLAVE_DER
+
+    CADENA          shift and go to state 118
+
+
+state 93
+
+    (72) funcion_variable -> FUNCTION CADENA PAREN_IZQ . TRES_PUNTOS SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ bloque LLAVE_DER
+    (85) sinRetorno -> FUNCTION CADENA PAREN_IZQ . SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ contenido LLAVE_DER
+
+    TRES_PUNTOS     shift and go to state 119
+    SIGNO_DOLAR     shift and go to state 120
+
+
+state 94
+
+    (59) if_else_inicio -> IF PAREN_IZQ op_logica . PAREN_DER LLAVE_IZQ salida LLAVE_DER
+
+    PAREN_DER       shift and go to state 121
+
+
+state 95
+
+    (62) op_logica -> ENTERO . operad_log ENTERO
+    (37) operad_log -> . IDENTICO
+    (38) operad_log -> . DIFERENTE
+    (39) operad_log -> . MAYOR_QUE
+    (40) operad_log -> . MAYOR_IGUAL
+    (41) operad_log -> . MENOR_QUE
+    (42) operad_log -> . MENOR_IGUAL
+
+    IDENTICO        shift and go to state 46
+    DIFERENTE       shift and go to state 47
+    MAYOR_QUE       shift and go to state 48
+    MAYOR_IGUAL     shift and go to state 49
+    MENOR_QUE       shift and go to state 50
+    MENOR_IGUAL     shift and go to state 51
+
+    operad_log                     shift and go to state 45
+
+state 96
+
+    (63) op_logica -> FLOTANTE . operad_log FLOTANTE
+    (37) operad_log -> . IDENTICO
+    (38) operad_log -> . DIFERENTE
+    (39) operad_log -> . MAYOR_QUE
+    (40) operad_log -> . MAYOR_IGUAL
+    (41) operad_log -> . MENOR_QUE
+    (42) operad_log -> . MENOR_IGUAL
+
+    IDENTICO        shift and go to state 46
+    DIFERENTE       shift and go to state 47
+    MAYOR_QUE       shift and go to state 48
+    MAYOR_IGUAL     shift and go to state 49
+    MENOR_QUE       shift and go to state 50
+    MENOR_IGUAL     shift and go to state 51
+
+    operad_log                     shift and go to state 59
+
+state 97
+
+    (64) op_logica -> STRING . operad_log STRING
+    (37) operad_log -> . IDENTICO
+    (38) operad_log -> . DIFERENTE
+    (39) operad_log -> . MAYOR_QUE
+    (40) operad_log -> . MAYOR_IGUAL
+    (41) operad_log -> . MENOR_QUE
+    (42) operad_log -> . MENOR_IGUAL
+
+    IDENTICO        shift and go to state 46
+    DIFERENTE       shift and go to state 47
+    MAYOR_QUE       shift and go to state 48
+    MAYOR_IGUAL     shift and go to state 49
+    MENOR_QUE       shift and go to state 50
+    MENOR_IGUAL     shift and go to state 51
+
+    operad_log                     shift and go to state 58
+
+state 98
+
+    (65) op_logica -> BOOLEANO .
+
+    PAREN_DER       reduce using rule 65 (op_logica -> BOOLEANO .)
+
+
+state 99
+
+    (17) asignacion -> SIGNO_DOLAR CADENA IGUAL valor . PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 122
+
+
+state 100
+
+    (48) declaracion -> SIGNO_DOLAR CADENA IGUAL ENTERO . PUNTO_COMA
+    (21) datos -> ENTERO .
+
+  ! shift/reduce conflict for PUNTO_COMA resolved as shift
+    PUNTO_COMA      shift and go to state 123
+
+  ! PUNTO_COMA      [ reduce using rule 21 (datos -> ENTERO .) ]
+
+
+state 101
+
+    (80) arreglo -> SIGNO_DOLAR CADENA IGUAL ARRAY . PAREN_IZQ valores PAREN_DER PUNTO_COMA
+    (84) arreglo -> SIGNO_DOLAR CADENA IGUAL ARRAY . PAREN_IZQ valoresflecha PAREN_DER PUNTO_COMA
+
+    PAREN_IZQ       shift and go to state 124
+
+
+state 102
+
+    (19) valor -> pila .
+
+    PUNTO_COMA      reduce using rule 19 (valor -> pila .)
+    FLECHA          reduce using rule 19 (valor -> pila .)
+    COMA            reduce using rule 19 (valor -> pila .)
+    PAREN_DER       reduce using rule 19 (valor -> pila .)
+
+
+state 103
+
+    (20) valor -> cola .
+
+    PUNTO_COMA      reduce using rule 20 (valor -> cola .)
+    FLECHA          reduce using rule 20 (valor -> cola .)
+    COMA            reduce using rule 20 (valor -> cola .)
+    PAREN_DER       reduce using rule 20 (valor -> cola .)
+
+
+state 104
+
+    (22) datos -> FLOTANTE .
+
+    PUNTO_COMA      reduce using rule 22 (datos -> FLOTANTE .)
+    FLECHA          reduce using rule 22 (datos -> FLOTANTE .)
+    COMA            reduce using rule 22 (datos -> FLOTANTE .)
+    PAREN_DER       reduce using rule 22 (datos -> FLOTANTE .)
+
+
+state 105
+
+    (23) datos -> STRING .
+
+    PUNTO_COMA      reduce using rule 23 (datos -> STRING .)
+    FLECHA          reduce using rule 23 (datos -> STRING .)
+    COMA            reduce using rule 23 (datos -> STRING .)
+    PAREN_DER       reduce using rule 23 (datos -> STRING .)
+
+
+state 106
+
+    (24) datos -> BOOLEANO .
+
+    PUNTO_COMA      reduce using rule 24 (datos -> BOOLEANO .)
+    FLECHA          reduce using rule 24 (datos -> BOOLEANO .)
+    COMA            reduce using rule 24 (datos -> BOOLEANO .)
+    PAREN_DER       reduce using rule 24 (datos -> BOOLEANO .)
+
+
+state 107
+
+    (67) op_pila -> SIGNO_DOLAR CADENA RESTA MAYOR_QUE . operad_pila
+    (68) operad_pila -> . PUSH PAREN_IZQ datos PAREN_DER PUNTO_COMA
+    (69) operad_pila -> . POP PAREN_IZQ PAREN_DER PUNTO_COMA
+    (70) operad_pila -> . COUNT PAREN_IZQ PAREN_DER PUNTO_COMA
+    (71) operad_pila -> . CURRENT PAREN_IZQ PAREN_DER PUNTO_COMA
+
+    PUSH            shift and go to state 126
+    POP             shift and go to state 127
+    COUNT           shift and go to state 128
+    CURRENT         shift and go to state 129
+
+    operad_pila                    shift and go to state 125
+
+state 108
+
+    (26) prueba -> ECHO SIGNO_DOLAR CADENA PUNTO_COMA .
+
+    $end            reduce using rule 26 (prueba -> ECHO SIGNO_DOLAR CADENA PUNTO_COMA .)
+    LLAVE_DER       reduce using rule 26 (prueba -> ECHO SIGNO_DOLAR CADENA PUNTO_COMA .)
+
+
+state 109
+
+    (27) salida -> PRINT PAREN_IZQ STRING PAREN_DER . PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 130
+
+
+state 110
+
+    (66) pila -> NEW STACK PAREN_IZQ PAREN_DER .
+
+    $end            reduce using rule 66 (pila -> NEW STACK PAREN_IZQ PAREN_DER .)
+    PUNTO_COMA      reduce using rule 66 (pila -> NEW STACK PAREN_IZQ PAREN_DER .)
+    FLECHA          reduce using rule 66 (pila -> NEW STACK PAREN_IZQ PAREN_DER .)
+    COMA            reduce using rule 66 (pila -> NEW STACK PAREN_IZQ PAREN_DER .)
+    PAREN_DER       reduce using rule 66 (pila -> NEW STACK PAREN_IZQ PAREN_DER .)
+
+
+state 111
+
+    (46) cola -> NEW QUEUE PAREN_IZQ PAREN_DER .
+
+    $end            reduce using rule 46 (cola -> NEW QUEUE PAREN_IZQ PAREN_DER .)
+    PUNTO_COMA      reduce using rule 46 (cola -> NEW QUEUE PAREN_IZQ PAREN_DER .)
+    FLECHA          reduce using rule 46 (cola -> NEW QUEUE PAREN_IZQ PAREN_DER .)
+    COMA            reduce using rule 46 (cola -> NEW QUEUE PAREN_IZQ PAREN_DER .)
+    PAREN_DER       reduce using rule 46 (cola -> NEW QUEUE PAREN_IZQ PAREN_DER .)
+
+
+state 112
+
+    (61) if_else_fin -> ELSE LLAVE_IZQ salida . LLAVE_DER
+
+    LLAVE_DER       shift and go to state 131
+
+
+state 113
+
+    (25) salida -> ECHO . CADENA PUNTO_COMA
+
+    CADENA          shift and go to state 54
+
+
+state 114
+
+    (60) if_else_cuerpo -> ELSEIF PAREN_IZQ op_logica . PAREN_DER LLAVE_IZQ salida LLAVE_DER
+
+    PAREN_DER       shift and go to state 132
+
+
+state 115
+
+    (47) for -> FOR PAREN_IZQ declaracion declaracionp . declaracion_s PAREN_DER LLAVE_IZQ prueba LLAVE_DER
+    (54) declaracion_s -> . SIGNO_DOLAR CADENA crecimiento
+
+    SIGNO_DOLAR     shift and go to state 134
+
+    declaracion_s                  shift and go to state 133
+
+state 116
+
+    (49) declaracionp -> SIGNO_DOLAR . CADENA valorc
+
+    CADENA          shift and go to state 135
+
+
+state 117
+
+    (48) declaracion -> SIGNO_DOLAR CADENA . IGUAL ENTERO PUNTO_COMA
+
+    IGUAL           shift and go to state 136
+
+
+state 118
+
+    (76) whileDeclaracion -> WHILE PAREN_IZQ SIGNO_DOLAR CADENA . operad_log valor PAREN_DER LLAVE_IZQ contenido LLAVE_DER
+    (37) operad_log -> . IDENTICO
+    (38) operad_log -> . DIFERENTE
+    (39) operad_log -> . MAYOR_QUE
+    (40) operad_log -> . MAYOR_IGUAL
+    (41) operad_log -> . MENOR_QUE
+    (42) operad_log -> . MENOR_IGUAL
+
+    IDENTICO        shift and go to state 46
+    DIFERENTE       shift and go to state 47
+    MAYOR_QUE       shift and go to state 48
+    MAYOR_IGUAL     shift and go to state 49
+    MENOR_QUE       shift and go to state 50
+    MENOR_IGUAL     shift and go to state 51
+
+    operad_log                     shift and go to state 137
+
+state 119
+
+    (72) funcion_variable -> FUNCTION CADENA PAREN_IZQ TRES_PUNTOS . SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ bloque LLAVE_DER
+
+    SIGNO_DOLAR     shift and go to state 138
+
+
+state 120
+
+    (85) sinRetorno -> FUNCTION CADENA PAREN_IZQ SIGNO_DOLAR . CADENA PAREN_DER LLAVE_IZQ contenido LLAVE_DER
+
+    CADENA          shift and go to state 139
+
+
+state 121
+
+    (59) if_else_inicio -> IF PAREN_IZQ op_logica PAREN_DER . LLAVE_IZQ salida LLAVE_DER
+
+    LLAVE_IZQ       shift and go to state 140
+
+
+state 122
+
+    (17) asignacion -> SIGNO_DOLAR CADENA IGUAL valor PUNTO_COMA .
+
+    $end            reduce using rule 17 (asignacion -> SIGNO_DOLAR CADENA IGUAL valor PUNTO_COMA .)
+    LLAVE_DER       reduce using rule 17 (asignacion -> SIGNO_DOLAR CADENA IGUAL valor PUNTO_COMA .)
+
+
+state 123
+
+    (48) declaracion -> SIGNO_DOLAR CADENA IGUAL ENTERO PUNTO_COMA .
+
+    $end            reduce using rule 48 (declaracion -> SIGNO_DOLAR CADENA IGUAL ENTERO PUNTO_COMA .)
+    SIGNO_DOLAR     reduce using rule 48 (declaracion -> SIGNO_DOLAR CADENA IGUAL ENTERO PUNTO_COMA .)
+
+
+state 124
+
+    (80) arreglo -> SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ . valores PAREN_DER PUNTO_COMA
+    (84) arreglo -> SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ . valoresflecha PAREN_DER PUNTO_COMA
+    (77) valores -> . valor repite_valores
+    (81) valoresflecha -> . valor FLECHA valor repite_valores_f
+    (18) valor -> . datos
+    (19) valor -> . pila
+    (20) valor -> . cola
+    (21) datos -> . ENTERO
+    (22) datos -> . FLOTANTE
+    (23) datos -> . STRING
+    (24) datos -> . BOOLEANO
+    (66) pila -> . NEW STACK PAREN_IZQ PAREN_DER
+    (46) cola -> . NEW QUEUE PAREN_IZQ PAREN_DER
+
+    ENTERO          shift and go to state 144
+    FLOTANTE        shift and go to state 104
+    STRING          shift and go to state 105
+    BOOLEANO        shift and go to state 106
+    NEW             shift and go to state 38
+
+    valores                        shift and go to state 141
+    valoresflecha                  shift and go to state 142
+    valor                          shift and go to state 143
+    datos                          shift and go to state 18
+    pila                           shift and go to state 102
+    cola                           shift and go to state 103
+
+state 125
+
+    (67) op_pila -> SIGNO_DOLAR CADENA RESTA MAYOR_QUE operad_pila .
+
+    $end            reduce using rule 67 (op_pila -> SIGNO_DOLAR CADENA RESTA MAYOR_QUE operad_pila .)
+
+
+state 126
+
+    (68) operad_pila -> PUSH . PAREN_IZQ datos PAREN_DER PUNTO_COMA
+
+    PAREN_IZQ       shift and go to state 145
+
+
+state 127
+
+    (69) operad_pila -> POP . PAREN_IZQ PAREN_DER PUNTO_COMA
+
+    PAREN_IZQ       shift and go to state 146
+
+
+state 128
+
+    (70) operad_pila -> COUNT . PAREN_IZQ PAREN_DER PUNTO_COMA
+
+    PAREN_IZQ       shift and go to state 147
+
+
+state 129
+
+    (71) operad_pila -> CURRENT . PAREN_IZQ PAREN_DER PUNTO_COMA
+
+    PAREN_IZQ       shift and go to state 148
+
+
+state 130
+
+    (27) salida -> PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMA .
+
+    $end            reduce using rule 27 (salida -> PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMA .)
+    LLAVE_DER       reduce using rule 27 (salida -> PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMA .)
+
+
+state 131
+
+    (61) if_else_fin -> ELSE LLAVE_IZQ salida LLAVE_DER .
+
+    $end            reduce using rule 61 (if_else_fin -> ELSE LLAVE_IZQ salida LLAVE_DER .)
+
+
+state 132
+
+    (60) if_else_cuerpo -> ELSEIF PAREN_IZQ op_logica PAREN_DER . LLAVE_IZQ salida LLAVE_DER
+
+    LLAVE_IZQ       shift and go to state 149
+
+
+state 133
+
+    (47) for -> FOR PAREN_IZQ declaracion declaracionp declaracion_s . PAREN_DER LLAVE_IZQ prueba LLAVE_DER
+
+    PAREN_DER       shift and go to state 150
+
+
+state 134
+
+    (54) declaracion_s -> SIGNO_DOLAR . CADENA crecimiento
+
+    CADENA          shift and go to state 151
+
+
+state 135
+
+    (49) declaracionp -> SIGNO_DOLAR CADENA . valorc
+    (52) valorc -> . menor
+    (53) valorc -> . mayor
+    (50) menor -> . MENOR_IGUAL ENTERO PUNTO_COMA
+    (51) mayor -> . MAYOR_IGUAL ENTERO PUNTO_COMA
+
+    MENOR_IGUAL     shift and go to state 21
+    MAYOR_IGUAL     shift and go to state 23
+
+    valorc                         shift and go to state 75
+    menor                          shift and go to state 77
+    mayor                          shift and go to state 78
+
+state 136
+
+    (48) declaracion -> SIGNO_DOLAR CADENA IGUAL . ENTERO PUNTO_COMA
+
+    ENTERO          shift and go to state 152
+
+
+state 137
+
+    (76) whileDeclaracion -> WHILE PAREN_IZQ SIGNO_DOLAR CADENA operad_log . valor PAREN_DER LLAVE_IZQ contenido LLAVE_DER
+    (18) valor -> . datos
+    (19) valor -> . pila
+    (20) valor -> . cola
+    (21) datos -> . ENTERO
+    (22) datos -> . FLOTANTE
+    (23) datos -> . STRING
+    (24) datos -> . BOOLEANO
+    (66) pila -> . NEW STACK PAREN_IZQ PAREN_DER
+    (46) cola -> . NEW QUEUE PAREN_IZQ PAREN_DER
+
+    ENTERO          shift and go to state 144
+    FLOTANTE        shift and go to state 104
+    STRING          shift and go to state 105
+    BOOLEANO        shift and go to state 106
+    NEW             shift and go to state 38
+
+    valor                          shift and go to state 153
+    datos                          shift and go to state 18
+    pila                           shift and go to state 102
+    cola                           shift and go to state 103
+
+state 138
+
+    (72) funcion_variable -> FUNCTION CADENA PAREN_IZQ TRES_PUNTOS SIGNO_DOLAR . CADENA PAREN_DER LLAVE_IZQ bloque LLAVE_DER
+
+    CADENA          shift and go to state 154
+
+
+state 139
+
+    (85) sinRetorno -> FUNCTION CADENA PAREN_IZQ SIGNO_DOLAR CADENA . PAREN_DER LLAVE_IZQ contenido LLAVE_DER
+
+    PAREN_DER       shift and go to state 155
+
+
+state 140
+
+    (59) if_else_inicio -> IF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ . salida LLAVE_DER
+    (25) salida -> . ECHO CADENA PUNTO_COMA
+    (27) salida -> . PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMA
+    (28) salida -> . PRINT STRING PUNTO_COMA
+
+    ECHO            shift and go to state 113
+    PRINT           shift and go to state 26
+
+    salida                         shift and go to state 156
+
+state 141
+
+    (80) arreglo -> SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valores . PAREN_DER PUNTO_COMA
+
+    PAREN_DER       shift and go to state 157
+
+
+state 142
+
+    (84) arreglo -> SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valoresflecha . PAREN_DER PUNTO_COMA
+
+    PAREN_DER       shift and go to state 158
+
+
+state 143
+
+    (77) valores -> valor . repite_valores
+    (81) valoresflecha -> valor . FLECHA valor repite_valores_f
+    (78) repite_valores -> . COMA valor
+    (79) repite_valores -> . COMA valor repite_valores
+
+    FLECHA          shift and go to state 160
+    COMA            shift and go to state 161
+
+    repite_valores                 shift and go to state 159
+
+state 144
+
+    (21) datos -> ENTERO .
+
+    FLECHA          reduce using rule 21 (datos -> ENTERO .)
+    COMA            reduce using rule 21 (datos -> ENTERO .)
+    PAREN_DER       reduce using rule 21 (datos -> ENTERO .)
+    PUNTO_COMA      reduce using rule 21 (datos -> ENTERO .)
+
+
+state 145
+
+    (68) operad_pila -> PUSH PAREN_IZQ . datos PAREN_DER PUNTO_COMA
+    (21) datos -> . ENTERO
+    (22) datos -> . FLOTANTE
+    (23) datos -> . STRING
+    (24) datos -> . BOOLEANO
+
+    ENTERO          shift and go to state 144
+    FLOTANTE        shift and go to state 104
+    STRING          shift and go to state 105
+    BOOLEANO        shift and go to state 106
+
+    datos                          shift and go to state 162
+
+state 146
+
+    (69) operad_pila -> POP PAREN_IZQ . PAREN_DER PUNTO_COMA
+
+    PAREN_DER       shift and go to state 163
+
+
+state 147
+
+    (70) operad_pila -> COUNT PAREN_IZQ . PAREN_DER PUNTO_COMA
+
+    PAREN_DER       shift and go to state 164
+
+
+state 148
+
+    (71) operad_pila -> CURRENT PAREN_IZQ . PAREN_DER PUNTO_COMA
+
+    PAREN_DER       shift and go to state 165
+
+
+state 149
+
+    (60) if_else_cuerpo -> ELSEIF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ . salida LLAVE_DER
+    (25) salida -> . ECHO CADENA PUNTO_COMA
+    (27) salida -> . PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMA
+    (28) salida -> . PRINT STRING PUNTO_COMA
+
+    ECHO            shift and go to state 113
+    PRINT           shift and go to state 26
+
+    salida                         shift and go to state 166
+
+state 150
+
+    (47) for -> FOR PAREN_IZQ declaracion declaracionp declaracion_s PAREN_DER . LLAVE_IZQ prueba LLAVE_DER
+
+    LLAVE_IZQ       shift and go to state 167
+
+
+state 151
+
+    (54) declaracion_s -> SIGNO_DOLAR CADENA . crecimiento
+    (55) crecimiento -> . INCREMENTO
+    (56) crecimiento -> . DECREMENTO
+
+    INCREMENTO      shift and go to state 36
+    DECREMENTO      shift and go to state 37
+
+    crecimiento                    shift and go to state 76
+
+state 152
+
+    (48) declaracion -> SIGNO_DOLAR CADENA IGUAL ENTERO . PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 123
+
+
+state 153
+
+    (76) whileDeclaracion -> WHILE PAREN_IZQ SIGNO_DOLAR CADENA operad_log valor . PAREN_DER LLAVE_IZQ contenido LLAVE_DER
+
+    PAREN_DER       shift and go to state 168
+
+
+state 154
+
+    (72) funcion_variable -> FUNCTION CADENA PAREN_IZQ TRES_PUNTOS SIGNO_DOLAR CADENA . PAREN_DER LLAVE_IZQ bloque LLAVE_DER
+
+    PAREN_DER       shift and go to state 169
+
+
+state 155
+
+    (85) sinRetorno -> FUNCTION CADENA PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER . LLAVE_IZQ contenido LLAVE_DER
+
+    LLAVE_IZQ       shift and go to state 170
+
+
+state 156
+
+    (59) if_else_inicio -> IF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida . LLAVE_DER
+
+    LLAVE_DER       shift and go to state 171
+
+
+state 157
+
+    (80) arreglo -> SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valores PAREN_DER . PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 172
+
+
+state 158
+
+    (84) arreglo -> SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valoresflecha PAREN_DER . PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 173
+
+
+state 159
+
+    (77) valores -> valor repite_valores .
+
+    PAREN_DER       reduce using rule 77 (valores -> valor repite_valores .)
+
+
+state 160
+
+    (81) valoresflecha -> valor FLECHA . valor repite_valores_f
+    (18) valor -> . datos
+    (19) valor -> . pila
+    (20) valor -> . cola
+    (21) datos -> . ENTERO
+    (22) datos -> . FLOTANTE
+    (23) datos -> . STRING
+    (24) datos -> . BOOLEANO
+    (66) pila -> . NEW STACK PAREN_IZQ PAREN_DER
+    (46) cola -> . NEW QUEUE PAREN_IZQ PAREN_DER
+
+    ENTERO          shift and go to state 144
+    FLOTANTE        shift and go to state 104
+    STRING          shift and go to state 105
+    BOOLEANO        shift and go to state 106
+    NEW             shift and go to state 38
+
+    valor                          shift and go to state 174
+    datos                          shift and go to state 18
+    pila                           shift and go to state 102
+    cola                           shift and go to state 103
+
+state 161
+
+    (78) repite_valores -> COMA . valor
+    (79) repite_valores -> COMA . valor repite_valores
+    (18) valor -> . datos
+    (19) valor -> . pila
+    (20) valor -> . cola
+    (21) datos -> . ENTERO
+    (22) datos -> . FLOTANTE
+    (23) datos -> . STRING
+    (24) datos -> . BOOLEANO
+    (66) pila -> . NEW STACK PAREN_IZQ PAREN_DER
+    (46) cola -> . NEW QUEUE PAREN_IZQ PAREN_DER
+
+    ENTERO          shift and go to state 144
+    FLOTANTE        shift and go to state 104
+    STRING          shift and go to state 105
+    BOOLEANO        shift and go to state 106
+    NEW             shift and go to state 38
+
+    valor                          shift and go to state 175
+    datos                          shift and go to state 18
+    pila                           shift and go to state 102
+    cola                           shift and go to state 103
+
+state 162
+
+    (68) operad_pila -> PUSH PAREN_IZQ datos . PAREN_DER PUNTO_COMA
+
+    PAREN_DER       shift and go to state 176
+
+
+state 163
+
+    (69) operad_pila -> POP PAREN_IZQ PAREN_DER . PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 177
+
+
+state 164
+
+    (70) operad_pila -> COUNT PAREN_IZQ PAREN_DER . PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 178
+
+
+state 165
+
+    (71) operad_pila -> CURRENT PAREN_IZQ PAREN_DER . PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 179
+
+
+state 166
+
+    (60) if_else_cuerpo -> ELSEIF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida . LLAVE_DER
+
+    LLAVE_DER       shift and go to state 180
+
+
+state 167
+
+    (47) for -> FOR PAREN_IZQ declaracion declaracionp declaracion_s PAREN_DER LLAVE_IZQ . prueba LLAVE_DER
+    (26) prueba -> . ECHO SIGNO_DOLAR CADENA PUNTO_COMA
+
+    ECHO            shift and go to state 182
+
+    prueba                         shift and go to state 181
+
+state 168
+
+    (76) whileDeclaracion -> WHILE PAREN_IZQ SIGNO_DOLAR CADENA operad_log valor PAREN_DER . LLAVE_IZQ contenido LLAVE_DER
+
+    LLAVE_IZQ       shift and go to state 183
+
+
+state 169
+
+    (72) funcion_variable -> FUNCTION CADENA PAREN_IZQ TRES_PUNTOS SIGNO_DOLAR CADENA PAREN_DER . LLAVE_IZQ bloque LLAVE_DER
+
+    LLAVE_IZQ       shift and go to state 184
+
+
+state 170
+
+    (85) sinRetorno -> FUNCTION CADENA PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ . contenido LLAVE_DER
+    (74) contenido -> . bloque
+    (75) contenido -> . sinRetorno
+    (43) bloque -> . asignacion
+    (44) bloque -> . salida
+    (45) bloque -> . retorno
+    (85) sinRetorno -> . FUNCTION CADENA PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ contenido LLAVE_DER
+    (17) asignacion -> . SIGNO_DOLAR CADENA IGUAL valor PUNTO_COMA
+    (25) salida -> . ECHO CADENA PUNTO_COMA
+    (27) salida -> . PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMA
+    (28) salida -> . PRINT STRING PUNTO_COMA
+    (73) retorno -> . RETURN SIGNO_DOLAR CADENA
+
+    FUNCTION        shift and go to state 185
+    SIGNO_DOLAR     shift and go to state 186
+    ECHO            shift and go to state 113
+    PRINT           shift and go to state 26
+    RETURN          shift and go to state 193
+
+    contenido                      shift and go to state 187
+    bloque                         shift and go to state 188
+    sinRetorno                     shift and go to state 189
+    asignacion                     shift and go to state 190
+    salida                         shift and go to state 191
+    retorno                        shift and go to state 192
+
+state 171
+
+    (59) if_else_inicio -> IF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER .
+
+    ELSE            reduce using rule 59 (if_else_inicio -> IF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER .)
+    ELSEIF          reduce using rule 59 (if_else_inicio -> IF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER .)
+
+
+state 172
+
+    (80) arreglo -> SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valores PAREN_DER PUNTO_COMA .
+
+    $end            reduce using rule 80 (arreglo -> SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valores PAREN_DER PUNTO_COMA .)
+
+
+state 173
+
+    (84) arreglo -> SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valoresflecha PAREN_DER PUNTO_COMA .
+
+    $end            reduce using rule 84 (arreglo -> SIGNO_DOLAR CADENA IGUAL ARRAY PAREN_IZQ valoresflecha PAREN_DER PUNTO_COMA .)
+
+
+state 174
+
+    (81) valoresflecha -> valor FLECHA valor . repite_valores_f
+    (82) repite_valores_f -> . COMA valor FLECHA valor
+    (83) repite_valores_f -> . COMA valor FLECHA valor repite_valores
+
+    COMA            shift and go to state 195
+
+    repite_valores_f               shift and go to state 194
+
+state 175
+
+    (78) repite_valores -> COMA valor .
+    (79) repite_valores -> COMA valor . repite_valores
+    (78) repite_valores -> . COMA valor
+    (79) repite_valores -> . COMA valor repite_valores
+
+    PAREN_DER       reduce using rule 78 (repite_valores -> COMA valor .)
+    COMA            shift and go to state 161
+
+    repite_valores                 shift and go to state 196
+
+state 176
+
+    (68) operad_pila -> PUSH PAREN_IZQ datos PAREN_DER . PUNTO_COMA
+
+    PUNTO_COMA      shift and go to state 197
+
+
+state 177
+
+    (69) operad_pila -> POP PAREN_IZQ PAREN_DER PUNTO_COMA .
+
+    $end            reduce using rule 69 (operad_pila -> POP PAREN_IZQ PAREN_DER PUNTO_COMA .)
+
+
+state 178
+
+    (70) operad_pila -> COUNT PAREN_IZQ PAREN_DER PUNTO_COMA .
+
+    $end            reduce using rule 70 (operad_pila -> COUNT PAREN_IZQ PAREN_DER PUNTO_COMA .)
+
+
+state 179
+
+    (71) operad_pila -> CURRENT PAREN_IZQ PAREN_DER PUNTO_COMA .
+
+    $end            reduce using rule 71 (operad_pila -> CURRENT PAREN_IZQ PAREN_DER PUNTO_COMA .)
+
+
+state 180
+
+    (60) if_else_cuerpo -> ELSEIF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER .
+
+    ELSE            reduce using rule 60 (if_else_cuerpo -> ELSEIF PAREN_IZQ op_logica PAREN_DER LLAVE_IZQ salida LLAVE_DER .)
+
+
+state 181
+
+    (47) for -> FOR PAREN_IZQ declaracion declaracionp declaracion_s PAREN_DER LLAVE_IZQ prueba . LLAVE_DER
+
+    LLAVE_DER       shift and go to state 198
+
+
+state 182
+
+    (26) prueba -> ECHO . SIGNO_DOLAR CADENA PUNTO_COMA
+
+    SIGNO_DOLAR     shift and go to state 55
+
+
+state 183
+
+    (76) whileDeclaracion -> WHILE PAREN_IZQ SIGNO_DOLAR CADENA operad_log valor PAREN_DER LLAVE_IZQ . contenido LLAVE_DER
+    (74) contenido -> . bloque
+    (75) contenido -> . sinRetorno
+    (43) bloque -> . asignacion
+    (44) bloque -> . salida
+    (45) bloque -> . retorno
+    (85) sinRetorno -> . FUNCTION CADENA PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ contenido LLAVE_DER
+    (17) asignacion -> . SIGNO_DOLAR CADENA IGUAL valor PUNTO_COMA
+    (25) salida -> . ECHO CADENA PUNTO_COMA
+    (27) salida -> . PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMA
+    (28) salida -> . PRINT STRING PUNTO_COMA
+    (73) retorno -> . RETURN SIGNO_DOLAR CADENA
+
+    FUNCTION        shift and go to state 185
+    SIGNO_DOLAR     shift and go to state 186
+    ECHO            shift and go to state 113
+    PRINT           shift and go to state 26
+    RETURN          shift and go to state 193
+
+    contenido                      shift and go to state 199
+    bloque                         shift and go to state 188
+    sinRetorno                     shift and go to state 189
+    asignacion                     shift and go to state 190
+    salida                         shift and go to state 191
+    retorno                        shift and go to state 192
+
+state 184
+
+    (72) funcion_variable -> FUNCTION CADENA PAREN_IZQ TRES_PUNTOS SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ . bloque LLAVE_DER
+    (43) bloque -> . asignacion
+    (44) bloque -> . salida
+    (45) bloque -> . retorno
+    (17) asignacion -> . SIGNO_DOLAR CADENA IGUAL valor PUNTO_COMA
+    (25) salida -> . ECHO CADENA PUNTO_COMA
+    (27) salida -> . PRINT PAREN_IZQ STRING PAREN_DER PUNTO_COMA
+    (28) salida -> . PRINT STRING PUNTO_COMA
+    (73) retorno -> . RETURN SIGNO_DOLAR CADENA
+
+    SIGNO_DOLAR     shift and go to state 186
+    ECHO            shift and go to state 113
+    PRINT           shift and go to state 26
+    RETURN          shift and go to state 193
+
+    bloque                         shift and go to state 200
+    asignacion                     shift and go to state 190
+    salida                         shift and go to state 191
+    retorno                        shift and go to state 192
+
+state 185
+
+    (85) sinRetorno -> FUNCTION . CADENA PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ contenido LLAVE_DER
+
+    CADENA          shift and go to state 201
+
+
+state 186
+
+    (17) asignacion -> SIGNO_DOLAR . CADENA IGUAL valor PUNTO_COMA
+
+    CADENA          shift and go to state 202
+
+
+state 187
+
+    (85) sinRetorno -> FUNCTION CADENA PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ contenido . LLAVE_DER
+
+    LLAVE_DER       shift and go to state 203
+
+
+state 188
+
+    (74) contenido -> bloque .
+
+    LLAVE_DER       reduce using rule 74 (contenido -> bloque .)
+
+
+state 189
+
+    (75) contenido -> sinRetorno .
+
+    LLAVE_DER       reduce using rule 75 (contenido -> sinRetorno .)
+
+
+state 190
+
+    (43) bloque -> asignacion .
+
+    LLAVE_DER       reduce using rule 43 (bloque -> asignacion .)
+
+
+state 191
+
+    (44) bloque -> salida .
+
+    LLAVE_DER       reduce using rule 44 (bloque -> salida .)
+
+
+state 192
+
+    (45) bloque -> retorno .
+
+    LLAVE_DER       reduce using rule 45 (bloque -> retorno .)
+
+
+state 193
+
+    (73) retorno -> RETURN . SIGNO_DOLAR CADENA
+
+    SIGNO_DOLAR     shift and go to state 204
+
+
+state 194
+
+    (81) valoresflecha -> valor FLECHA valor repite_valores_f .
+
+    PAREN_DER       reduce using rule 81 (valoresflecha -> valor FLECHA valor repite_valores_f .)
+
+
+state 195
+
+    (82) repite_valores_f -> COMA . valor FLECHA valor
+    (83) repite_valores_f -> COMA . valor FLECHA valor repite_valores
+    (18) valor -> . datos
+    (19) valor -> . pila
+    (20) valor -> . cola
+    (21) datos -> . ENTERO
+    (22) datos -> . FLOTANTE
+    (23) datos -> . STRING
+    (24) datos -> . BOOLEANO
+    (66) pila -> . NEW STACK PAREN_IZQ PAREN_DER
+    (46) cola -> . NEW QUEUE PAREN_IZQ PAREN_DER
+
+    ENTERO          shift and go to state 144
+    FLOTANTE        shift and go to state 104
+    STRING          shift and go to state 105
+    BOOLEANO        shift and go to state 106
+    NEW             shift and go to state 38
+
+    valor                          shift and go to state 205
+    datos                          shift and go to state 18
+    pila                           shift and go to state 102
+    cola                           shift and go to state 103
+
+state 196
+
+    (79) repite_valores -> COMA valor repite_valores .
+
+    PAREN_DER       reduce using rule 79 (repite_valores -> COMA valor repite_valores .)
+
+
+state 197
+
+    (68) operad_pila -> PUSH PAREN_IZQ datos PAREN_DER PUNTO_COMA .
+
+    $end            reduce using rule 68 (operad_pila -> PUSH PAREN_IZQ datos PAREN_DER PUNTO_COMA .)
+
+
+state 198
+
+    (47) for -> FOR PAREN_IZQ declaracion declaracionp declaracion_s PAREN_DER LLAVE_IZQ prueba LLAVE_DER .
+
+    $end            reduce using rule 47 (for -> FOR PAREN_IZQ declaracion declaracionp declaracion_s PAREN_DER LLAVE_IZQ prueba LLAVE_DER .)
+
+
+state 199
+
+    (76) whileDeclaracion -> WHILE PAREN_IZQ SIGNO_DOLAR CADENA operad_log valor PAREN_DER LLAVE_IZQ contenido . LLAVE_DER
+
+    LLAVE_DER       shift and go to state 206
+
+
+state 200
+
+    (72) funcion_variable -> FUNCTION CADENA PAREN_IZQ TRES_PUNTOS SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ bloque . LLAVE_DER
+
+    LLAVE_DER       shift and go to state 207
+
+
+state 201
+
+    (85) sinRetorno -> FUNCTION CADENA . PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ contenido LLAVE_DER
+
+    PAREN_IZQ       shift and go to state 208
+
+
+state 202
+
+    (17) asignacion -> SIGNO_DOLAR CADENA . IGUAL valor PUNTO_COMA
+
+    IGUAL           shift and go to state 209
+
+
+state 203
+
+    (85) sinRetorno -> FUNCTION CADENA PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ contenido LLAVE_DER .
+
+    $end            reduce using rule 85 (sinRetorno -> FUNCTION CADENA PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ contenido LLAVE_DER .)
+    LLAVE_DER       reduce using rule 85 (sinRetorno -> FUNCTION CADENA PAREN_IZQ SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ contenido LLAVE_DER .)
+
+
+state 204
+
+    (73) retorno -> RETURN SIGNO_DOLAR . CADENA
+
+    CADENA          shift and go to state 210
+
+
+state 205
+
+    (82) repite_valores_f -> COMA valor . FLECHA valor
+    (83) repite_valores_f -> COMA valor . FLECHA valor repite_valores
+
+    FLECHA          shift and go to state 211
+
+
+state 206
+
+    (76) whileDeclaracion -> WHILE PAREN_IZQ SIGNO_DOLAR CADENA operad_log valor PAREN_DER LLAVE_IZQ contenido LLAVE_DER .
+
+    $end            reduce using rule 76 (whileDeclaracion -> WHILE PAREN_IZQ SIGNO_DOLAR CADENA operad_log valor PAREN_DER LLAVE_IZQ contenido LLAVE_DER .)
+
+
+state 207
+
+    (72) funcion_variable -> FUNCTION CADENA PAREN_IZQ TRES_PUNTOS SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ bloque LLAVE_DER .
+
+    $end            reduce using rule 72 (funcion_variable -> FUNCTION CADENA PAREN_IZQ TRES_PUNTOS SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ bloque LLAVE_DER .)
+
+
+state 208
+
+    (85) sinRetorno -> FUNCTION CADENA PAREN_IZQ . SIGNO_DOLAR CADENA PAREN_DER LLAVE_IZQ contenido LLAVE_DER
+
+    SIGNO_DOLAR     shift and go to state 120
+
+
+state 209
+
+    (17) asignacion -> SIGNO_DOLAR CADENA IGUAL . valor PUNTO_COMA
+    (18) valor -> . datos
+    (19) valor -> . pila
+    (20) valor -> . cola
+    (21) datos -> . ENTERO
+    (22) datos -> . FLOTANTE
+    (23) datos -> . STRING
+    (24) datos -> . BOOLEANO
+    (66) pila -> . NEW STACK PAREN_IZQ PAREN_DER
+    (46) cola -> . NEW QUEUE PAREN_IZQ PAREN_DER
+
+    ENTERO          shift and go to state 144
+    FLOTANTE        shift and go to state 104
+    STRING          shift and go to state 105
+    BOOLEANO        shift and go to state 106
+    NEW             shift and go to state 38
+
+    valor                          shift and go to state 99
+    datos                          shift and go to state 18
+    pila                           shift and go to state 102
+    cola                           shift and go to state 103
+
+state 210
+
+    (73) retorno -> RETURN SIGNO_DOLAR CADENA .
+
+    LLAVE_DER       reduce using rule 73 (retorno -> RETURN SIGNO_DOLAR CADENA .)
+
+
+state 211
+
+    (82) repite_valores_f -> COMA valor FLECHA . valor
+    (83) repite_valores_f -> COMA valor FLECHA . valor repite_valores
+    (18) valor -> . datos
+    (19) valor -> . pila
+    (20) valor -> . cola
+    (21) datos -> . ENTERO
+    (22) datos -> . FLOTANTE
+    (23) datos -> . STRING
+    (24) datos -> . BOOLEANO
+    (66) pila -> . NEW STACK PAREN_IZQ PAREN_DER
+    (46) cola -> . NEW QUEUE PAREN_IZQ PAREN_DER
+
+    ENTERO          shift and go to state 144
+    FLOTANTE        shift and go to state 104
+    STRING          shift and go to state 105
+    BOOLEANO        shift and go to state 106
+    NEW             shift and go to state 38
+
+    valor                          shift and go to state 212
+    datos                          shift and go to state 18
+    pila                           shift and go to state 102
+    cola                           shift and go to state 103
+
+state 212
+
+    (82) repite_valores_f -> COMA valor FLECHA valor .
+    (83) repite_valores_f -> COMA valor FLECHA valor . repite_valores
+    (78) repite_valores -> . COMA valor
+    (79) repite_valores -> . COMA valor repite_valores
+
+    PAREN_DER       reduce using rule 82 (repite_valores_f -> COMA valor FLECHA valor .)
+    COMA            shift and go to state 161
+
+    repite_valores                 shift and go to state 213
+
+state 213
+
+    (83) repite_valores_f -> COMA valor FLECHA valor repite_valores .
+
+    PAREN_DER       reduce using rule 83 (repite_valores_f -> COMA valor FLECHA valor repite_valores .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for PUNTO_COMA in state 100 resolved as shift
+WARNING: reduce/reduce conflict in state 3 resolved using rule (instrucciones -> menor)
+WARNING: rejected rule (valorc -> menor) in state 3
+WARNING: reduce/reduce conflict in state 4 resolved using rule (instrucciones -> mayor)
+WARNING: rejected rule (valorc -> mayor) in state 4
+WARNING: reduce/reduce conflict in state 19 resolved using rule (valor -> pila)
+WARNING: rejected rule (estructuras_datos -> pila) in state 19
+WARNING: reduce/reduce conflict in state 20 resolved using rule (valor -> cola)
+WARNING: rejected rule (estructuras_datos -> cola) in state 20
+WARNING: reduce/reduce conflict in state 35 resolved using rule (datos -> BOOLEANO)
+WARNING: rejected rule (op_logica -> BOOLEANO) in state 35
+WARNING: Rule (estructuras_datos -> pila) is never reduced
+WARNING: Rule (estructuras_datos -> cola) is never reduced

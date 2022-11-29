@@ -112,7 +112,8 @@ tokens = (
   'COMA',
   'TRES_PUNTOS',
   'PUNTODOBLE',
-  'FLECHA'
+  'FLECHA',
+  'ESPACIO'
 
   ###
 ) + tuple(reserved.values())
@@ -154,7 +155,7 @@ t_COMA = r'\,'
 t_TRES_PUNTOS = r'\.\.\.'
 t_PUNTODOBLE = r'\:'
 t_FLECHA = r'=>'
-
+t_ESPACIO =r'" "'
 
 def t_ENTERO(t):
   r'(-?[1-9]\d*)|0'

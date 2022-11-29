@@ -52,16 +52,9 @@
         else{
         return False;}     
     }  
-     function binario($_num){
-        $numStr="";
-        while($_num!=0){
-        $residuo=$_num%2;
-        $_num=$_num//2;
-        num+=str($residuo);
-        }
-        return strrev($numStr);
-
-    }  
+    #pruebapaaaaa
+    for($i=1;$i<=10;$i++){echo$i;}
+    for( $i=1; $i>=10; $i++) {echo $i ;}
 
     $num=5;
     esPar($num); 

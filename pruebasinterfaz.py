@@ -1,4 +1,3 @@
-
 import tkinter
 from tkinter import *
 import tkinter.scrolledtext as st
