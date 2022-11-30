@@ -4,6 +4,9 @@ from lexicophp import tokens
 
 
 #### Todas las instrucciones disponibles ###
+def p_variaslineas(p):
+  ''' variaslineas : instrucciones
+                    | instrucciones variaslineas'''
 def p_instrucciones(p):  
   '''instrucciones : valor
                     | asignacion
@@ -17,6 +20,7 @@ def p_instrucciones(p):
                     | multiples
                     | LLAVE_DER
                     | llamadaFuncion
+                    | asignacionFunc
   '''
 
 
@@ -26,7 +30,6 @@ def p_decl_variable(p):
 ## Definicion de una variable
 def p_asignacion(p):
   "asignacion : decl_variable IGUAL valor PUNTO_COMA"
-
 
 ## Valores que pueden ir en una variable
 # Ejemplo: $_variable = regla_valor
@@ -326,8 +329,10 @@ def p_functConPar(p):
 def p_llamadaFuncion (p):
   "llamadaFuncion : VARIABLE PAREN_IZQ parametrosR PAREN_DER PUNTO_COMA"
 
+def p_asignacionFuncaVar(p):
+  "asignacionFunc : decl_variable IGUAL llamadaFuncion"
 
-
+#Hacer caluclos aritmeticos en variables
 def p_paraCalculos(p):
   '''paraCalculos : ENTERO
                   | FLOTANTE
