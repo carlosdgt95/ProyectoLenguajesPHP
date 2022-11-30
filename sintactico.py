@@ -15,6 +15,7 @@ def p_instrucciones(p):
                     | op_pila
                     | valorc
                     | multiples
+                    | LLAVE_DER
   '''
 
 def p_decl_variable(p):
@@ -121,7 +122,9 @@ def p_bloque(p):
 
 ########## CARLOS GOMEZ  ##########
 ## Funcion sin retorno 
-
+def p_sinretorno(p):
+  '''sinRetorno : FUNCTION VARIABLE PAREN_IZQ SIGNO_DOLAR VARIABLE PAREN_DER LLAVE_IZQ sentenciasAnidadas 
+                                                                                  | cola LLAVE_DER'''
 
 ## Cola 
 def p_cola(p):
@@ -130,7 +133,7 @@ def p_cola(p):
 
 ## for
 def p_for(p):
-   '''for : FOR PAREN_IZQ asignacion declaracionp declaracion_s PAREN_DER LLAVE_IZQ sentenciasAnidadas
+   '''for : FOR PAREN_IZQ asignacion declaracionp declaracion_s PAREN_DER LLAVE_IZQ sentenciasAnidadas 
                                                                                   | cola LLAVE_DER'''
 def p_sentenciasAnidadas(p):
 	'''sentenciasAnidadas : instrucciones 
@@ -292,9 +295,7 @@ def p_arreglo_asociativo(p):
     "arreglo : decl_variable IGUAL ARRAY PAREN_IZQ valoresflecha PAREN_DER PUNTO_COMA"
 
 # Función dentro de otra funcion
-def p_sinretorno(p):
-  '''sinRetorno : FUNCTION VARIABLE PAREN_IZQ SIGNO_DOLAR VARIABLE PAREN_DER LLAVE_IZQ sentenciasAnidadas
-                                                                                  | cola LLAVE_DER'''
+
 
 
 
