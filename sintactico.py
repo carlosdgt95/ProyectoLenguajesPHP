@@ -19,6 +19,7 @@ def p_instrucciones(p):
                     | llamadaFuncion
   '''
 
+
 def p_decl_variable(p):
   "decl_variable : SIGNO_DOLAR VARIABLE"
 
@@ -83,7 +84,7 @@ def p_estructuras_datos(p):
 def p_funciones(p):
   '''funciones : funcion_variable 
                 | sinRetorno
-                | functConRetorno
+                | functConPar
   '''
 
 ### Operadores Logicos ###
@@ -195,6 +196,9 @@ def p_op_logica(p):
                 | FLOTANTE operad_log FLOTANTE
                 | STRING operad_log STRING
                 | BOOLEANO
+                | SIGNO_DOLAR VARIABLE operad_log SIGNO_DOLAR VARIABLE
+                | SIGNO_DOLAR VARIABLE operad_log ENTERO
+                | SIGNO_DOLAR VARIABLE operad_log FLOTANTE
   '''
 
 
@@ -315,11 +319,12 @@ def p_repite_parametros(p):
                         | COMA parametros repite_parametros
     '''
 
-def p_functConRetorno(p):
-  "functConRetorno : FUNCTION VARIABLE PAREN_IZQ parametrosR PAREN_DER LLAVE_IZQ bloque LLAVE_DER"
+def p_functConPar(p):
+  "functConPar : FUNCTION VARIABLE PAREN_IZQ parametrosR PAREN_DER LLAVE_IZQ bloque LLAVE_DER"
  
 def p_llamadaFuncion (p):
   "llamadaFuncion : VARIABLE PAREN_IZQ parametrosR PAREN_DER PUNTO_COMA"
+
 
 
 
