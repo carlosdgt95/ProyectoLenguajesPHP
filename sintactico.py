@@ -7,21 +7,13 @@ from lexicophp import tokens
 def p_instrucciones(p):  
   '''instrucciones : valor
                     | asignacion
+                    | concatenacion
                     | salida
                     | estructuras_control
                     | estructuras_datos
-                    | funciones  
-                    | op_logica
+                    | funciones
                     | op_pila
-                    | declaracion
-                    | declaracionp
-                    | declaracion_s
-                    | crecimiento
                     | valorc
-                    | LLAVE_DER
-                
-
-
   '''
 
 def p_decl_variable(p):
@@ -99,15 +91,15 @@ def p_operad_log(p):
   '''
 
 ### Operadores Logicos ###
-# def p_operad_arit(p):
-#   '''operad_arit : SUMA
-#                 | RESTA
-#                 | MULTIPL
-#                 | DIVISION
-#                 | DIVISION_ENT
-#                 | POTENCIA
-#                 | MODULO
-#   '''
+def p_operad_arit(p):
+  '''operad_arit : SUMA
+                | RESTA
+                | MULTIPL
+                | DIVISION
+                | DIVISION_ENT
+                | POTENCIA
+                | MODULO
+  '''
 
 
 #bloques de código permitidos dentro de alguna funcion
@@ -121,11 +113,6 @@ def p_bloque(p):
 ########## CARLOS GOMEZ  ##########
 ## Funcion sin retorno 
 
-def p_sinretorno(p):
-  '''sinRetorno : FUNCTION VARIABLE PAREN_IZQ SIGNO_DOLAR VARIABLE PAREN_DER LLAVE_IZQ sentenciasAnidadas
-                                                                                  | cola LLAVE_DER'''
-
-
 
 ## Cola 
 def p_cola(p):
@@ -134,10 +121,13 @@ def p_cola(p):
 
 ## for
 def p_for(p):
-   '''for : FOR PAREN_IZQ declaracion declaracionp declaracion_s PAREN_DER LLAVE_IZQ sentenciasAnidadas
+   '''for : FOR PAREN_IZQ asignacion declaracionp declaracion_s PAREN_DER LLAVE_IZQ sentenciasAnidadas
                                                                                   | cola LLAVE_DER'''
-def p_declaracion(p):
-  '''declaracion :  SIGNO_DOLAR VARIABLE IGUAL ENTERO PUNTO_COMA'''
+def p_sentenciasAnidadas(p):
+	'''sentenciasAnidadas : instrucciones 
+						| instrucciones sentenciasAnidadas
+	'''
+
 def p_declaracionM(p):
    '''declaracionp :  SIGNO_DOLAR VARIABLE valorc'''
 
@@ -150,10 +140,6 @@ def p_mayor(p):
 def p_valorC(p):
   ''' valorc : menor
               | mayor'''
-def p_sentenciasAnidadas(p):
-	'''sentenciasAnidadas : instrucciones 
-						| instrucciones sentenciasAnidadas
-	'''
 
 def p_declaracionsimple(p):
    '''declaracion_s : SIGNO_DOLAR VARIABLE crecimiento'''
@@ -237,8 +223,8 @@ def p_retorno(p):
 # $var = "casa"
 # $var.= 2    -----> "casa2"
 # $var.=true ------> "casa1"
-# def p_concatenacion(p):
-#   "concatenacion : decl_variable ASIG_CONCA datos PUNTO_COMA"
+def p_concatenacion(p):
+  "concatenacion : decl_variable ASIG_CONCA datos PUNTO_COMA"
 
 def p_conca_string(p):
   "conca_string : STRING PUNTO STRING"
@@ -274,9 +260,9 @@ def p_repite_valoresSeparadosComa(p):
     ''' repite_valores : COMA datos
                         | COMA datos repite_valores
     '''
-def p_arreglo_asociativo(p):
-    "arreglo : SIGNO_DOLAR  VARIABLE IGUAL ARRAY PAREN_IZQ valoresflecha PAREN_DER PUNTO_COMA"
 
+def p_arreglo_asociativo(p):
+    "arreglo :  ARRAY PAREN_IZQ datos FLECHA datos PAREN_DER"
 
 
 def p_arreglo_parentesis(p):
@@ -293,8 +279,13 @@ def p_repite_valoresSeparados_flecha(p):
                         | COMA datos FLECHA datos repite_valores
   '''
 
-# def p_arreglo_asociativo(p):
-#     "arreglo : decl_variable IGUAL ARRAY PAREN_IZQ valoresflecha PAREN_DER PUNTO_COMA"
+def p_arreglo_asociativo(p):
+    "arreglo : decl_variable IGUAL ARRAY PAREN_IZQ valoresflecha PAREN_DER PUNTO_COMA"
+
+# Función dentro de otra funcion
+def p_sinretorno(p):
+  '''sinRetorno : FUNCTION VARIABLE PAREN_IZQ SIGNO_DOLAR VARIABLE PAREN_DER LLAVE_IZQ sentenciasAnidadas
+                                                                                  | cola LLAVE_DER'''
 
 
 
@@ -337,19 +328,3 @@ def validaRegla(s):
 #     logs_file.write(datetime.now().strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +linea+"\n")
  
 #     break
-    
-
-
-
-# while True:
-  # try:
-  #   #Crear archivo para logs
-  #   logs_file = open ('logs.txt','a')
-  #   s = input('calc > ')
-
-  # except EOFError:
-  #   break
-  # if not s: continue
-  # logs_file.write(datetime.now().strftime("%m/%d/%Y, %H:%M:%S")+ "\t" +s+"\n")
-  # validaRegla(s)
-
