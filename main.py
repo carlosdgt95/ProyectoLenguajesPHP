@@ -20,7 +20,6 @@ logs_file = open ('logs.txt','w')
 
 
 
-
 ## Root GUI
 ventana=tkinter.Tk(className='PHP')
 ventana.geometry("900x800")
@@ -83,7 +82,7 @@ def sintatico():
         sintactico.errores_sintaxis.clear() 
     else:
         # Insertamos el resultado
-        muestra.insert("1.0", "Ingresi Válido")
+        muestra.insert("1.0", "Ingreso Válido")
 
     # deshabilitar la seccion p
     muestra.configure(state='disabled')   
@@ -136,7 +135,7 @@ botonLex.grid(row = 3, column = 1, padx = 15)
 botonSin = tkinter.Button(ventana, text="Análisis Sintactico", width = 15, height=2, command=sintatico)
 botonSin.grid(row = 4, column = 1, padx = 15)
 
-botonSem = tkinter.Button(ventana, text="Análisis Semántico", width = 15, height=2)
+botonSem = tkinter.Button(ventana, text="Análisis Semántico", width = 15, height=2, command=sintatico)
 botonSem.grid(row = 5, column = 1, padx = 15)
 
 b_limpiar = tkinter.Button(ventana, text="Limpiar", width = 10, height=2, command=limpiar)

@@ -14,6 +14,7 @@ def p_instrucciones(p):
                     | funciones
                     | op_pila
                     | valorc
+                    | multiples
   '''
 
 def p_decl_variable(p):
@@ -47,7 +48,9 @@ def p_salidas_pos(p):
                 | decl_variable
                 | conca_string
   '''
-
+def p_multiples(p):
+  '''multiples : salidas_pos
+                | salidas_pos multiples'''
 
 #Múltiples salidas permitidas
 def p_salida_forma1(p):
@@ -108,6 +111,12 @@ def p_bloque(p):
               | salida
               | retorno
               | estructuras_control
+              | asignacion bloque
+              | salida bloque
+              | retorno bloque
+              | estructuras_control bloque
+              | multiples 
+              | multiples bloque
   '''
 
 ########## CARLOS GOMEZ  ##########
