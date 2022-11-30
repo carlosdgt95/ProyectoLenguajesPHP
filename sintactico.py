@@ -16,6 +16,7 @@ def p_instrucciones(p):
                     | valorc
                     | multiples
                     | LLAVE_DER
+                    | llamadaFuncion
   '''
 
 def p_decl_variable(p):
@@ -82,6 +83,7 @@ def p_estructuras_datos(p):
 def p_funciones(p):
   '''funciones : funcion_variable 
                 | sinRetorno
+                | functConRetorno
   '''
 
 ### Operadores Logicos ###
@@ -296,6 +298,28 @@ def p_arreglo_asociativo(p):
 
 # Función dentro de otra funcion
 
+#funcion con varios parrametros
+def p_parametros(p):
+  '''parametros : datos
+          | SIGNO_DOLAR VARIABLE
+  '''
+
+def p_parametrosR(p):
+    '''parametrosR : parametros
+                    | parametros repite_parametros'''
+  
+
+
+def p_repite_parametros(p):
+    ''' repite_parametros : COMA parametros
+                        | COMA parametros repite_parametros
+    '''
+
+def p_functConRetorno(p):
+  "functConRetorno : FUNCTION VARIABLE PAREN_IZQ parametrosR PAREN_DER LLAVE_IZQ bloque LLAVE_DER"
+ 
+def p_llamadaFuncion (p):
+  "llamadaFuncion : VARIABLE PAREN_IZQ parametrosR PAREN_DER PUNTO_COMA"
 
 
 
