@@ -35,6 +35,7 @@ def p_valor(p):
           | pila
           | cola
           | arreglo
+          | opAritVar
   '''
 
 #Tipos de datos primitivos
@@ -327,6 +328,17 @@ def p_llamadaFuncion (p):
 
 
 
+def p_paraCalculos(p):
+  '''paraCalculos : ENTERO
+                  | FLOTANTE
+                  | SIGNO_DOLAR VARIABLE'''
+
+def p_combinarOp(p):
+  '''combinarOp : operad_arit paraCalculos
+                | operad_arit paraCalculos combinarOp'''
+
+def p_opAritmeticaEnVar(p):
+  "opAritVar : paraCalculos combinarOp"
 
 errores_sintaxis = []  
 def p_error(p):
